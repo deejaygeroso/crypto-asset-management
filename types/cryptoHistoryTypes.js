@@ -1,0 +1,4 @@
+export const CRYPTO_HISTORY_SET = 'CRYPTO_HISTORY_SET';
+
+export const CRYPTO_ATH_SET = 'CRYPTO_ATH_SET';
+export const CRYPTO_ATL_SET = 'CRYPTO_ATL_SET:';

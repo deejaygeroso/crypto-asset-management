@@ -1,0 +1,14 @@
+export const USER_CREATE = 'USER_CREATE';
+export const USER_LOGIN = 'USER_LOGIN';
+export const USER_SET = 'USER_SET';
+export const USER_CLEAR = 'USER_CLEAR';
+
+export const USER_SUCCESS_SET = 'USER_SUCCESS_SET';
+export const USER_SUCCESS_CLEAR = 'USER_SUCCESS_CLEAR';
+
+export const USER_ERROR_SET = 'USER_ERROR_SET';
+export const USER_ERROR_CLEAR = 'USER_ERROR_CLEAR';
+
+export const USERS_LIST_APPEND = 'USERS_LIST_APPEND';
+export const USERS_LIST_SET = 'USERS_LIST_SET';
+export const USERS_LIST_CLEAR = 'USERS_LIST_CLEAR';
