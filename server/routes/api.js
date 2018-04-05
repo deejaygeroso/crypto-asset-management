@@ -18,11 +18,11 @@ module.exports = function(app, router, auth){
     })
 
     /* ----------------------------------------------------------
-     * Find the ath/atl for 24h_volume_usd on history
+     * Find the ath/atl for price_usd on history
      * -------------------------------------------------------- */
-    router.post('/cryptoHistory/ath', (req, res)=>{
+    router.post('/cryptoHistory/priceAthAtl', (req, res)=>{
         const query = req.body;
-        CryptoHistoryModel.find(query).select({'24h_volume_usd': 1, 'id': 1}).exec((err, docs) => {
+        CryptoHistoryModel.find(query).select({'price_usd': 1, 'id': 1}).exec((err, docs) => {
             if(err) return res.status(400).send({message: err});
             res.send(docs)
         });

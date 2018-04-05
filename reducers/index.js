@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { user, userSuccess,  userError, usersList } from './userReducer';
-import { portfolio, portfolioSuccess,  portfolioError, portfoliosList } from './portfolioReducer';
+import { portfolio, portfolioSuccess,  portfolioError, portfolioList } from './portfolioReducer';
 import { cryptoIds, cryptoIdsError } from './cryptoIdsReducer';
 import { cryptoList, cryptoListPortfolio, cryptoGlobal } from './cryptoListReducer';
 import { cryptoHistory, cryptoAth, cryptoAtl } from './cryptoHistoryReducer';
@@ -15,7 +15,7 @@ export default combineReducers({
     portfolio,
     portfolioSuccess,
     portfolioError,
-    portfoliosList,
+    portfolioList,
 
     cryptoIds,
     cryptoIdsError,

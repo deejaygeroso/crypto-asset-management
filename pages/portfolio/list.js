@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Router from 'next/router';
 
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
@@ -8,7 +7,6 @@ import { initStore } from '../../store';
 
 import Layout from '../../components/Layout';
 import Portfolio from '../../containers/Portfolio'
-import Cookies from 'js-cookie';
 
 import axios from 'axios';
 

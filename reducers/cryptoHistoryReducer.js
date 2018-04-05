@@ -27,8 +27,8 @@ export const cryptoAth = (state = {}, {type, payload}) => {
 
                 // get all volume_history value converted to float in array form
                 let volume_history = groupedData[key].map(a => {
-                    if(a['24h_volume_usd']){
-                        return parseFloat(a['24h_volume_usd']);
+                    if(a['price_usd']){
+                        return parseFloat(a['price_usd']);
                     }else{
                         return 0;
                     }
@@ -58,8 +58,8 @@ export const cryptoAtl = (state = {}, {type, payload}) => {
 
                 // get all volume_history value converted to float in array form
                 let volume_history = groupedData[key].map(a => {
-                    if(a['24h_volume_usd']){
-                        return parseFloat(a['24h_volume_usd']);
+                    if(a['price_usd']){
+                        return parseFloat(a['price_usd']);
                     }else{
                         return 0;
                     }

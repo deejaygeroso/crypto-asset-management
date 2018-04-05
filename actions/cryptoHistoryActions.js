@@ -1,25 +1,37 @@
 import axios from 'axios';
 import * as ACTION_TYPES from '../types/cryptoHistoryTypes';
 
-export const cryptoHistorySet = ({payload}) => ({
+/* 
+ * Set the data for the cryptohistory
+ */
+export const set = ({payload}) => ({
     type: ACTION_TYPES.CRYPTO_HISTORY_SET,
     payload,
 });
 
-export const cryptoHistoryAthSet = ({payload}) => ({
+/* 
+ * Set the All time high data of price
+ */
+export const athSet = ({payload}) => ({
     type: ACTION_TYPES.CRYPTO_ATH_SET,
     payload,
 });
 
-export const cryptoHistoryAtlSet = ({payload}) => ({
+
+/* 
+ * Set the All time low data of price
+ */
+export const atlSet = ({payload}) => ({
     type: ACTION_TYPES.CRYPTO_ATL_SET,
     payload,
 });
 
-export const cryptoHistoryFind = ({params}) => {
+/* 
+ * Fin the 7 day historical data of crypto
+ */
+export const find = ({params}) => {
   return async dispatch => {
     try {
-        // const nowDate = moment(new Date).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).format();
         const { ids } = params;
         const query = {
             'id': {
@@ -27,7 +39,8 @@ export const cryptoHistoryFind = ({params}) => {
             },
         }
         const res = await axios.post('/api/cryptoHistory/find', query);
-        dispatch(cryptoHistorySet({payload: res.data}))
+
+        dispatch(set({payload: res.data}))
         // dispatch(userErrorClear());
     } catch (err) {
         // console.log('errorr 1010', err);
@@ -36,7 +49,11 @@ export const cryptoHistoryFind = ({params}) => {
   };
 }
 
-export const cryptoHistoryAth = ({params}) => {
+
+/* 
+ * Get the price ath and atl then calculate
+ */
+export const calculatePriceAthAtl = ({params}) => {
   return async dispatch => {
     try {
         const { ids } = params;
@@ -45,10 +62,10 @@ export const cryptoHistoryAth = ({params}) => {
                 $in: ids && ids.length!==0 ? ids : []
             },
         }
-        const res = await axios.post('/api/cryptoHistory/ath', query);
+        const res = await axios.post('/api/cryptoHistory/priceAthAtl', query);
 
-        dispatch(cryptoHistoryAthSet({payload: res.data}))
-        dispatch(cryptoHistoryAtlSet({payload: res.data}))
+        dispatch(athSet({payload: res.data}))
+        dispatch(atlSet({payload: res.data}))
 
     } catch (err) {
         // console.log('errorr 1010', err);

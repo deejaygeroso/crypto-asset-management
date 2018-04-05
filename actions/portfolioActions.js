@@ -2,40 +2,49 @@
 import axios from 'axios';
 import * as ACTION_TYPES from '../types/portfolioTypes';
 import * as cryptoListActions from './cryptoListActions';
+import * as cryptoHistoryActions from './cryptoHistoryActions';
 
-export const portfolioSet = ({payload}) => ({
-    type: ACTION_TYPES.PORTFOLIO_SET,
+import { indexBy as __$indexBy } from 'underscore';
+
+export const itemSet = ({payload}) => ({
+    type: ACTION_TYPES.ITEM_SET,
     payload,
 })
 
-export const portfolioClear = () => ({
-    type: ACTION_TYPES.PORTFOLIO_CLEAR,
+export const itemClear = () => ({
+    type: ACTION_TYPES.ITEM_CLEAR,
 })
 
-export const portfolioSuccessSet = ({payload}) => ({
-    type: ACTION_TYPES.PORTFOLIO_SUCCESS_SET,
+export const successSet = ({payload}) => ({
+    type: ACTION_TYPES.SUCCESS_SET,
     payload,
 })
-export const portfolioSuccessClear = () => ({
-    type: ACTION_TYPES.PORTFOLIO_SUCCESS_CLEAR,
+export const successClear = () => ({
+    type: ACTION_TYPES.SUCCESS_CLEAR,
 })
 
-export const portfolioErrorSet = ({payload}) => ({
-    type: ACTION_TYPES.PORTFOLIO_ERROR_SET,
+export const errorSet = ({payload}) => ({
+    type: ACTION_TYPES.ERROR_SET,
     payload,
 })
-export const portfolioErrorClear = () => ({
-    type: ACTION_TYPES.PORTFOLIO_ERROR_CLEAR,
+export const errorClear = () => ({
+    type: ACTION_TYPES.ERROR_CLEAR,
 })
 
 
-export const portfoliosListSet = ({payload}) => ({
-    type: ACTION_TYPES.PORTFOLIOS_LIST_SET,
+export const itemListSet = ({payload}) => ({
+    type: ACTION_TYPES.ITEMLIST_SET,
     payload,
 })
 
-export const portfoliosListAppend = ({item}) => ({
-    type: ACTION_TYPES.PORTFOLIOS_LIST_APPEND,
+export const itemListCompose = ({portfolioList, coinmarketcapTicker}) => ({
+    type: ACTION_TYPES.ITEMLIST_COMPOSE,
+    portfolioList,
+    coinmarketcapTicker,
+});
+
+export const itemListAppend = ({item}) => ({
+    type: ACTION_TYPES.ITEMLIST_APPEND,
     item,
 })
 
@@ -45,16 +54,16 @@ export const portfolioCreate = ({params}) => {
         try {
             // if success
             const res = await axios.post('/api/portfolio/create', params);
-            dispatch(portfolioSet({payload: res.data}))
-            dispatch(portfoliosListAppend({item: res.data}));
+            dispatch(itemSet({payload: res.data}))
+            dispatch(itemListAppend({item: res.data}));
             const message = 'Coin successfuly creatd!';
-            dispatch(portfolioSuccessSet({payload: {message} }));
-            dispatch(portfolioErrorClear());
+            dispatch(successSet({payload: {message} }));
+            dispatch(errorClear());
 
         } catch (error) {
             const payload = { message: 'Fail to create coin!' }
-            dispatch(portfolioErrorSet({payload}));
-            dispatch(portfolioSuccessClear());
+            dispatch(errorSet({payload}));
+            dispatch(successClear());
         }
     }
 }
@@ -64,16 +73,16 @@ export const portfolioUpdate = ({_id, params}) => {
         try {
             // if success
             const res = await axios.post('/api/portfolio/update', Object.assign({}, params, { _id }));
-            dispatch(portfolioSet({payload: res.data}))
+            dispatch(itemSet({payload: res.data}))
             dispatch(cryptoListActions.portfolioAppend({item: res.data}));
             const message = 'Coin successfuly creatd!';
-            dispatch(portfolioSuccessSet({payload: {message} }));
-            dispatch(portfolioErrorClear());
+            dispatch(successSet({payload: {message} }));
+            dispatch(errorClear());
 
         } catch (error) {
             const payload = { message: 'Fail to create coin!' }
-            dispatch(portfolioErrorSet({payload}));
-            dispatch(portfolioSuccessClear());
+            dispatch(errorSet({payload}));
+            dispatch(successClear());
         }
     }
 }
@@ -83,8 +92,8 @@ export const portfolioRemove = ({_id}) => {
         try {
             await axios.post('/api/portfolio/remove', {_id});
             const message = 'Coin successfuly removed!';
-            dispatch(portfolioSuccessSet({payload: {message} }));
-            dispatch(portfolioErrorClear());
+            dispatch(successSet({payload: {message} }));
+            dispatch(errorClear());
 
         } catch (error) {
             // console.log('error', error);
@@ -92,19 +101,30 @@ export const portfolioRemove = ({_id}) => {
     }
 }
 
-/*
- * after finding user then
+/* 
+ * Search for users portfolio & 7 day historyData, ath, atl based on his/her portfolio
  */
-export const findByUserId = ({params, coinmarketcapTicker}) => {
+export const itemListFindByUserId = ({params, coinmarketcapTicker}) => {
     return async dispatch => {
         try {
             const { user_id } = params;
             const res = await axios.post('/api/portfolio/list', {user_id});
-            dispatch(cryptoListActions.portfolioCompose({portfolio: res.data, payload: coinmarketcapTicker}));
-            dispatch(portfoliosListSet({payload: res.data}));
+
+            dispatch(itemListCompose({portfolioList: res.data, coinmarketcapTicker}));
+
+            // get all the id of crypto to be used in fetching historydata & ath,atl of price
+            const byId = __$indexBy(res.data, 'id');
+            const ids = Object.keys(byId)
+
+            // get historydata & ath,atl of price
+            dispatch(cryptoHistoryActions.find({ params: {ids} }));
+            dispatch(cryptoHistoryActions.calculatePriceAthAtl( {params: {ids} }));
+
         } catch (error) {
+            console.log('error', error);
+            
             const payload = { message: 'Unable to fetch your portfolio' }
-            dispatch(portfolioErrorSet({payload}));
+            dispatch(errorSet({payload}));
         }
     }
 }

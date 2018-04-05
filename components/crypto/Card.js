@@ -43,6 +43,7 @@ const Card = ({ crypto, cryptoHistory, cryptoAth, cryptoAtl }) => (
                     */}
 
                     { /* ----- price_usd ----- */ }
+                    {/*
                     <div className="card-price-usd line-height-0-4" >
                         <p className="line-height-0-4 font-size-10" >
                             <span className="font-weight-600">
@@ -53,8 +54,11 @@ const Card = ({ crypto, cryptoHistory, cryptoAth, cryptoAtl }) => (
                             </span>
                         </p>
                     </div>
+                    */}
 
                     { /* ----- ath & atl ----- */ }
+                    {/*
+
                     <div className="card-ath-atl line-height-0-4" >
                         <p className="line-height-0-4 font-size-10" >
                             <span className="card-ath">
@@ -68,6 +72,7 @@ const Card = ({ crypto, cryptoHistory, cryptoAth, cryptoAtl }) => (
                             </span>
                         </p>
                     </div>
+                    */}
 
                     {/*
                     <div className="">

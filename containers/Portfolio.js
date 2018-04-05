@@ -7,10 +7,13 @@ import * as portfolioActions from '../actions/portfolioActions';
 
 function mapStateToProps(state) {
   return {
-    user                : state.user,
-    cryptoListPortfolio : state.cryptoListPortfolio,
-    portfoliosList      : state.portfoliosList,
-    cryptoGlobal        : state.cryptoGlobal,
+    user:                state.user,
+    cryptoListPortfolio: state.cryptoListPortfolio,
+    portfolioList:       state.portfolioList,
+    cryptoHistory:       state.cryptoHistory,
+    cryptoAth:           state.cryptoAth,
+    cryptoAtl:           state.cryptoAtl,
+    cryptoGlobal:        state.cryptoGlobal,
   };
 }
 

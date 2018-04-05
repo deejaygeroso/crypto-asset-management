@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as ACTION_TYPES from '../types/userTypes';
 
 // this is used for getting the last 7 days data of users selected crypto & ath and atl
-import { cryptoHistoryFind, cryptoHistoryAth } from './cryptoHistoryActions';
+import * as cryptoHistoryActions from './cryptoHistoryActions';
 
 // getting of all crypto for dropdown select 2 and global data for crypto
 import { cryptoListFetch, cryptoGlobalFetch } from './cryptoListActions';
@@ -67,14 +67,16 @@ export const userFind = ({params, coinmarketcapTicker}) => {
     const {_id} = params;
     return async dispatch => {
         try {
+            console.log('userFInd');
+            
             const res = await axios.post('/api/account/find', {_id});
 
             // global data used for current logged in user
             dispatch(userSet({payload: res.data}));
 
             // this is used for getting the last 7 days data of users selected crypto & ath and atl
-            dispatch(cryptoHistoryFind({params: {ids: res.data.crypto_ids}}));
-            dispatch(cryptoHistoryAth({params: {ids: res.data.crypto_ids}}));
+            dispatch(cryptoHistoryActions.find({params: {ids: res.data.crypto_ids}}));
+            dispatch(cryptoHistoryActions.calculatePriceAthAtl({params: {ids: res.data.crypto_ids}}));
 
             // getting of all crypto for dropdown select 2 and global data for crypto
             dispatch(cryptoListFetch({params: { user: res.data }}));
