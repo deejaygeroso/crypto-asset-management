@@ -44,15 +44,17 @@ class MainPage extends Component{
                         onClick={(buttonName)=>this.toggleView(buttonName)} />
 
                 <div style={{margin: 20}}/>
+
                 
                 {/* ----------------------------- */}
                 {/* ------ Portfolio Table ------ */}
                 {/* ----------------------------- */}
                 {
                     isPortfolioTableVisible ?
-                        <div className="container-fluid d-flex align-items-center justify-content-center">
+                        <div className="container">
+                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100'}}>Portfolio Table</h1>
                             <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
-                        </div>  : <div></div>
+                        </div> : <div></div>
                 }
 
                 {/* ----------------------------- */}
@@ -60,8 +62,11 @@ class MainPage extends Component{
                 {/* ----------------------------- */}
                 {
                     isStatsTableVisible ?
-                        <div className="container">
-                            <StatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
+                        <div>
+                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100'}}>Stats Table</h1>
+                            <div className="container-fluid d-flex align-items-center justify-content-center">
+                                <StatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
+                            </div>
                         </div> : <div></div>
                 }
 
@@ -123,9 +128,9 @@ class MainPage extends Component{
      * -------------------------------------------------------------------------------- */
     toggleView(buttonName){
         this.setState({
-            isWidgetVisible         : buttonName==="1" ? true : false,
-            isStatsTableVisible     : buttonName==="2" ? true : false,
             isPortfolioTableVisible : buttonName==="3" ? true : false,
+            isWidgetVisible         : buttonName==="2" ? true : false,
+            isStatsTableVisible     : buttonName==="1" ? true : false,
         })
     }
 

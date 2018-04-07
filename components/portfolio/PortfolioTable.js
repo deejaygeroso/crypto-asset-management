@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
     formatMoney,
-    // commarize
+    commarize
 } from '../../lib/helpers';
 
 import TableStyle from './TableStyle';
@@ -15,109 +15,83 @@ const PortfolioTable = ({portfolioList, onClick}) => (
             <table className="table table-hover">
                 <thead>
                     <tr>
-                      <th scope="col" rowSpan="2" className="th-icon">Icon</th>
-                      <th scope="col" rowSpan="2">Coin Name</th>
-                      <th scope="col" rowSpan="2">Symbol</th>
-                      <th scope="col" rowSpan="2">Holdings</th>
-                      <th scope="col" colSpan="3" className="table-th-colspan">Buy Price</th>
-                      <th scope="col" colSpan="3" className="table-th-colspan">Market Price</th>
-                      <th scope="col" colSpan="3" className="table-th-colspan">Valuation</th>
-                      <th scope="col" rowSpan="2">Profilt/Loss(%)</th>
-                      <th scope="col" rowSpan="2">Allocation (%)</th>
+                      <th scope="col" rowSpan="2" className="table-th-rowspan th-icon">Icon</th>
+                      <th scope="col" rowSpan="2" className="table-th-rowspan">Coin Name</th>
+                      <th scope="col" rowSpan="2" className="table-th-rowspan">Symbol</th>
+                      <th scope="col" rowSpan="2" className="table-th-rowspan nobr">Market Price (USD)</th>
+                      <th scope="col" colSpan="3" className="table-th-colspan">% Change</th>
+                      <th scope="col" rowSpan="2" className="table-th-rowspan nobr">Market Cap (USD)</th>
+                      <th scope="col" colSpan="3" className="table-th-colspan">Supply</th>
                     </tr>
                     <tr>
-                        <th>USD</th>
-                        <th>BTC</th>
-                        <th>ETH</th>
-                        <th>USD</th>
-                        <th>BTC</th>
-                        <th>ETH</th>
-                        <th>USD</th>
-                        <th>BTC</th>
-                        <th>ETH</th>
+                        <th>1h</th>
+                        <th>24h</th>
+                        <th>7d</th>
+                        <th>Circulating</th>
+                        <th>Maximum</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
                     </tr>
                 </thead>
                 <tbody>
                     {portfolioList && portfolioList.allIds && portfolioList.allIds.map((id, key)=>(
                         id ?
                             <tr id="portfolio-tr" onClick={()=>{onClick(portfolioList.byId[id])}} key={key}>
-                                {/* ------ Icon ------*/}
+                                { /* ------- Icon ------ */ }
                                 <td scope="col">
-                                    <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} className="align-content-center" height="25" width="25" / >
+                                    <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} className="align-content-center" height="25" width="25" />
                                 </td>
-                                {/* ------ Name ------*/}
+                                { /* ------- Name ------ */ }
                                 <td scope="col">{portfolioList.byId[id]['name']}</td>
-                                {/* ------ Symbol ------*/}
+                                { /* ------- Symbol ------ */ }
                                 <td scope="col">{portfolioList.byId[id]['symbol']}</td>
-                                {/* ------ Holdings/Amount ------*/}
+                                { /* ------- Market Price / Buy Price USD ------ */ }
                                 <td scope="col">
-                                    <span className="num-span" style={{color: '#3F95EA'}}>
-                                        {formatMoney(portfolioList.byId[id]['amount'], 2, 3, ',') }
+                                        <span className="num-span">
+                                            {formatMoney(portfolioList.byId[id]['price_usd'], 2, 3, ',') }
+                                        </span>
+                                </td>
+                                { /* ------- 1h % Change ------ */ }
+                                <td scope="col">
+                                    <span className="num-span" style={{ color: portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id]['percent_change_1h'] && portfolioList.byId[id]['percent_change_1h'].charAt(0)!=='-' ? 'green' : 'red' }}>
+                                        {portfolioList.byId[id]['percent_change_1h']}
                                     </span>
                                 </td>
-                                {/* ------ Buy Price USD ------*/}
+                                { /* ------- 24h % Change ------ */ }
                                 <td scope="col">
-                                    <span className="num-span" style={{color: '#3F95EA'}}>
-                                        {portfolioList.byId[id]['buy_price_usd']}
+                                    <span className="num-span" style={{ color: portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id]['percent_change_24h'] && portfolioList.byId[id]['percent_change_24h'].charAt(0)!=='-' ? 'green' : 'red' }}>
+                                        {portfolioList.byId[id]['percent_change_24h']}
                                     </span>
                                 </td>
-                                {/* ------ Buy Price BTC ------*/}
+                                { /* ------- 7d % Change ------ */ }
                                 <td scope="col">
-                                    <span className="num-span" style={{color: '#3F95EA'}}>
-                                        {portfolioList.byId[id]['buy_price_btc']}
+                                    <span className="num-span" style={{ color: portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id]['percent_change_7d'] && portfolioList.byId[id]['percent_change_7d'].charAt(0)!=='-' ? 'green' : 'red' }}>
+                                        {portfolioList.byId[id]['percent_change_7d']}
                                     </span>
                                 </td>
-                                {/* ------ Buy Price ETH ------*/}
-                                <td scope="col">
-                                    <span className="num-span" style={{color: '#3F95EA'}}>
-                                        {portfolioList.byId[id]['buy_price_eth']}
-                                    </span>
-                                </td>
-                                {/* ------ Market Price USD ------*/}
+                                { /* ------- Market Cap (USD) ------ */ }
                                 <td scope="col">
                                     <span className="num-span">
-                                        {formatMoney(portfolioList.byId[id]['price_usd'], 2, 3, ',') }
+                                        {commarize(portfolioList.byId[id]['market_cap_usd'])}
                                     </span>
                                 </td>
-                                {/* ------ Market Price BTC ------*/}
+                                { /* ------- Circulating/Available Supply ------ */ }
                                 <td scope="col">
                                     <span className="num-span">
-                                        {portfolioList.byId[id]['price_btc']}
+                                        {commarize(portfolioList.byId[id]['available_supply'])}
                                     </span>
                                 </td>
-                                {/* ------ Market Price ETH ------*/}
+                                { /* ------- Maximum Supply ------ */ }
                                 <td scope="col">
                                     <span className="num-span">
-                                        {portfolioList.byId[id]['price_eth']}
+                                        {portfolioList.byId['max_supply'] ? commarize(portfolioList.byId[id]['max_supply']) : "N/A"}
                                     </span>
                                 </td>
-                                {/* ------ Valuation USD ------*/}
+                                { /* ------- Total Supply ------ */ }
                                 <td scope="col">
                                     <span className="num-span">
-                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_usd'), 2, 3, ',') }
-                                    </span>
-                                </td>
-                                {/* ------ Valuation BTC ------*/}
-                                <td scope="col">
-                                    <span className="num-span">
-                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_btc'), 2, 3, ',') }
-                                    </span>
-                                </td>
-                                {/* ------ Valuation ETH ------*/}
-                                <td scope="col">
-                                    <span className="num-span">
-                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_eth'), 2, 3, ',') }
-                                    </span>
-                                </td>
-                                {/* ------ Profit/Lostt % ------*/}
-                                <td scope="col">
-                                    <span className="num-span" style={{ color: isCalculateProfitOrLoss(portfolioList.byId[id]) ? 'green' : 'red' }}>
-                                        {calculateProfitOrLoss(portfolioList.byId[id])}
-                                    </span>
-                                </td>
-                                <td scope="col">
-                                    <span className="num-span">
-                                        xx
+                                        {commarize(portfolioList.byId[id]['total_supply'])}
                                     </span>
                                 </td>
                             </tr>
@@ -147,7 +121,6 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                 </button>
             </div>
         */}
-
         <TableStyle />
     </div>
 )
@@ -186,35 +159,35 @@ export default PortfolioTable;
 //     return totalValuation;
 // }
 
-function calculateValuation(cryptoData, fieldName){
-    const amount = parseFloat(cryptoData.amount)
-    const market_price = parseFloat(cryptoData[fieldName]);
-    const valuation = amount * market_price;
+// function calculateValuation(cryptoData){
+//     const amount = parseFloat(cryptoData.amount)
+//     const market_price = parseFloat(cryptoData.price_usd);
+//     const valuation = amount * market_price;
 
-    return valuation;
-}
+//     return valuation;
+// }
 
 
-function calculateProfitOrLoss(cryptoData){
-    const market_price = parseFloat(cryptoData.price_usd);
-    const buy_price = parseFloat(cryptoData.buy_price_usd);
-    const profitOrLoss = (market_price - buy_price) / market_price;
+// function calculateProfitOrLoss(cryptoData){
+//     const market_price = parseFloat(cryptoData.price_usd);
+//     const buy_price = parseFloat(cryptoData.buy_price);
+//     const profitOrLoss = (market_price - buy_price) / market_price;
 
-    if(profitOrLoss>=0){
-        return `+${profitOrLoss.toFixed(2)}`;
-    }
+//     if(profitOrLoss>=0){
+//         return `+${profitOrLoss.toFixed(2)}`;
+//     }
 
-    return profitOrLoss.toFixed(2);
-}
+//     return profitOrLoss.toFixed(2);
+// }
 
 // check if its a positive or negative
-function isCalculateProfitOrLoss(cryptoData){
-    const market_price = parseFloat(cryptoData.price_usd);
-    const buy_price = parseFloat(cryptoData.buy_price_usd);
-    const profitOrLoss = (market_price - buy_price) / market_price;
+// function isCalculateProfitOrLoss(cryptoData){
+//     const market_price = parseFloat(cryptoData.price_usd);
+//     const buy_price = parseFloat(cryptoData.buy_price);
+//     const profitOrLoss = (market_price - buy_price) / market_price;
 
-    if(profitOrLoss>=0){
-        return true;
-    }
-    return false;
-}
+//     if(profitOrLoss>=0){
+//         return true;
+//     }
+//     return false;
+// }

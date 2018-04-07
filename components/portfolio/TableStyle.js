@@ -23,6 +23,9 @@ const TableStyle = () => (
             .th-icon{
                 border-left: none !important;
             }
+            .td-market-price{
+                margin-right: 15px;
+            }
   `}</style>
 )
 
