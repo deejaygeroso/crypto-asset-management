@@ -39,6 +39,7 @@ class PortfolioPage extends Component{
 }
 
 PortfolioPage.propTypes = {
+    coinmarketcapTicker : PropTypes.array,
     initialState : PropTypes.object,
     isServer : PropTypes.bool,
 }

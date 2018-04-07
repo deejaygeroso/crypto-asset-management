@@ -6,10 +6,10 @@ import {
     commarize
 } from '../../lib/helpers';
 
-import History from '../crypto/History';
+import History from './History';
 import CardStyle from './CardStyle';
 
-const Card = ({portfolio, cryptoHistory, cryptoAth, cryptoAtl}) => (
+const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl}) => (
     <div className="card"  style={{display: ''}}>
         <div className="d-flex flex-row" >
 
@@ -42,7 +42,7 @@ const Card = ({portfolio, cryptoHistory, cryptoAth, cryptoAtl}) => (
                 { /* ----- price_usd ----- */ }
                 <div className="card-price-usd line-height-0-4" >
                     <p className="line-height-0-4 font-size-10" >
-                        <span className="font-weight-600">
+                        <span className="font-weight-100">
                             $ { numberWithCommas(portfolio && portfolio['price_usd']) } USD
                         </span>
                         <span style={{ color: checkIfIncreaseOrDecrease(portfolio, cryptoHistory, 'price_usd') ? 'green' : 'red' }}> &nbsp;
@@ -57,10 +57,10 @@ const Card = ({portfolio, cryptoHistory, cryptoAth, cryptoAtl}) => (
                     <div className="card-ath-atl line-height-0-4" >
                         <p className="line-height-0-4 font-size-10" >
                             <span className="card-ath">
-                                $ {commarize(cryptoAth[portfolio && portfolio.id])} (ATH)
+                                $ {commarize(priceAth[portfolio && portfolio.id])} (ATH)
                             </span>
                             <span className="card-atl"> &nbsp;
-                                $ {commarize(cryptoAtl[portfolio && portfolio.id])} (ATL)
+                                $ {commarize(priceAtl[portfolio && portfolio.id])} (ATL)
                             </span>
                             <span>
                                 &nbsp;
@@ -73,7 +73,7 @@ const Card = ({portfolio, cryptoHistory, cryptoAth, cryptoAtl}) => (
                 <div className="">
                     <div className="crypto-ath"></div>
                     <div className="crypto-atl">&nbsp;&nbsp;</div>
-                    <div className="crypto-atl">$ {commarize(cryptoAtl[crypto && crypto.id])} (ATL)</div>
+                    <div className="crypto-atl">$ {commarize(priceAtl[crypto && crypto.id])} (ATL)</div>
                 </div>
                 */}
             </div>
@@ -112,6 +112,9 @@ const Card = ({portfolio, cryptoHistory, cryptoAth, cryptoAtl}) => (
                             <span style={{color: checkIfIncreaseOrDecrease(portfolio, cryptoHistory, '24h_volume_usd') ? 'green' : 'red'}}>
                                 &nbsp; ({ getPercentage(portfolio, cryptoHistory, '24h_volume_usd') })
                             </span>
+                            <br/>
+                                $ {commarize(volumeAth[portfolio && portfolio.id])} (ATH)
+                                $ {commarize(volumeAtl[portfolio && portfolio.id])} (ATH)
                         </p>
                     </div>
                 </div>
@@ -122,10 +125,12 @@ const Card = ({portfolio, cryptoHistory, cryptoAth, cryptoAtl}) => (
 )
 
 Card.propTypes = {
-    portfolio : PropTypes.object,
-    cryptoHistory : PropTypes.object,
-    cryptoAtl : PropTypes.object,
-    cryptoAth : PropTypes.object,
+    portfolio:     PropTypes.object,
+    cryptoHistory: PropTypes.object,
+    priceAtl:      PropTypes.object,
+    priceAth:      PropTypes.object,
+    volumeAtl:     PropTypes.object,
+    volumeAth:     PropTypes.object,
 }
 
 export default Card;

@@ -4,7 +4,7 @@ import { user, userSuccess,  userError, usersList } from './userReducer';
 import { portfolio, portfolioSuccess,  portfolioError, portfolioList } from './portfolioReducer';
 import { cryptoIds, cryptoIdsError } from './cryptoIdsReducer';
 import { cryptoList, cryptoListPortfolio, cryptoGlobal } from './cryptoListReducer';
-import { cryptoHistory, cryptoAth, cryptoAtl } from './cryptoHistoryReducer';
+import { cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl } from './cryptoHistoryReducer';
 
 export default combineReducers({
     user,
@@ -25,6 +25,8 @@ export default combineReducers({
     cryptoGlobal,
 
     cryptoHistory,
-    cryptoAth,
-    cryptoAtl,
+    priceAth,
+    priceAtl,
+    volumeAth,
+    volumeAtl,
 });

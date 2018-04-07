@@ -5,15 +5,15 @@ import * as ACTION_TYPES from '../types/cryptoHistoryTypes';
  * Set the data for the cryptohistory
  */
 export const set = ({payload}) => ({
-    type: ACTION_TYPES.CRYPTO_HISTORY_SET,
+    type: ACTION_TYPES.ITEMLIST_SET,
     payload,
 });
 
 /* 
  * Set the All time high data of price
  */
-export const athSet = ({payload}) => ({
-    type: ACTION_TYPES.CRYPTO_ATH_SET,
+export const priceAthSet = ({payload}) => ({
+    type: ACTION_TYPES.PRICE_ATH_SET,
     payload,
 });
 
@@ -21,8 +21,25 @@ export const athSet = ({payload}) => ({
 /* 
  * Set the All time low data of price
  */
-export const atlSet = ({payload}) => ({
-    type: ACTION_TYPES.CRYPTO_ATL_SET,
+export const priceAtlSet = ({payload}) => ({
+    type: ACTION_TYPES.PRICE_ATL_SET,
+    payload,
+});
+
+/* 
+ * Set the All time high data of price
+ */
+export const volumeAthSet = ({payload}) => ({
+    type: ACTION_TYPES.VOLUME_ATH_SET,
+    payload,
+});
+
+
+/* 
+ * Set the All time low data of price
+ */
+export const volumeAtlSet = ({payload}) => ({
+    type: ACTION_TYPES.VOLUME_ATL_SET,
     payload,
 });
 
@@ -53,7 +70,7 @@ export const find = ({params}) => {
 /* 
  * Get the price ath and atl then calculate
  */
-export const calculatePriceAthAtl = ({params}) => {
+export const calculatePriceAndVolumeAthAtl = ({params}) => {
   return async dispatch => {
     try {
         const { ids } = params;
@@ -62,10 +79,12 @@ export const calculatePriceAthAtl = ({params}) => {
                 $in: ids && ids.length!==0 ? ids : []
             },
         }
-        const res = await axios.post('/api/cryptoHistory/priceAthAtl', query);
+        const res = await axios.post('/api/cryptoHistory/priceAndVolumeAthAtl', query);
 
-        dispatch(athSet({payload: res.data}))
-        dispatch(atlSet({payload: res.data}))
+        dispatch(priceAthSet({payload: res.data}))
+        dispatch(priceAtlSet({payload: res.data}))
+        dispatch(volumeAthSet({payload: res.data}))
+        dispatch(volumeAtlSet({payload: res.data}))
 
     } catch (err) {
         // console.log('errorr 1010', err);

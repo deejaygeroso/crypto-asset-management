@@ -26,7 +26,7 @@ const CardStyle = () => (
                     border-radius: 50%;
                 }
                 .card-bit-header{
-                    margin-top: 22px;
+                    margin-top: 19px;
                 }
                 .crypto-name{
                     font-size: 24px !important;
@@ -41,13 +41,14 @@ const CardStyle = () => (
                     font-size: 18px;
                 }
                 .card-price-usd{
-                    margin-top: 3px;
+                    margin-top: 5px;
                 }
                 .card-price-usd > p{
-                    font-size: 12px;
+                    font-size: 18px;
                 }
                 .card-ath-atl{
                     margin-top: 4px;
+                    padding-left: 2px;
                 }
                 .card-ath{
                     color: #18B583;
@@ -58,24 +59,6 @@ const CardStyle = () => (
 
                 .rank{
                     width: 65px;
-                }
-
-                .history-wrapper{
-                    margin-bottom: 13px;
-                }
-                .history-hr{
-                    margin: 3px;
-                }
-                .history-box{
-                    width: 48px;
-                }
-                .history-box-date{
-                }
-                .history-sub-text{
-                    font-size: 8.2px !important;
-                    font-family: Verdana, Geneva, sans-serif;
-                }
-                .loop-data{
                 }
 
                 .line-height-0-6{
@@ -91,23 +74,8 @@ const CardStyle = () => (
                     background-color: yellow;
                 }
 
-
                 .card-sub-info{
                     height: 65px;
-                }
-
-                .font-weight-600{
-                    font-weight: 600;
-                }
-
-                .flex-grow-1 {
-                    flex-grow: 1;
-                }
-                .flex-grow-2 {
-                    flex-grow: 2;
-                }
-                .flex-grow-5 {
-                    flex-grow: 5;
                 }
 
                 .font-size-15{

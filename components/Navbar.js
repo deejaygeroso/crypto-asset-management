@@ -39,7 +39,6 @@ class Navbar extends Component{
                         </div>
                         <div id="navbar" className={toggleMobileViewNavbar? "navbar-collapse collapse in" : "navbar-collapse collapse"}>
                           <ul className="nav navbar-nav navbar-right">
-                            { user && user.isLoggedIn ? <li><Link prefetch href="/account/user"><a>Crypto</a></Link></li> : <span /> }
                             { user && user.isLoggedIn ? <li><Link prefetch href="/portfolio/list"><a>Portfolio</a></Link></li> : <span /> }
                             { user && user.isLoggedIn ? <li><Link prefetch href="/account/profile"><a>Profile</a></Link></li> : <span /> }
                             { user && user.isAdmin ? <li><Link prefetch href="/admin/manage"><a>Manage</a></Link></li> : <span /> }

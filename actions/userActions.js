@@ -2,12 +2,6 @@ import Router from 'next/router';
 import axios from 'axios';
 import * as ACTION_TYPES from '../types/userTypes';
 
-// this is used for getting the last 7 days data of users selected crypto & ath and atl
-import * as cryptoHistoryActions from './cryptoHistoryActions';
-
-// getting of all crypto for dropdown select 2 and global data for crypto
-import { cryptoListFetch, cryptoGlobalFetch } from './cryptoListActions';
-
 export const usersListSet = ({payload}) => ({
     type: ACTION_TYPES.USERS_LIST_SET,
     payload,
@@ -63,24 +57,22 @@ export const usersListFindAll = () => {
  * This function is like the main entry point of all the data
  * all data and api call is acquired through here
  * -------------------------------------------------------- */
-export const userFind = ({params, coinmarketcapTicker}) => {
+export const userFind = ({params}) => {
     const {_id} = params;
     return async dispatch => {
         try {
-            console.log('userFInd');
-            
             const res = await axios.post('/api/account/find', {_id});
 
             // global data used for current logged in user
             dispatch(userSet({payload: res.data}));
 
             // this is used for getting the last 7 days data of users selected crypto & ath and atl
-            dispatch(cryptoHistoryActions.find({params: {ids: res.data.crypto_ids}}));
-            dispatch(cryptoHistoryActions.calculatePriceAthAtl({params: {ids: res.data.crypto_ids}}));
+            // dispatch(cryptoHistoryActions.find({params: {ids: res.data.crypto_ids}}));
+            // dispatch(cryptoHistoryActions.calculatePriceAthAtl({params: {ids: res.data.crypto_ids}}));
 
             // getting of all crypto for dropdown select 2 and global data for crypto
-            dispatch(cryptoListFetch({params: { user: res.data }}));
-            dispatch(cryptoGlobalFetch());
+            // dispatch(cryptoListFetch({params: { user: res.data }}));
+            // dispatch(cryptoGlobalFetch());
 
             dispatch(userErrorClear());
 
@@ -130,7 +122,7 @@ export const userLogin = ({params}) => {
             if(res.data.isAdmin){
                 Router.push('/admin/user');
             }else{
-                Router.push('/account/user');
+                Router.push('/portfolio/list');
             }
 
         } catch (err){

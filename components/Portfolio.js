@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 
 import Navbar from '../containers/Navbar';
-import TableView from './portfolio/TableView';
+import StatsTable from './portfolio/StatsTable';
+import PortfolioTable from './portfolio/PortfolioTable';
 import Header from './portfolio/Header';
-import CardPortfolio from './portfolio/Card';
 import Card from './portfolio/Card';
 import Cookies from 'js-cookie';
 
@@ -20,7 +20,7 @@ class Portfolio extends Component{
     }
 
     componentDidMount(){
-        const { userActions, portfolioActions, coinmarketcapTicker } = this.props;
+        const { portfolioActions, coinmarketcapTicker } = this.props;
 
         // get users id on cookie then fetch portfolio of user from database
         const userCookie = Cookies.get('user');
@@ -39,31 +39,8 @@ class Portfolio extends Component{
         }
     }
 
-    renderCardList(){
-        const { portfoliosList, cryptoListPortfolio } = this.props;
-        
-        return(
-            <div className="bounceInUp animated">
-                {/*portfoliosList && portfoliosList.allIds && portfoliosList.allIds.map(portfolio_id=>(
-                    <div key={portfolio_id}>
-                        <CardPortfolio portfolio={portfoliosList.byId[portfolio_id]}
-                              cryptoData={cryptoListPortfolio && cryptoListPortfolio.byId && cryptoListPortfolio.byId[portfolio_id]}
-                              onClick={this.routeToPortfolioAdd} />
-                    </div>
-                ))*/}
-                {/*
-                <div className="btn-wrapper">
-                    <button onClick={()=>this.routeToPortfolioAdd({})} className="btn btn-lg btn-primary btn-block" type="submit">
-                        Add Coin
-                    </button>
-                </div>
-                */}
-            </div>
-        )
-    }
-
     render(){
-        const { user, cryptoListPortfolio, cryptoHistory, cryptoAth, cryptoAtl, cryptoGlobal, portfolioList } = this.props;
+        const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, cryptoGlobal } = this.props;
         const { isTableView } = this.state;
         
         return(
@@ -71,25 +48,20 @@ class Portfolio extends Component{
                 <Navbar />
                 <Header user={user} cryptoGlobal={cryptoGlobal} cryptoList={cryptoListPortfolio} isTableView={isTableView} onClick={()=>this.setState({isTableView: !isTableView})} />
 
+                    <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
+                <div className="container">
+                    <StatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
+                </div>
                 <div className="">
                 <div className="d-flex align-content-around flex-wrap justify-content-center">
-                    <div className="d-flex crypto-container flex-wrap justify-content-center bounceInUp animated">
-                        {
-                            portfolioList && portfolioList.allIds && portfolioList.allIds.map((_id, key)=>(
-                                <div key={key}>
-                                    {_id ? <Card portfolio={portfolioList.byId[_id]} cryptoHistory={cryptoHistory} cryptoAth={cryptoAth} cryptoAtl={cryptoAtl} /> : <div/> }
-                                </div>
-                            ))
-                        }
-                    </div>
+                    {
+                       portfolioList && portfolioList.allIds && portfolioList.allIds.map(_id=>(
+                           <Card portfolio={portfolioList.byId[_id]} cryptoHistory={cryptoHistory} priceAth={priceAth} priceAtl={priceAtl} volumeAth={volumeAth} volumeAtl={volumeAtl} key={_id}/>
+                       )) 
+                    }
+
 
                     {/*
-                        isTableView ?
-                            <TableView cryptoList={cryptoListPortfolio} onClick={this.routeToPortfolioAdd} />
-                        :
-                            <div className="">
-                                {this.renderCardList()}
-                            </div>
                     <div className="btn-wrapper bounceInUp animated">
                         <button onClick={()=>this.routeToPortfolioAdd({})} className="btn btn-lg btn-primary btn-block" type="submit">
                             Add Coin
@@ -122,14 +94,19 @@ class Portfolio extends Component{
 }
 
 Portfolio.propTypes = {
+    //data
     user                : PropTypes.object,
     userActions         : PropTypes.object,
-    cryptoIdsActions    : PropTypes.object,
-    cryptoListPortfolio : PropTypes.object,
-    portfoliosList      : PropTypes.object,
-    portfolioActions    : PropTypes.object,
+    portfolioList       : PropTypes.object,
+    priceAth            : PropTypes.object,
+    priceAtl            : PropTypes.object,
+    volumeAth           : PropTypes.object,
+    volumeAtl           : PropTypes.object,
     cryptoGlobal        : PropTypes.object,
+    cryptoHistory       : PropTypes.object,
     coinmarketcapTicker : PropTypes.array,
+    //actions
+    portfolioActions    : PropTypes.object,
 }
 
 export default Portfolio;

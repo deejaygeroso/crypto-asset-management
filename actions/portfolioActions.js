@@ -118,10 +118,9 @@ export const itemListFindByUserId = ({params, coinmarketcapTicker}) => {
 
             // get historydata & ath,atl of price
             dispatch(cryptoHistoryActions.find({ params: {ids} }));
-            dispatch(cryptoHistoryActions.calculatePriceAthAtl( {params: {ids} }));
+            dispatch(cryptoHistoryActions.calculatePriceAndVolumeAthAtl( {params: {ids} }));
 
         } catch (error) {
-            console.log('error', error);
             
             const payload = { message: 'Unable to fetch your portfolio' }
             dispatch(errorSet({payload}));

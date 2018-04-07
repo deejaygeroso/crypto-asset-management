@@ -7,7 +7,7 @@ import moment from 'moment';
 const History = ({id, cryptoHistory}) => (
     <div className="history-wrapper">
         <hr className="history-hr"/>
-        <h1 className="history-title">7 DAY VOLUME HISTORY</h1>
+        <h1 className="history-title">7 DAY VOLUME & PRICE HISTORY</h1>
         <div className="d-flex flex-wrap align-items-center justify-content-center">
             {
                 loopDate(cryptoHistory[id])
@@ -16,6 +16,11 @@ const History = ({id, cryptoHistory}) => (
         <div className="d-flex flex-wrap align-items-center justify-content-center m-0 p-0">
             {
                 loopData(cryptoHistory[id])
+            }
+        </div>
+        <div className="d-flex flex-wrap align-items-center justify-content-center m-0 p-0">
+            {
+                loopPrice(cryptoHistory[id])
             }
         </div>
         <style jsx global>{`
@@ -63,6 +68,32 @@ function loopData(cryptoHistory){
                 <div key={i} className="history-box text-center">
                     <p className="history-sub-text align-middle text-center">
                         {commarize(cryptoHistory[i]['24h_volume_usd'])}
+                    </p>
+                </div>
+            )
+        }else{
+            data.push(
+                <div key={i} className="history-box text-center">
+                    <p className="history-sub-text align-middle text-center">
+                        N/A
+                    </p>
+                </div>
+            )
+        }
+    }
+    return data;
+}
+/* ----------------------------------------------------------
+ * map all the 24h_volume_usd from cryptoHistory data
+ * -------------------------------------------------------- */
+function loopPrice(cryptoHistory){
+    const data = []
+    for (var i = 0; i < 7; i++) {
+        if(cryptoHistory && cryptoHistory[i] && cryptoHistory[i].length!==0){
+            data.push(
+                <div key={i} className="history-box text-center">
+                    <p className="history-sub-text align-middle text-center">
+                        {commarize(cryptoHistory[i]['price_usd'])}
                     </p>
                 </div>
             )

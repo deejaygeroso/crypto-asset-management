@@ -11,8 +11,10 @@ function mapStateToProps(state) {
     cryptoListPortfolio: state.cryptoListPortfolio,
     portfolioList:       state.portfolioList,
     cryptoHistory:       state.cryptoHistory,
-    cryptoAth:           state.cryptoAth,
-    cryptoAtl:           state.cryptoAtl,
+    priceAth:            state.priceAth,
+    priceAtl:            state.priceAtl,
+    volumeAth:           state.volumeAth,
+    volumeAtl:           state.volumeAtl,
     cryptoGlobal:        state.cryptoGlobal,
   };
 }
