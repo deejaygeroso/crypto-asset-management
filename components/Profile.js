@@ -1,77 +1,75 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Router from 'next/router';
 
 import Navbar from '../containers/Navbar';
+import { EmailInput, PasswordInput, TextInput } from './forms';
 
 import Cookies from 'js-cookie';
-import { pluck as __$pluck } from 'underscore';
-import Select from 'react-select';
-
 
 class Profile extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            crypto_ids : [],
             name       : '',
             email      : '',
             password   : '',
-            value      : [],
         }
-        this.onChange = this.onChange.bind(this);
+        this.onValueChange = this.onValueChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
     }
 
-    // carefull when loggin in if no cookies error will have in ur way
+    /* ----------------------------------------------------------------------------------
+     * Clear all when unmounted
+     * -------------------------------------------------------------------------------- */
+    componentWillUnmount(){
+        const { userActions } = this.props;
+        userActions.errorClear()
+        userActions.successClear()
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Find user then Update the fields of the form
+     * -------------------------------------------------------------------------------- */
     componentDidMount(){
-        const { user, userActions, cryptoIdsActions } = this.props;
+        const { user, userActions } = this.props;
+
         const userCookie = Cookies.get('user');
-
-        cryptoIdsActions.cryptoIdsFindAll();
-
-        // if user has no cookie redirect to login
-        if(!userCookie){
-            Router.push('/login');
-        }else{
-            const params = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object
-            if(params && params._id){
-                if(params._id) userActions.userFind({params});
-            }else{
-                Router.push('/login');
+        if(userCookie){
+            const user = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object
+            if(user && user._id){
+                if(user._id){
+                    userActions.itemFind({
+                        params: {
+                            _id: user._id
+                        }
+                    })
+                }
             }
         }
 
         this.setState({
-            crypto_ids : user && user.crypto_ids && user.crypto_ids.length!==0 ? user.crypto_ids : [],
             name       : user && user.name ? user.name : '',
             email      : user && user.email ? user.email : '',
             password   : '',
-            value      : user && user.crypto_ids && user.crypto_ids.length!==0 ? user.crypto_ids : [],
         })
-    }
-
-    componentWillUnmount(){
-        const { userActions } = this.props;
-        userActions.userErrorClear()
-        userActions.userSuccessClear()
     }
 
     componentWillReceiveProps(nextProps){
         const { user } = nextProps;
         this.setState({
-            crypto_ids : user && user.crypto_ids && user.crypto_ids.length!==0 ? user.crypto_ids : [],
             name       : user && user.name ? user.name : '',
             email      : user && user.email ? user.email : '',
             password   : '',
-            value      : user && user.crypto_ids && user.crypto_ids.length!==0 ? user.crypto_ids : [],
         })
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Page
+     * -------------------------------------------------------------------------------- */
     render(){
-        const { userError, userSuccess, cryptoIds } = this.props;
+        const { userError, userSuccess } = this.props;
+
         return(
         <div>
             <Navbar />
@@ -110,43 +108,10 @@ class Profile extends Component {
                                 </div> : <div />
                             }
 
+                            <TextInput     id="name"  value={this.state.name}  label="Full Name" placeholder="Full Name" onValueChange={this.onValueChange} />
+                            <EmailInput    id="email" value={this.state.email} label="Email"     placeholder="Email"     onValueChange={this.onValueChange} />
+                            <PasswordInput id="password" label="Password"  placeholder="Password"  onValueChange={this.onValueChange} />
 
-                           <Select
-                                name="form-field-name"
-                                value={this.state.value}
-                                onChange={this.handleChange}
-                                multi={true}
-                                options={cryptoIds}
-                                placeholder="Select your favourite(s)"
-                                className="select-field"
-                            />
-                           <input
-                                type="text"
-                                id="name"
-                                value={this.state.name}
-                                className="form-control inputField"
-                                placeholder="Full name"
-                                style={{margin: 10}}
-                                onChange={(evt)=>this.onChange('name', evt.target.value, evt)}/>
-                           <input
-                                type="email"
-                                id="email"
-                                value={this.state.email}
-                                className="form-control inputField"
-                                placeholder="Email address"
-                                required
-                                style={{margin: 10}}
-                                onChange={(evt)=>this.onChange('email', evt.target.value, evt)}/>
-                           <input
-                                type="password"
-                                id="password"
-                                value={this.state.password}
-                                className="form-control inputField-password"
-                                placeholder="Password"
-                                style={{margin: 10}}
-                                autoComplete="off"
-                                onChange={(evt)=>this.onChange('password', evt.target.value, evt)}/>
-                                <p className="password-label">You can leave password empty if you dont wanna change it.</p>
                             <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Update</button>
                        </form>
                    </div>
@@ -159,30 +124,30 @@ class Profile extends Component {
         )
     }
 
-    onChange(key, value, evt){
-        evt.preventDefault();
+    /* ----------------------------------------------------------------------------------
+     * Update state when input value has changed
+     * -------------------------------------------------------------------------------- */
+    onValueChange(key, value){
         let inputData = []
         inputData[key] = value;
         this.setState(inputData);
     }
 
-	handleChange (input) {
-        const value = __$pluck(input, 'value');
-		this.setState({ value });
-	}
-
+    /* ----------------------------------------------------------------------------------
+     * When user press submit button
+     * -------------------------------------------------------------------------------- */
     onSubmit(evt){
         evt.preventDefault()
 
         const { user, userActions } = this.props;
         const { name, email, password, value } = this.state;
 
-        userActions.userErrorClear()
-        userActions.userSuccessClear()
+        userActions.errorClear()
+        userActions.successClear()
 
         if(email===''){
-            userActions.userSuccessClear();
-            return userActions.userErrorSet({
+            userActions.successClear();
+            return userActions.errorSet({
                 payload: {
                     message: 'Email must not be empty!',
                 }
@@ -200,9 +165,12 @@ class Profile extends Component {
             params['password'] = password;
         }
 
-        userActions.userUpdate({ params });
+        userActions.itemUpdate({ params });
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Profile Style
+     * -------------------------------------------------------------------------------- */
     renderStyle(){
         return(
             <style jsx global>{`

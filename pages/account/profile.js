@@ -8,13 +8,19 @@ import { initStore } from '../../store';
 import Layout from '../../components/Layout';
 import Profile from '../../containers/Profile'
 
+import axios from 'axios';
 
 class ProfilePage extends React.Component{
 
     static async getInitialProps({ store, req }) {
 
         const isServer = !!req;
-        return { initialState: store.getState(), isServer };
+
+        // coinmarketcap api fetch all data
+        const apiCMCRes = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=0');
+
+        const coinmarketcapTicker = apiCMCRes.data;
+        return { initialState: store.getState(), isServer, coinmarketcapTicker };
     }
 
     constructor(props) {
@@ -23,11 +29,10 @@ class ProfilePage extends React.Component{
     }
 
     render(){
-        // console.log('props', this.props);
         return(
             <Provider store={this.store}>
                 <Layout>
-                    <Profile />
+                    <Profile coinmarketcapTicker={this.props.coinmarketcapTicker}/>
                 </Layout>
             </Provider>
         )
@@ -35,6 +40,7 @@ class ProfilePage extends React.Component{
 }
 
 ProfilePage.propTypes = {
+    coinmarketcapTicker : PropTypes.array,
     initialState : PropTypes.object,
     isServer : PropTypes.bool,
 }

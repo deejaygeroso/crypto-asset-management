@@ -27,6 +27,9 @@ class FormPage extends Component{
         this.onValueChange = this.onValueChange.bind(this);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Clear all when unmounted
+     * -------------------------------------------------------------------------------- */
     componentWillUnmount(){
         const { portfolioActions } = this.props
         portfolioActions.itemClear();
@@ -34,6 +37,9 @@ class FormPage extends Component{
         portfolioActions.errorClear();
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Update the fields of the form
+     * -------------------------------------------------------------------------------- */
     componentDidMount(){
         const { portfolio } = this.props;
 
@@ -52,6 +58,9 @@ class FormPage extends Component{
 
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Page
+     * -------------------------------------------------------------------------------- */
     render(){
         const { cryptoIds, portfolio, portfolioError } = this.props;
         const addUpdateButtonName = portfolio && portfolio._id ? 'Update' : 'Create';
@@ -132,7 +141,9 @@ class FormPage extends Component{
         )
     }
 
-
+    /* ----------------------------------------------------------------------------------
+     * Handle dropdown Select 2
+     * -------------------------------------------------------------------------------- */
     handleChangeSelect2(crypto){
 		this.setState({ crypto });
     }

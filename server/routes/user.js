@@ -6,7 +6,7 @@ module.exports = function(app, router){
         .get(function (req, res) {
             const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
             if(isLoggedIn){
-                return app.render(req, res, '/account/user')
+                return app.render(req, res, '/account/profile')
             }
             return app.render(req, res, '/login')
         })

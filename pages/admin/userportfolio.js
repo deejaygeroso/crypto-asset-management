@@ -25,7 +25,7 @@ class UserPortfolioPage extends React.Component{
         return(
             <Provider store={this.store}>
                 <Layout>
-                    <UserPortfolio coinmarketcapTicker={this.props.coinmarketcapTicker}/>
+                    <UserPortfolio />
                 </Layout>
             </Provider>
         )
