@@ -6,15 +6,16 @@ import {
     // commarize
 } from '../../lib/helpers';
 
+import TableStyle from './TableStyle';
 
-const TableView = ({portfolioList, onClick}) => (
+const PortfolioTable = ({portfolioList, onClick}) => (
     <div className="bounceInRight animated">
-        <div className="table-view table-responsive bounceInRight animated">
+        <div className="table-view table-responsive">
 
             <table className="table table-hover">
                 <thead>
                     <tr>
-                      <th scope="col" rowSpan="2">Icon</th>
+                      <th scope="col" rowSpan="2" className="th-icon">Icon</th>
                       <th scope="col" rowSpan="2">Coin Name</th>
                       <th scope="col" rowSpan="2">Symbol</th>
                       <th scope="col" rowSpan="2">Holdings</th>
@@ -146,27 +147,17 @@ const TableView = ({portfolioList, onClick}) => (
                 </button>
             </div>
         */}
-        <style jsx global>{`
-            #portfolio-tr{
-                cursor: pointer;
-            }
-            .table-view{
-                margin: 15px 0px;
-                border-radius: 10px
-            }
-            .table{
-                font-size: 13px;
-            }
-        `}</style>
+
+        <TableStyle />
     </div>
 )
 
-TableView.propTypes = {
+PortfolioTable.propTypes = {
     portfolioList: PropTypes.object,
     onClick: PropTypes.func,
 }
 
-export default TableView;
+export default PortfolioTable;
 
 // check if its a positive or negative
 function isPositiveNumber(numberString){

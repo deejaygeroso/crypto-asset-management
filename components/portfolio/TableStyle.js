@@ -20,6 +20,9 @@ const TableStyle = () => (
             .table-th-rowspan{
                 padding-bottom: 25px;
             }
+            .th-icon{
+                border-left: none !important;
+            }
   `}</style>
 )
 

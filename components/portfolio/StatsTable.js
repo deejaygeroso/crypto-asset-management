@@ -9,13 +9,13 @@ import {
 import TableStyle from './TableStyle';
 
 const StatsTable = ({portfolioList, onClick}) => (
-    <div className="bounceInRight animated">
-        <div className="table-view table-responsive bounceInRight animated">
+    <div className="bounceInLeft animated">
+        <div className="table-view table-responsive">
 
             <table className="table table-hover">
                 <thead>
                     <tr>
-                      <th scope="col" rowSpan="2" className="table-th-rowspan">Icon</th>
+                      <th scope="col" rowSpan="2" className="table-th-rowspan th-icon">Icon</th>
                       <th scope="col" rowSpan="2" className="table-th-rowspan">Coin Name</th>
                       <th scope="col" rowSpan="2" className="table-th-rowspan">Symbol</th>
                       <th scope="col" rowSpan="2" className="table-th-rowspan nobr">Market Price (USD)</th>

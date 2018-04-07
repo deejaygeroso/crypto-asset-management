@@ -14,13 +14,16 @@ class Portfolio extends Component{
     constructor(props){
         super(props);
         this.state = {
-            isTableView: false,
+            isWidgetVisible    : true,
+            isStatsTableVisible : false,
+            isPortfolioTableVisible : false,
         }
         this.routeToPortfolioAdd = this.routeToPortfolioAdd.bind(this);
+        this.toggleView = this.toggleView.bind(this);
     }
 
     componentWillUnmount(){
-        const { portfolioActions } = this.props;
+        // const { portfolioActions } = this.props;
     }
 
     componentDidMount(){
@@ -45,26 +48,52 @@ class Portfolio extends Component{
 
     render(){
         const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, cryptoGlobal } = this.props;
-        const { isTableView } = this.state;
+        const { isWidgetVisible, isStatsTableVisible, isPortfolioTableVisible } = this.state;
         
         return(
             <div className="page-container">
                 <Navbar />
-                <Header user={user} cryptoGlobal={cryptoGlobal} cryptoList={portfolioList} isTableView={isTableView} onClick={()=>this.setState({isTableView: !isTableView})} />
+                <Header user={user} 
+                        cryptoGlobal={cryptoGlobal} 
+                        cryptoList={portfolioList} 
+                        isWidgetVisible={isWidgetVisible} 
+                        isStatsTableVisible={isStatsTableVisible} 
+                        isPortfolioTableVisible={isPortfolioTableVisible} 
+                        onClick={(buttonName)=>this.toggleView(buttonName)} />
+                        
+                {/* ----------------------------- */}
+                {/* ------ Portfolio Table ------ */}
+                {/* ----------------------------- */}
+                {
+                    isPortfolioTableVisible ?
+                        <div className="container-fluid d-flex align-items-center justify-content-center" style={{paddingLeft: 25, paddingRight: 25}}>
+                            <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
+                        </div>  : <div></div>
+                }
 
-                    <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
-                <div className="container">
-                    <StatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
-                </div>
-                <div className="">
-                <div className="d-flex align-content-around flex-wrap justify-content-center">
-                    {
-                       portfolioList && portfolioList.allIds && portfolioList.allIds.map(_id=>(
-                           <Card portfolio={portfolioList.byId[_id]} cryptoHistory={cryptoHistory} priceAth={priceAth} priceAtl={priceAtl} volumeAth={volumeAth} volumeAtl={volumeAtl} key={_id}/>
-                       )) 
-                    }
+                {/* ----------------------------- */}
+                {/* -------- Stats Table -------- */}
+                {/* ----------------------------- */}
+                {
+                    isStatsTableVisible ?
+                        <div className="container">
+                            <StatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
+                        </div> : <div></div>
+                }
 
-
+                {/* ----------------------------- */}
+                {/* ----------- Widget ---------- */}
+                {/* ----------------------------- */}
+                {
+                    isWidgetVisible ?
+                        <div className="d-flex align-content-around flex-wrap justify-content-center bounceInUp animated">
+                            {
+                                portfolioList && portfolioList.allIds && portfolioList.allIds.map(_id=>(
+                                    <Card portfolio={portfolioList.byId[_id]} cryptoHistory={cryptoHistory} priceAth={priceAth} priceAtl={priceAtl} volumeAth={volumeAth} volumeAtl={volumeAtl} key={_id}/>
+                                )) 
+                            }
+                        </div> : <div></div>
+                }
                     {/*
                     <div className="btn-wrapper bounceInUp animated">
                         <button onClick={()=>this.routeToPortfolioAdd({})} className="btn btn-lg btn-primary btn-block" type="submit">
@@ -72,8 +101,7 @@ class Portfolio extends Component{
                         </button>
                     </div>
                     */}
-                </div>
-                <style jsx global>{`
+            <style jsx global>{`
                     .card-container{
                         margin-top: 10px;
                     }
@@ -83,10 +111,16 @@ class Portfolio extends Component{
                     }
       
                 `}</style>
-                
-            </div>
-            </div>
+        </div>
         )
+    }
+
+    toggleView(buttonName){
+        this.setState({
+            isWidgetVisible         : buttonName==="1" ? true : false,
+            isStatsTableVisible     : buttonName==="2" ? true : false,
+            isPortfolioTableVisible : buttonName==="3" ? true : false,
+        })
     }
 
     routeToPortfolioAdd(payload){

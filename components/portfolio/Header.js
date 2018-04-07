@@ -6,20 +6,29 @@ import {
     // commarize
 } from '../../lib/helpers';
 
-const Header = ({user, cryptoGlobal, cryptoList, isTableView, onClick}) => (
+const Header = ({user, cryptoGlobal, cryptoList, onClick}) => (
     <div className="gradient-header">
         <div className="total-valuation-mobile-view fadeIn animated">
             <span>
                 Total Valuation: $ {calculateTotalValuation(cryptoList)}
             </span>
         </div>
-        <div className="d-flex flex-wrap ortfolio-header container">
+        <div className="d-flex flex-wrap portfolio-header container">
             <div className="d-flex align-items-center justify-content-start">
                 <div className="">
-                    <button onClick={onClick} className="btn-toggle btn btn-lg btn-warning btn-table bounceInLeft animated" type="submit" >
+                    <button onClick={()=>onClick('2')} className="btn-toggle btn btn-lg btn-warning btn-table bounceInLeft animated" type="submit" >
                         <span>
-                            <i className="fas fa-lg fa-bars"></i>
-                            { isTableView ? '  Table' : '  List' }
+                            <i className="fas fa-lg fa-address-card"></i>
+                        </span>
+                    </button>
+                    <button onClick={()=>onClick('1')} className="btn-toggle btn btn-lg btn-warning btn-table bounceInLeft animated" type="submit" >
+                        <span>
+                            <i className="fas fa-lg fa-box"></i>
+                        </span>
+                    </button>
+                    <button onClick={()=>onClick('3')} className="btn-toggle btn btn-lg btn-warning btn-table bounceInLeft animated" type="submit" >
+                        <span>
+                            <i className="fas fa-lg fa-chart-line"></i>
                         </span>
                     </button>
                 </div>
@@ -142,7 +151,6 @@ Header.propTypes = {
     user         : PropTypes.object,
     cryptoGlobal : PropTypes.object,
     cryptoList   : PropTypes.object,
-    isTableView  : PropTypes.bool,
     onClick      : PropTypes.func,
 }
 
