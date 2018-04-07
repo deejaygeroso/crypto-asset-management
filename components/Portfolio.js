@@ -60,13 +60,15 @@ class Portfolio extends Component{
                         isStatsTableVisible={isStatsTableVisible} 
                         isPortfolioTableVisible={isPortfolioTableVisible} 
                         onClick={(buttonName)=>this.toggleView(buttonName)} />
-                        
+
+                <div style={{margin: 20}}/>
+                
                 {/* ----------------------------- */}
                 {/* ------ Portfolio Table ------ */}
                 {/* ----------------------------- */}
                 {
                     isPortfolioTableVisible ?
-                        <div className="container-fluid d-flex align-items-center justify-content-center" style={{paddingLeft: 25, paddingRight: 25}}>
+                        <div className="container-fluid d-flex align-items-center justify-content-center">
                             <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
                         </div>  : <div></div>
                 }
