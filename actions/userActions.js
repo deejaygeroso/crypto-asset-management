@@ -2,53 +2,53 @@ import Router from 'next/router';
 import axios from 'axios';
 import * as ACTION_TYPES from '../types/userTypes';
 
-export const usersListSet = ({payload}) => ({
+export const itemListSet = ({payload}) => ({
     type: ACTION_TYPES.USERS_LIST_SET,
     payload,
 })
 
-export const usersListAppend = ({item}) => ({
+export const itemListAppend = ({item}) => ({
     type: ACTION_TYPES.USERS_LIST_APPEND,
     item,
 })
 
-export const userSet = ({payload}) => ({
+export const itemSet = ({payload}) => ({
     type: ACTION_TYPES.USER_SET,
     payload,
 })
 
-export const userClear = ({payload}) => ({
+export const itemClear = ({payload}) => ({
     type: ACTION_TYPES.USER_CLEAR,
     payload,
 })
 
-export const userSuccessSet = ({payload}) => ({
+export const successSet = ({payload}) => ({
     type: ACTION_TYPES.USER_SUCCESS_SET,
     payload,
 })
 
-export const userSuccessClear = () => ({
+export const successClear = () => ({
     type: ACTION_TYPES.USER_SUCCESS_CLEAR,
 })
 
-export const userErrorSet = ({payload}) => ({
+export const errorSet = ({payload}) => ({
     type: ACTION_TYPES.USER_ERROR_SET,
     payload,
 })
 
-export const userErrorClear = () => ({
+export const errorClear = () => ({
     type: ACTION_TYPES.USER_ERROR_CLEAR,
 })
 
-export const usersListFindAll = () => {
+export const itemListFindAll = () => {
     return async dispatch => {
         try {
             const res = await axios.post('/api/account/users');
-            dispatch(usersListSet({payload: res.data}));
-            dispatch(userErrorClear());
+            dispatch(itemListSet({payload: res.data}));
+            dispatch(errorClear());
         } catch (err) {
             const payload = { message: 'Unable to fetch all users!' }
-            dispatch(userErrorSet({payload}));
+            dispatch(errorSet({payload}));
         }
     }
 }
@@ -57,68 +57,59 @@ export const usersListFindAll = () => {
  * This function is like the main entry point of all the data
  * all data and api call is acquired through here
  * -------------------------------------------------------- */
-export const userFind = ({params}) => {
+export const itemFind = ({params}) => {
     const {_id} = params;
     return async dispatch => {
         try {
             const res = await axios.post('/api/account/find', {_id});
 
             // global data used for current logged in user
-            dispatch(userSet({payload: res.data}));
-
-            // this is used for getting the last 7 days data of users selected crypto & ath and atl
-            // dispatch(cryptoHistoryActions.find({params: {ids: res.data.crypto_ids}}));
-            // dispatch(cryptoHistoryActions.calculatePriceAthAtl({params: {ids: res.data.crypto_ids}}));
-
-            // getting of all crypto for dropdown select 2 and global data for crypto
-            // dispatch(cryptoListFetch({params: { user: res.data }}));
-            // dispatch(cryptoGlobalFetch());
-
-            dispatch(userErrorClear());
+            dispatch(itemSet({payload: res.data}));
+            dispatch(errorClear());
 
         } catch (err) {
             const payload = { message: 'Unable to find user!' }
-            dispatch(userErrorSet({payload}));
+            dispatch(errorSet({payload}));
         }
     };
 }
 
-export const userCreate = ({params}) => {
+export const itemCreate = ({params}) => {
     return async dispatch => {
         try {
             const res = await axios.post('/api/account/register', params);
-            dispatch(userSet({payload: res.data}));
-            dispatch(usersListAppend({item: res.data}));
-            dispatch(userErrorClear());
+            dispatch(itemSet({payload: res.data}));
+            dispatch(itemListAppend({item: res.data}));
+            dispatch(errorClear());
         } catch (err) {
             const payload = { message: 'Email already exist!' }
-            dispatch(userErrorSet({payload}));
+            dispatch(errorSet({payload}));
         }
     };
 }
 
 // not yet used
-export const userUpdate = ({params}) => {
+export const itemUpdate = ({params}) => {
     return async dispatch => {
         try {
             const res = await axios.post('/api/account/update', params);
-            dispatch(userSet({payload: res.data}));
-            dispatch(userSuccessSet({payload: {message: 'Update successful!'}}));
-            dispatch(userErrorClear());
+            dispatch(itemSet({payload: res.data}));
+            dispatch(successSet({payload: {message: 'Update successful!'}}));
+            dispatch(errorClear());
         } catch (err) {
             const payload = { message: 'Update Failed!' }
-            dispatch(userErrorSet({payload}));
-            dispatch(userSuccessClear());
+            dispatch(errorSet({payload}));
+            dispatch(successClear());
         }
     };
 }
 
-export const userLogin = ({params}) => {
+export const login = ({params}) => {
     return async dispatch => {
         try {
             const res = await axios.post('/api/account/login', params);
-            dispatch(userSet({payload: res.data}));
-            dispatch(userErrorClear());
+            dispatch(itemSet({payload: res.data}));
+            dispatch(errorClear());
             if(res.data.isAdmin){
                 Router.push('/admin/user');
             }else{
@@ -127,21 +118,21 @@ export const userLogin = ({params}) => {
 
         } catch (err){
             const payload = { message: 'Email/password does not match!' }
-            dispatch(userErrorSet({payload}));
+            dispatch(errorSet({payload}));
         }
     };
 }
 
-export const userLogout = () => {
+export const logout = () => {
     return async dispatch => {
         try {
             const res = await axios.post('/account/logout');
-            dispatch(userSet({payload: res.data}));
-            dispatch(userErrorClear());
+            dispatch(itemSet({payload: res.data}));
+            dispatch(errorClear());
             Router.push('/login');
         } catch (err){
             const payload = { message: 'Email/password does not match!' };
-            dispatch(userErrorSet({payload}));
+            dispatch(errorSet({payload}));
         }
     };
 }

@@ -54,7 +54,7 @@ class Navbar extends Component{
 
     userLogout(evt){
         evt.preventDefault();
-        this.props.userActions.userLogout();
+        this.props.userActions.logout();
     }
 }
 

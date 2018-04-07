@@ -1,7 +1,6 @@
 // import Router from 'next/router';
 import axios from 'axios';
 import * as ACTION_TYPES from '../types/portfolioTypes';
-import * as cryptoListActions from './cryptoListActions';
 import * as cryptoHistoryActions from './cryptoHistoryActions';
 
 import { indexBy as __$indexBy } from 'underscore';
@@ -85,9 +84,9 @@ export const itemCreate = ({params}) => {
             // if success
             const res = await axios.post('/api/portfolio/create', params);
             dispatch(itemSet({payload: res.data}))
+            
             dispatch(itemListAppend({item: res.data}));
-            const message = 'Coin successfuly creatd!';
-            dispatch(successSet({payload: {message} }));
+            dispatch(successSet({payload: {message: 'Coin successfuly creatd!'} }));
             dispatch(errorClear());
 
         } catch (error) {
@@ -106,10 +105,10 @@ export const itemUpdate = ({_id, params}) => {
         try {
             // if success
             const res = await axios.post('/api/portfolio/update', Object.assign({}, params, { _id }));
+            
             dispatch(itemSet({payload: res.data}))
-            dispatch(cryptoListActions.portfolioAppend({item: res.data}));
-            const message = 'Coin successfuly creatd!';
-            dispatch(successSet({payload: {message} }));
+            dispatch(itemListAppend({item: res.data}));
+            dispatch(successSet({payload: {message: 'Coin successfuly creatd!'} }));
             dispatch(errorClear());
 
         } catch (error) {
@@ -157,7 +156,6 @@ export const itemListFindByUserId = ({params, coinmarketcapTicker}) => {
             dispatch(cryptoHistoryActions.calculatePriceAndVolumeAthAtl( {params: {ids} }));
 
         } catch (error) {
-            
             const payload = { message: 'Unable to fetch your portfolio' }
             dispatch(errorSet({payload}));
         }

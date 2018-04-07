@@ -57,19 +57,19 @@ const TableView = ({portfolioList, onClick}) => (
                                 {/* ------ Buy Price USD ------*/}
                                 <td scope="col">
                                     <span className="num-span" style={{color: '#3F95EA'}}>
-                                        xxx
+                                        {portfolioList.byId[id]['buy_price_usd']}
                                     </span>
                                 </td>
                                 {/* ------ Buy Price BTC ------*/}
                                 <td scope="col">
-                                    <span className="num-span">
-                                        xxx
+                                    <span className="num-span" style={{color: '#3F95EA'}}>
+                                        {portfolioList.byId[id]['buy_price_btc']}
                                     </span>
                                 </td>
                                 {/* ------ Buy Price ETH ------*/}
                                 <td scope="col">
-                                    <span className="num-span">
-                                        xxx
+                                    <span className="num-span" style={{color: '#3F95EA'}}>
+                                        {portfolioList.byId[id]['buy_price_eth']}
                                     </span>
                                 </td>
                                 {/* ------ Market Price USD ------*/}
@@ -87,30 +87,31 @@ const TableView = ({portfolioList, onClick}) => (
                                 {/* ------ Market Price ETH ------*/}
                                 <td scope="col">
                                     <span className="num-span">
-                                        xx
+                                        {portfolioList.byId[id]['price_eth']}
                                     </span>
                                 </td>
                                 {/* ------ Valuation USD ------*/}
                                 <td scope="col">
                                     <span className="num-span">
-                                        {formatMoney(portfolioList.byId[id]['price_usd'], 2, 3, ',') }
+                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_usd'), 2, 3, ',') }
                                     </span>
                                 </td>
                                 {/* ------ Valuation BTC ------*/}
                                 <td scope="col">
                                     <span className="num-span">
-                                        {portfolioList.byId[id]['price_btc']}
+                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_btc'), 2, 3, ',') }
                                     </span>
                                 </td>
                                 {/* ------ Valuation ETH ------*/}
                                 <td scope="col">
                                     <span className="num-span">
-                                        xx
+                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_eth'), 2, 3, ',') }
                                     </span>
                                 </td>
+                                {/* ------ Profit/Lostt % ------*/}
                                 <td scope="col">
-                                    <span className="num-span" style={{ color: isPositiveNumber(portfolioList.byId[id]['percent_change_7d']) ? 'green' : 'red' }}>
-                                        xx
+                                    <span className="num-span" style={{ color: isCalculateProfitOrLoss(portfolioList.byId[id]) ? 'green' : 'red' }}>
+                                        {calculateProfitOrLoss(portfolioList.byId[id])}
                                     </span>
                                 </td>
                                 <td scope="col">
@@ -194,9 +195,9 @@ function calculateTotalValuation(portfolioList){
     return totalValuation;
 }
 
-function calculateValuation(cryptoData){
+function calculateValuation(cryptoData, fieldName){
     const amount = parseFloat(cryptoData.amount)
-    const market_price = parseFloat(cryptoData.price_usd);
+    const market_price = parseFloat(cryptoData[fieldName]);
     const valuation = amount * market_price;
 
     return valuation;
@@ -205,7 +206,7 @@ function calculateValuation(cryptoData){
 
 function calculateProfitOrLoss(cryptoData){
     const market_price = parseFloat(cryptoData.price_usd);
-    const buy_price = parseFloat(cryptoData.buy_price);
+    const buy_price = parseFloat(cryptoData.buy_price_usd);
     const profitOrLoss = (market_price - buy_price) / market_price;
 
     if(profitOrLoss>=0){
@@ -218,7 +219,7 @@ function calculateProfitOrLoss(cryptoData){
 // check if its a positive or negative
 function isCalculateProfitOrLoss(cryptoData){
     const market_price = parseFloat(cryptoData.price_usd);
-    const buy_price = parseFloat(cryptoData.buy_price);
+    const buy_price = parseFloat(cryptoData.buy_price_usd);
     const profitOrLoss = (market_price - buy_price) / market_price;
 
     if(profitOrLoss>=0){

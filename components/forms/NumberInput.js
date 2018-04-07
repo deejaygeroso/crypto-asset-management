@@ -8,7 +8,7 @@ const NumberInput = ({id, label, placeholder, value, onValueChange}) => (
             type="number"
             id={id}
             step="any"
-            value={value}
+            value={value ? value : ""}
             className="form-control inputField"
             placeholder={placeholder}
             onChange={(evt)=>{

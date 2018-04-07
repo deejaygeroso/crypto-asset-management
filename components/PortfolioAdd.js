@@ -4,7 +4,7 @@ import Router from 'next/router';
 
 import Navbar from '../containers/Navbar';
 import FormStyle from './portfolio/FormStyle';
-import { TextInput, NumberInput, TextArea } from './forms';
+import { NumberInput, TextArea } from './forms';
 
 import Cookies from 'js-cookie';
 import Select from 'react-select';
@@ -36,20 +36,22 @@ class PortfolioAdd extends Component{
     }
 
     componentDidMount(){
-        const { portfolio, userActions, cryptoIdsActions } = this.props;
+        const { portfolio, userActions, cryptoIdsActions, coinmarketcapTicker } = this.props;
+
+        cryptoIdsActions.itemSet({payload: coinmarketcapTicker});
+
+        // get users id on cookie then fetch portfolio of user from database
         const userCookie = Cookies.get('user');
-
-        cryptoIdsActions.cryptoIdsFindAll();
-
-        // if user has no cookie redirect to login
-        if(!userCookie){
-            Router.push('/login');
-        }else{
-            const params = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object
-            if(params && params._id){
-                if(params._id) userActions.userFind({params});
-            }else{
-                Router.push('/login');
+        if(userCookie){
+            const user = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object
+            if(user && user._id){
+                if(user._id){
+                    userActions.itemFind({
+                        params: {
+                            user_id : user._id
+                        },
+                    });
+                }
             }
         }
 
@@ -65,7 +67,6 @@ class PortfolioAdd extends Component{
                 label : portfolio && portfolio.label ? portfolio.label : '',
             },
         })
-
 
     }
 
@@ -120,14 +121,14 @@ class PortfolioAdd extends Component{
 
                                 {/* ------ Buy Price ------ */}
                                 <div className="buy-price-wrapper row">
-                                    <div className="col-md-4">
-                                        <NumberInput id="buy_price_usd" value={this.state.buy_price} label="Buy Price (USD)" placeholder="Buy Price USD" onValueChange={this.onValueChange} />
+                                    <div className="col-md-4 col-sm-4">
+                                        <NumberInput id="buy_price_usd" value={this.state.buy_price_usd} label="Buy Price (USD)" placeholder="Buy Price USD" onValueChange={this.onValueChange} />
                                     </div>
-                                    <div className="col-md-4">
-                                        <NumberInput id="buy_price_btc" value={this.state.buy_price} label="Buy Price (BTC)" placeholder="Buy Price BTC" onValueChange={this.onValueChange} />
+                                    <div className="col-md-4 col-sm-4">
+                                        <NumberInput id="buy_price_btc" value={this.state.buy_price_btc} label="Buy Price (BTC)" placeholder="Buy Price BTC" onValueChange={this.onValueChange} />
                                     </div>
-                                    <div className="col-md-4">
-                                        <NumberInput id="buy_price_eth" value={this.state.buy_price} label="Buy Price (ETH)" placeholder="Buy Price ETH" onValueChange={this.onValueChange} />
+                                    <div className="col-md-4 col-sm-4">
+                                        <NumberInput id="buy_price_eth" value={this.state.buy_price_eth} label="Buy Price (ETH)" placeholder="Buy Price ETH" onValueChange={this.onValueChange} />
                                     </div>
                                 </div>
 
@@ -169,7 +170,7 @@ class PortfolioAdd extends Component{
     onSubmit(evt){
         evt.preventDefault();
         const { user, portfolio, portfolioActions } = this.props;
-        const { amount, crypto, buy_price, description } = this.state;
+        const { crypto } = this.state;
 
         if( crypto.id==="" && crypto.value==="" && crypto.label==="" ){
             portfolioActions.errorSet({ payload: { message: 'Please select a coin first' } });
@@ -211,6 +212,7 @@ PortfolioAdd.propTypes = {
     portfolioActions : PropTypes.object,
     cryptoIds        : PropTypes.array,
     cryptoIdsActions : PropTypes.object,
+    coinmarketcapTicker : PropTypes.object,
 }
 
 export default PortfolioAdd;

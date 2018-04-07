@@ -8,13 +8,17 @@ import { initStore } from '../../store';
 import Layout from '../../components/Layout';
 import PortfolioAdd from '../../containers/PortfolioAdd'
 
+import axios from 'axios';
 
 class PortfolioAddPage extends React.Component{
 
     static async getInitialProps({ store, req }) {
 
         const isServer = !!req;
-        return { initialState: store.getState(), isServer };
+
+        const apiRes = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=0');
+
+        return { initialState: store.getState(), isServer, coinmarketcapTicker: apiRes.data };
     }
 
     constructor(props) {
@@ -27,7 +31,7 @@ class PortfolioAddPage extends React.Component{
         return(
             <Provider store={this.store}>
                 <Layout>
-                    <PortfolioAdd />
+                    <PortfolioAdd coinmarketcapTicker={this.props.coinmarketcapTicker}/>
                 </Layout>
             </Provider>
         )
@@ -36,6 +40,7 @@ class PortfolioAddPage extends React.Component{
 
 PortfolioAddPage.propTypes = {
     initialState : PropTypes.object,
+    coinmarketcapTicker : PropTypes.array,
     isServer : PropTypes.bool,
 }
 

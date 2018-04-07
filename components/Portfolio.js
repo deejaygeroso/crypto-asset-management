@@ -19,6 +19,10 @@ class Portfolio extends Component{
         this.routeToPortfolioAdd = this.routeToPortfolioAdd.bind(this);
     }
 
+    componentWillUnmount(){
+        const { portfolioActions } = this.props;
+    }
+
     componentDidMount(){
         const { portfolioActions, coinmarketcapTicker } = this.props;
 
@@ -42,6 +46,8 @@ class Portfolio extends Component{
     render(){
         const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, cryptoGlobal } = this.props;
         const { isTableView } = this.state;
+        console.log('ussss', this.props.user);
+        
         
         return(
             <div className="page-container">
@@ -87,7 +93,7 @@ class Portfolio extends Component{
 
     routeToPortfolioAdd(payload){
         const { portfolioActions } = this.props;
-        portfolioActions.portfolioSet({payload})
+        portfolioActions.itemSet({payload})
         Router.push('/portfolio/add');
     }
 

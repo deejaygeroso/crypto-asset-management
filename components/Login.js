@@ -17,7 +17,7 @@ class Login extends Component {
     }
 
     componentWillUnmount(){
-        this.props.userActions.userErrorClear()
+        this.props.userActions.errorClear()
     }
 
     renderLoginForm(){
@@ -103,7 +103,7 @@ class Login extends Component {
 
         if(email==='' || password===''){
             this.setState({password: ''});
-            return userActions.userErrorSet({
+            return userActions.errorSet({
                 payload: {
                     message: 'Please fill out the fields!',
                 }
@@ -111,7 +111,7 @@ class Login extends Component {
         }
 
         this.setState({password: ''});
-        userActions.userLogin({
+        userActions.login({
             params: {
                 email,
                 password,

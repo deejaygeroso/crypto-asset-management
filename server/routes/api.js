@@ -186,7 +186,7 @@ module.exports = function(app, router, auth){
             doc['label'] = portfolioData.crypto.label
 
             doc.save();
-            res.send({data: doc, message: 'Update successful!'})
+            res.send(doc)
           });
     })
 

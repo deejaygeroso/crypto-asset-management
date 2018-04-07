@@ -16,7 +16,7 @@ class PortfolioPage extends Component{
 
         const isServer = !!req;
 
-        const apiRes = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=0');
+        const apiRes = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=0&&convert=ETH');
 
         return { initialState: store.getState(), isServer, coinmarketcapTicker: apiRes.data };
     }
