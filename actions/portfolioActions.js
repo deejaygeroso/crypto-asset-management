@@ -91,6 +91,13 @@ export const itemListRemove = ({item}) => ({
     item,
 })
 
+/*
+ * remove an item on the list
+ */
+export const itemListClear = () => ({
+    type: ACTION_TYPES.ITEMLIST_CLEAR,
+})
+
 /* ----------------------------------------------------------------------------------
  * Create new portfolio item on the database
  * -------------------------------------------------------------------------------- */

@@ -22,7 +22,8 @@ class MainPage extends Component{
     }
 
     componentWillUnmount(){
-        // const { portfolioActions } = this.props;
+        const { portfolioActions } = this.props;
+        portfolioActions.itemListClear();
     }
 
     /* ----------------------------------------------------------------------------------
@@ -51,7 +52,7 @@ class MainPage extends Component{
                 {/* ----------------------------- */}
                 {
                     isPortfolioTableVisible ?
-                        <div className="container">
+                        <div className="container-fluid" style={{paddingLeft: 50, paddingRight: 50}}>
                             <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100'}}>Portfolio Table</h1>
                             <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
                         </div> : <div></div>
