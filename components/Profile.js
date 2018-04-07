@@ -55,6 +55,9 @@ class Profile extends Component {
         })
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Update form fields
+     * -------------------------------------------------------------------------------- */
     componentWillReceiveProps(nextProps){
         const { user } = nextProps;
         this.setState({
