@@ -128,9 +128,9 @@ class MainPage extends Component{
      * -------------------------------------------------------------------------------- */
     toggleView(buttonName){
         this.setState({
-            isPortfolioTableVisible : buttonName==="3" ? true : false,
+            isPortfolioTableVisible : buttonName==="1" ? true : false,
             isWidgetVisible         : buttonName==="2" ? true : false,
-            isStatsTableVisible     : buttonName==="1" ? true : false,
+            isStatsTableVisible     : buttonName==="3" ? true : false,
         })
     }
 
