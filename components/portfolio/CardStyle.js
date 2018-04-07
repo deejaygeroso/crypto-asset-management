@@ -39,7 +39,6 @@ const CardStyle = () => (
                     font-weight: bold;
                 }
 
-
                 .card-24h-volume-usd{
                     margin-top: 7px;
                 }

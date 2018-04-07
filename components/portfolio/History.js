@@ -38,7 +38,7 @@ const History = ({id, cryptoHistory}) => (
                 margin-top: 7px;
             }
             .history-box{
-                width: 48px;
+                width: 55px;
             }
             .history-box-date{
             }

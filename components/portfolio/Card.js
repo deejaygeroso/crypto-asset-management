@@ -13,14 +13,18 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
     <div className="card card-clickable" onClick={()=>{onClick(portfolio)}} >
         <div className="d-flex flex-row" >
 
-            { /* ----- image ----- */ }
+            {/* ----------------------------- */}
+            {/* ----------- Image ----------- */}
+            {/* ----------------------------- */}
             <div className="card-image" >
                 <img src={`/static/icon/${portfolio && portfolio.symbol && portfolio.symbol.toLowerCase()}.png`} className="align-content-center" height="60" width="60" / >
             </div>
 
             <div className="card-bit-header pl-3" >
 
-                { /* ----- name with symbol ----- */ }
+               {/* ----------------------------- */}
+               {/* ----------- Symbol ---------- */}
+               {/* ----------------------------- */}
                 <div className="d-flex flex-row">
                     <div className="" > <p className="crypto-name">{portfolio && portfolio.name }</p></div>
                     <div className="line-height-0-6">
@@ -39,7 +43,9 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
                 </div>
                 */}
 
-                { /* ----- price_usd ----- */ }
+               {/* ----------------------------- */}
+               {/* ---------- Price USD -------- */}
+               {/* ----------------------------- */}
                 <div className="card-price-usd line-height-0-4" >
                     <p className="line-height-0-4 font-size-10" >
                         <span className="font-weight-100">
@@ -51,7 +57,9 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
                     </p>
                 </div>
 
-                { /* ----- ath & atl ----- */ }
+               {/* ----------------------------- */}
+               {/* ---------- ATH & ATL -------- */}
+               {/* ----------------------------- */}
                 {
                     cryptoHistory && Object.keys(cryptoHistory).length!==0 ? 
                     <div className="card-ath-atl line-height-0-4" >
@@ -84,7 +92,9 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
         </div> 
 
         <div className="d-flex flex-row align-items-center card-sub-info" >
-                { /* ----- rank ----- */ }
+               {/* ----------------------------- */}
+               {/* ------------ RANK ----------- */}
+               {/* ----------------------------- */}
                 <div className="rank d-flex flex-grow-1 align-self-center justify-content-center align-items-center text-center" >
                     <div className="flex-column" >
                         <p className="text-center align-middle font-weight-600" > RANK </p> <br / >
@@ -92,7 +102,9 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
                     </div>
                 </div>
 
-                { /* ----- market_cap_usd ----- */ }
+               {/* ----------------------------- */}
+               {/* ------- Market Cap USD ------ */}
+               {/* ----------------------------- */}
                 <div className="d-flex flex-grow-1 align-self-center justify-content-center align-items-center text-center" >
                     <div className="flex-column">
                         <p className="text-center align-middl font-weight-600"> MARKET CAP </p> <br />
@@ -102,9 +114,11 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
                     </div>
                 </div>
 
-                { /* ----- 24h_volume_usd ----- */ }
+               {/* ----------------------------- */}
+               {/* ------- 24h Volume USD ------ */}
+               {/* ----------------------------- */}
                 <div className="d-flex flex-grow-1 align-self-center justify-content-center align-items-center text-center" >
-                    <div className="flex-column" >
+                    <div className="flex-column" style={{lineHeight: 0.8}}>
                         <p className="text-center align-middle font-weight-600">24h VOLUME</p>
                         <br/>
                         <p className="text-center align-middle">
@@ -113,8 +127,10 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
                                 &nbsp; ({ getPercentage(portfolio, cryptoHistory, '24h_volume_usd') })
                             </span>
                             <br/>
-                                $ {commarize(volumeAth[portfolio && portfolio.id])} (ATH)
-                                $ {commarize(volumeAtl[portfolio && portfolio.id])} (ATH)
+                            <span>
+                                <span className="card-ath">$ {commarize(volumeAth[portfolio && portfolio.id])} (ATH)</span>
+                                <span className="card-atl">$ {commarize(volumeAtl[portfolio && portfolio.id])} (ATH)</span>
+                            </span>
                         </p>
                     </div>
                 </div>
