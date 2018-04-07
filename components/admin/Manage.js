@@ -18,12 +18,12 @@ class Manage extends Component {
 
     componentDidMount(){
         const { userActions } = this.props;
-        userActions.usersListFindAll();
+        userActions.itemListFindAll();
 
     }
 
     componentWillUnmount(){
-        this.props.userActions.userErrorClear()
+        this.props.userActions.errorClear()
     }
 
     renderUsersCard(user_id, key){
@@ -32,7 +32,7 @@ class Manage extends Component {
         return(
             <div id="user-card" onClick={()=>this.gotoUserPortfolio(user._id)} key={key} className="card d-flex flex-row flex-wrap align-content-center align-items-center">
                 <div className="card-image " >
-                    <img src="/static/profile-pic.svg" className="align-content-center" height="60" width="60" / >
+                    <img src="/static/profile-pic.svg" className="align-content-center" height="60" width="60" />
                 </div>
                 <div className="flex-grow-1"></div>
                 <div className="">
@@ -185,7 +185,7 @@ class Manage extends Component {
         evt.preventDefault()
 
         if(!this.validateEmail(email)){
-            return userActions.userErrorSet({
+            return userActions.errorSet({
                 payload: {
                     message: 'Invalid email!',
                 }
@@ -193,14 +193,14 @@ class Manage extends Component {
         }
 
         if(email==='' || password===''){
-            return userActions.userErrorSet({
+            return userActions.errorSet({
                 payload: {
                     message: 'Please fill up the input!',
                 }
             })
         }
 
-        userActions.userCreate({
+        userActions.itemCreate({
             params: {
                 email,
                 password,
@@ -218,11 +218,25 @@ class Manage extends Component {
     /* ----------------------------------------------------------
      * Route to update specific clients portfolio
      * -------------------------------------------------------- */
-    gotoUserPortfolio(_id){
-        const { userActions } = this.props;
-        if( userActions.userFind({params: {_id}}) ){
-            Router.push('/admin/userportfolio');
-        }
+    gotoUserPortfolio(user_id){
+        const { userActions, portfolioActions, coinmarketcapTicker } = this.props;
+
+        // might have some issue with asnycronousity of data especially when updating or adding of user
+        userActions.itemFind({
+            params: {
+                _id : user_id
+            }
+        })
+
+        // get users id on cookie then fetch portfolio of user from database
+        portfolioActions.itemListFindByUserId({
+            params: {
+                user_id,
+            },
+            coinmarketcapTicker,
+        });
+
+        Router.push('/admin/userportfolio');
     }
 
 }
@@ -233,6 +247,8 @@ Manage.propTypes = {
     userSuccess : PropTypes.object,
     usersList   : PropTypes.object,
     userActions : PropTypes.object,
+    portfolioActions : PropTypes.object,
+    coinmarketcapTicker : PropTypes.array,
 }
 
 export default Manage;

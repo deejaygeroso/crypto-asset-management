@@ -75,6 +75,22 @@ export const itemListAppend = ({item}) => ({
     item,
 })
 
+/*
+ * append an item on the list
+ */
+export const itemListPatch = ({item}) => ({
+    type: ACTION_TYPES.ITEMLIST_PATCH,
+    item,
+})
+
+/*
+ * remove an item on the list
+ */
+export const itemListRemove = ({item}) => ({
+    type: ACTION_TYPES.ITEMLIST_REMOVE,
+    item,
+})
+
 /* ----------------------------------------------------------------------------------
  * Create new portfolio item on the database
  * -------------------------------------------------------------------------------- */
@@ -107,7 +123,7 @@ export const itemUpdate = ({_id, params}) => {
             const res = await axios.post('/api/portfolio/update', Object.assign({}, params, { _id }));
             
             dispatch(itemSet({payload: res.data}))
-            dispatch(itemListAppend({item: res.data}));
+            dispatch(itemListPatch({item: res.data}));
             dispatch(successSet({payload: {message: 'Coin successfuly creatd!'} }));
             dispatch(errorClear());
 
@@ -128,6 +144,7 @@ export const itemRemove = ({_id}) => {
             await axios.post('/api/portfolio/remove', {_id});
             const message = 'Coin successfuly removed!';
             dispatch(successSet({payload: {message} }));
+            dispatch(itemListRemove({item: {_id}}));
             dispatch(errorClear());
 
         } catch (error) {

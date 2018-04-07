@@ -160,31 +160,31 @@ PortfolioTable.propTypes = {
 export default PortfolioTable;
 
 // check if its a positive or negative
-function isPositiveNumber(numberString){
-    const number = parseFloat(numberString)
-    if(number>=0){
-        return true;
-    }
-    return false;
-}
+// function isPositiveNumber(numberString){
+//     const number = parseFloat(numberString)
+//     if(number>=0){
+//         return true;
+//     }
+//     return false;
+// }
 
-function calculatePercentage(portfolioList, id){
-    let totalValuation = calculateTotalValuation(portfolioList)
-    let currentValuation = calculateValuation(portfolioList.byId[id])
-    let currentPercentage = ( parseFloat(currentValuation)/parseFloat(totalValuation) ) * 100;
+// function calculatePercentage(portfolioList, id){
+//     let totalValuation = calculateTotalValuation(portfolioList)
+//     let currentValuation = calculateValuation(portfolioList.byId[id])
+//     let currentPercentage = ( parseFloat(currentValuation)/parseFloat(totalValuation) ) * 100;
 
-    return currentPercentage.toFixed(2);
-}
+//     return currentPercentage.toFixed(2);
+// }
 
-function calculateTotalValuation(portfolioList){
-    let totalValuation = 0;
-    portfolioList && portfolioList.allIds && portfolioList.allIds.map((id)=>{
-        if(id){
-            totalValuation = totalValuation + calculateValuation(portfolioList.byId[id])
-        }
-    })
-    return totalValuation;
-}
+// function calculateTotalValuation(portfolioList){
+//     let totalValuation = 0;
+//     portfolioList && portfolioList.allIds && portfolioList.allIds.map((id)=>{
+//         if(id){
+//             totalValuation = totalValuation + calculateValuation(portfolioList.byId[id])
+//         }
+//     })
+//     return totalValuation;
+// }
 
 function calculateValuation(cryptoData, fieldName){
     const amount = parseFloat(cryptoData.amount)

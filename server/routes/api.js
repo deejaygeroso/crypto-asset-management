@@ -53,6 +53,12 @@ module.exports = function(app, router, auth){
      * -------------------------------------------------------- */
     router.post('/account/find', (req, res)=>{
         const userData = req.body;
+
+        // if userData object is empty return an error
+        if(Object.keys(userData).length===0 || !userData._id || userData._id===''){
+            return res.send({message: 'No data was passed as a parameter!'});
+        }
+
         UserModel.findOne(userData, (err, docs) => {
             if(err) return res.status(400).send({message: err});
             res.send(docs)

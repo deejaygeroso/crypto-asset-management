@@ -8,7 +8,7 @@ module.exports = function(app, router){
             if(isAdmin){
                 return app.render(req, res, '/admin/user')
             }
-            return res.redirect('/portfolio/list');
+            return res.redirect(main_page);
         })
     router.route('/manage')
         .get(function (req, res) {
@@ -16,7 +16,7 @@ module.exports = function(app, router){
             if(isAdmin){
                 return app.render(req, res, '/admin/manage')
             }
-            return res.redirect('/portfolio/list');
+            return res.redirect(main_page);
         })
 
     router.route('/userportfolio')
@@ -25,7 +25,7 @@ module.exports = function(app, router){
             if(isAdmin){
                 return app.render(req, res, '/admin/userportfolio')
             }
-            return res.redirect('/portfolio/list');
+            return res.redirect(main_page);
         })
 
     router.route('/userportfolioadd')
@@ -34,6 +34,6 @@ module.exports = function(app, router){
             if(isAdmin){
                 return app.render(req, res, '/admin/userportfolioadd')
             }
-            return res.redirect('/portfolio/list');
+            return res.redirect(main_page);
         })
 };

@@ -40,6 +40,9 @@ export const errorClear = () => ({
     type: ACTION_TYPES.USER_ERROR_CLEAR,
 })
 
+/* ----------------------------------------------------------------------------------
+ * Find all users that is not an admin
+ * -------------------------------------------------------------------------------- */
 export const itemListFindAll = () => {
     return async dispatch => {
         try {
@@ -62,12 +65,12 @@ export const itemFind = ({params}) => {
     return async dispatch => {
         try {
             const res = await axios.post('/api/account/find', {_id});
-
             // global data used for current logged in user
             dispatch(itemSet({payload: res.data}));
             dispatch(errorClear());
 
         } catch (err) {
+            // console.log('itemFind err', err)
             const payload = { message: 'Unable to find user!' }
             dispatch(errorSet({payload}));
         }
@@ -108,10 +111,11 @@ export const login = ({params}) => {
     return async dispatch => {
         try {
             const res = await axios.post('/api/account/login', params);
+            
             dispatch(itemSet({payload: res.data}));
             dispatch(errorClear());
             if(res.data.isAdmin){
-                Router.push('/admin/user');
+                Router.push('/admin/manage');
             }else{
                 Router.push('/portfolio/list');
             }

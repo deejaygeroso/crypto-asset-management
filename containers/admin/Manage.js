@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Manage from '../../components/admin/Manage';
 import * as userActions from '../../actions/userActions';
+import * as portfolioActions from '../../actions/portfolioActions';
 
 function mapStateToProps(state) {
   return {
@@ -14,6 +15,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
       userActions: bindActionCreators(userActions, dispatch),
+      portfolioActions: bindActionCreators(portfolioActions, dispatch),
   }
 }
 

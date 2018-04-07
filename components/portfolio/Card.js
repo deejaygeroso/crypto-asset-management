@@ -9,8 +9,8 @@ import {
 import History from './History';
 import CardStyle from './CardStyle';
 
-const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl}) => (
-    <div className="card"  style={{display: ''}}>
+const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, onClick}) => (
+    <div className="card card-clickable" onClick={()=>{onClick(portfolio)}} >
         <div className="d-flex flex-row" >
 
             { /* ----- image ----- */ }
@@ -131,6 +131,7 @@ Card.propTypes = {
     priceAth:      PropTypes.object,
     volumeAtl:     PropTypes.object,
     volumeAth:     PropTypes.object,
+    onClick:     PropTypes.func,
 }
 
 export default Card;
@@ -144,8 +145,7 @@ const numberWithCommas = (input) => {
 }
 
 
-function checkIfIncreaseOrDecrease(crypto, cryptoHistory, field) {
-
+function checkIfIncreaseOrDecrease(crypto, cryptoHistory, field) { 
     const newAmount = parseFloat(crypto && crypto[field]);
     const originalAmount = parseFloat(cryptoHistory && cryptoHistory[crypto && crypto.id] && cryptoHistory[crypto && crypto.id][0] && cryptoHistory[crypto && crypto.id][0][field]);
     if (newAmount >= originalAmount) {

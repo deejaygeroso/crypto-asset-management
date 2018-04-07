@@ -14,6 +14,12 @@ const CardStyle = () => (
                     background-color: #fff;
                     font-family: 'Lato', sans-serif;
                 }
+                .card-clickable{
+                    cursor: pointer;
+                }
+                .card-clickable:hover{
+                    box-shadow: 4px 4px 12px #888;
+                }
                 .card p{
                     display: inline;
                     font-size: 12px;

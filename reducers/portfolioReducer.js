@@ -75,6 +75,18 @@ export const portfolioList = (state = initialPortfoliosList, {type, payload, ite
             const allIds = Array.prototype.concat([item._id], state.allIds)
             return Object.assign({}, state, { allIds, byId });
         }
+        case ACTION_TYPES.ITEMLIST_PATCH:{
+            state.byId[item._id] = item;
+            return Object.assign({}, state);
+        }
+        case ACTION_TYPES.ITEMLIST_REMOVE: {
+            const { _id } = item;
+            var index = state.allIds.indexOf(_id);
+            if (index > -1) {
+                state.allIds.splice(index, 1);
+            }
+            return Object.assign({}, state);
+        }
         case ACTION_TYPES.ITEMLIST_CLEAR:
             return initialPortfoliosList;
         default:
