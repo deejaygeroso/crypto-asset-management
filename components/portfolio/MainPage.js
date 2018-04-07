@@ -78,12 +78,12 @@ class MainPage extends Component{
                 {/* ----------------------------- */}
                 {/* --------- Add Button -------- */}
                 {/* ----------------------------- */}
-                <div className="btn-wrapper bounceInUp animated">
-                    <button onClick={()=>this.routeToPortfolioAdd({})} className="btn btn-lg btn-primary btn-block" type="submit">
-                        Add Coin
-                    </button>
-                </div>
-            <style jsx global>{`
+                <button onClick={()=>this.routeToPortfolioAdd({})} className="btn-portfolio-add btn btn-lg btn-warning btn-table flip animated" type="submit" >
+                    <span>
+                        <i className="fas fa-lg fa-plus"></i>
+                    </span>
+                </button>
+                <style jsx global>{`
                     .card-container{
                         margin-top: 10px;
                     }
@@ -91,7 +91,17 @@ class MainPage extends Component{
                         margin: 10px;
                         margin-top: 15px;
                     }
-      
+                    .btn-portfolio-add{
+                        position: fixed;
+                        right: 50px;
+                        width: 80px;
+                        height: 80px;
+                        bottom: 50px;
+                        border-radius: 50px;
+                        background-color: #64d1b6;
+                        color: #fff;
+                        box-shadow: 2px 2px 8px #888;
+                    }
                 `}</style>
         </div>
         )

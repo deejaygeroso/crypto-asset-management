@@ -55,6 +55,7 @@ class Portfolio extends Component{
 Portfolio.propTypes = {
     coinmarketcapTicker : PropTypes.array,
     portfolioActions    : PropTypes.object,
+    userActions    : PropTypes.object,
 }
 
 export default Portfolio;
