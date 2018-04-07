@@ -46,8 +46,6 @@ class Portfolio extends Component{
     render(){
         const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, cryptoGlobal } = this.props;
         const { isTableView } = this.state;
-        console.log('ussss', this.props.user);
-        
         
         return(
             <div className="page-container">
