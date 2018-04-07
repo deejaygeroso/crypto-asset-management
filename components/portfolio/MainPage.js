@@ -25,14 +25,18 @@ class MainPage extends Component{
         // const { portfolioActions } = this.props;
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Page
+     * -------------------------------------------------------------------------------- */
     render(){
-        const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, cryptoGlobal } = this.props;
+        const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, coinmarketcapGlobal } = this.props;
         const { isWidgetVisible, isStatsTableVisible, isPortfolioTableVisible } = this.state;
+        
         return(
             <div className="page-container">
                 <Navbar />
                 <Header user={user} 
-                        cryptoGlobal={cryptoGlobal} 
+                        cryptoGlobal={coinmarketcapGlobal} 
                         cryptoList={portfolioList} 
                         isWidgetVisible={isWidgetVisible} 
                         isStatsTableVisible={isStatsTableVisible} 
@@ -69,7 +73,14 @@ class MainPage extends Component{
                         <div className="d-flex align-content-around flex-wrap justify-content-center bounceInUp animated">
                             {
                                 portfolioList && portfolioList.allIds && portfolioList.allIds.map(_id=>(
-                                    <Card portfolio={portfolioList.byId[_id]} cryptoHistory={cryptoHistory} priceAth={priceAth} priceAtl={priceAtl} volumeAth={volumeAth} volumeAtl={volumeAtl} onClick={this.routeToPortfolioAdd} key={_id}/>
+                                    <Card portfolio={portfolioList.byId[_id]} 
+                                          cryptoHistory={cryptoHistory} 
+                                          priceAth={priceAth} 
+                                          priceAtl={priceAtl} 
+                                          volumeAth={volumeAth} 
+                                          volumeAtl={volumeAtl} 
+                                          onClick={this.routeToPortfolioAdd} 
+                                          key={_id}/>
                                 )) 
                             }
                         </div> : <div></div>
@@ -107,6 +118,9 @@ class MainPage extends Component{
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Toggle Main Page
+     * -------------------------------------------------------------------------------- */
     toggleView(buttonName){
         this.setState({
             isWidgetVisible         : buttonName==="1" ? true : false,
@@ -115,6 +129,9 @@ class MainPage extends Component{
         })
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Add new coin to portfolio
+     * -------------------------------------------------------------------------------- */
     routeToPortfolioAdd(payload){
         const { portfolioActions, portfolioAddRouteName } = this.props;
         portfolioActions.itemSet({payload})
@@ -133,9 +150,9 @@ MainPage.propTypes = {
     priceAtl            : PropTypes.object,
     volumeAth           : PropTypes.object,
     volumeAtl           : PropTypes.object,
-    cryptoGlobal        : PropTypes.object,
     cryptoHistory       : PropTypes.object,
     coinmarketcapTicker : PropTypes.array,
+    coinmarketcapGlobal : PropTypes.object,
     //actions
     portfolioActions    : PropTypes.object,
 }

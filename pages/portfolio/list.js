@@ -16,9 +16,10 @@ class PortfolioPage extends Component{
 
         const isServer = !!req;
 
-        const apiRes = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=0&&convert=ETH');
+        const apiCMCTickerRes = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=0&&convert=ETH');
+        const apiCMCGlobalRes = await axios.get('https://api.coinmarketcap.com/v1/global/');
 
-        return { initialState: store.getState(), isServer, coinmarketcapTicker: apiRes.data };
+        return { initialState: store.getState(), isServer, coinmarketcapTicker: apiCMCTickerRes.data, coinmarketcapGlobal: apiCMCGlobalRes.data };
     }
 
     constructor(props) {
@@ -28,10 +29,11 @@ class PortfolioPage extends Component{
     }
 
     render(){
+        const { coinmarketcapTicker, coinmarketcapGlobal } = this.props;
         return(
             <Provider store={this.store}>
                 <Layout>
-                    <Portfolio coinmarketcapTicker={this.props.coinmarketcapTicker}/>
+                    <Portfolio coinmarketcapTicker={coinmarketcapTicker} coinmarketcapGlobal={coinmarketcapGlobal}/>
                 </Layout>
             </Provider>
         )
@@ -40,6 +42,7 @@ class PortfolioPage extends Component{
 
 PortfolioPage.propTypes = {
     coinmarketcapTicker : PropTypes.array,
+    coinmarketcapGlobal : PropTypes.object,
     initialState : PropTypes.object,
     isServer : PropTypes.bool,
 }

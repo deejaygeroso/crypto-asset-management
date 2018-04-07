@@ -19,7 +19,7 @@ const Header = ({user, cryptoGlobal, cryptoList, onClick}) => (
         </div>
 
         <div className="d-flex flex-wrap portfolio-header container">
-            <div className="d-flex align-items-center justify-content-start">
+            <div className="d-flex align-items-center justify-content-start" style={{marginTop: 15}}>
                 {/* ----------------------------- */}
                 {/* ------ Toggle Buttons ------- */}
                 {/* ----------------------------- */}
@@ -57,6 +57,8 @@ const Header = ({user, cryptoGlobal, cryptoList, onClick}) => (
                     <span className="total-valuation">Total Valuation: $ {calculateTotalValuation(cryptoList)}</span>
                 </div>
                 <div className="d-flex flex-row global-data-sub">
+                    <span>Markets: {cryptoGlobal && cryptoGlobal.active_markets}</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <span className="flex-grow-1">Market Cap: $ {formatMoney(cryptoGlobal && cryptoGlobal.total_market_cap_usd, 2, 3, ',')}</span>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <span className="flex-grow-1">BTC Dominance: {cryptoGlobal && cryptoGlobal.bitcoin_percentage_of_market_cap} %</span>

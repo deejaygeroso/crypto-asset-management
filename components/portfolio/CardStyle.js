@@ -8,7 +8,7 @@ const CardStyle = () => (
                 }
                 .card{
                     margin: 10px;
-                    width: 360px;
+                    width: 420px;
                     line-height: 1;
                     box-shadow: 2px 2px 5px #888;
                     background-color: #fff;

@@ -51,6 +51,7 @@ const HeaderStyles = () => (
             .total-valuation{
                 font-size: 50px;
                 text-align: right;
+                line-height: 1;
             }
             .gradient-header{
                 margin-top: 50px;
@@ -62,12 +63,25 @@ const HeaderStyles = () => (
             .total-valuation-mobile-view{
                 display: none;
             }
+            @media (min-width: 991px) and (max-width: 1200px) {
+                .total-valuation{
+                    font-size: 40px;
+                }
+            }
             @media (min-width: 768px) and (max-width: 991px) {
                 .global-data-sub{
                     font-size: 12px
                 }
                 .total-valuation{
-                    font-size: 30px;
+                    font-size: 23px;
+                }
+                .user-name-wrapper>h1 {
+                    font-size: 26px;
+                    line-height: 1;
+                }
+                .user-name-wrapper>p{
+                    line-height: 1;
+                    font-size: 15px;
                 }
             }
             @media (max-width: 767px) {

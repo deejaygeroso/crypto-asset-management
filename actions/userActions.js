@@ -65,7 +65,6 @@ export const itemFind = ({params}) => {
     return async dispatch => {
         try {
             const res = await axios.post('/api/account/find', {_id});
-            // global data used for current logged in user
             dispatch(itemSet({payload: res.data}));
             dispatch(errorClear());
 

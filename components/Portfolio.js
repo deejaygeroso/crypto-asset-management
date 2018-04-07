@@ -45,7 +45,7 @@ class Portfolio extends Component{
     render(){
         return(
             <div>
-                <MainPage  portfolioAddRouteName="/portfolio/add" />
+                <MainPage  portfolioAddRouteName="/portfolio/add" coinmarketcapGlobal={this.props.coinmarketcapGlobal}/>
             </div>
         )
     }
@@ -54,6 +54,7 @@ class Portfolio extends Component{
 
 Portfolio.propTypes = {
     coinmarketcapTicker : PropTypes.array,
+    coinmarketcapGlobal : PropTypes.object,
     portfolioActions    : PropTypes.object,
     userActions    : PropTypes.object,
 }
