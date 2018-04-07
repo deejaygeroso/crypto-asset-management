@@ -34,6 +34,7 @@ class Profile extends Component {
     componentDidMount(){
         const { user, userActions } = this.props;
 
+        // just fetch user based on stored cookie
         const userCookie = Cookies.get('user');
         if(userCookie){
             const user = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object

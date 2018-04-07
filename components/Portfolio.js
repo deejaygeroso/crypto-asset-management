@@ -11,12 +11,11 @@ class Portfolio extends Component{
         super(props);
     }
 
-    componentWillUnmount(){
-        // const { portfolioActions } = this.props;
-    }
-
+    /* ----------------------------------------------------------------------------------
+     * Fetch user info and his/her portfolio
+     * -------------------------------------------------------------------------------- */
     componentDidMount(){
-        const { portfolioActions, coinmarketcapTicker } = this.props;
+        const { userActions, portfolioActions, coinmarketcapTicker } = this.props;
 
         // get users id on cookie then fetch portfolio of user from database
         const userCookie = Cookies.get('user');
@@ -30,11 +29,19 @@ class Portfolio extends Component{
                         },
                         coinmarketcapTicker,
                     });
+                    userActions.itemFind({
+                        params: {
+                            _id: user._id,
+                        }
+                    })
                 }
             }
         }
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Page
+     * -------------------------------------------------------------------------------- */
     render(){
         return(
             <div>
@@ -46,18 +53,7 @@ class Portfolio extends Component{
 }
 
 Portfolio.propTypes = {
-//     //data
-//     user                : PropTypes.object,
-//     userActions         : PropTypes.object,
-//     portfolioList       : PropTypes.object,
-//     priceAth            : PropTypes.object,
-//     priceAtl            : PropTypes.object,
-//     volumeAth           : PropTypes.object,
-//     volumeAtl           : PropTypes.object,
-//     cryptoGlobal        : PropTypes.object,
-//     cryptoHistory       : PropTypes.object,
     coinmarketcapTicker : PropTypes.array,
-//     //actions
     portfolioActions    : PropTypes.object,
 }
 

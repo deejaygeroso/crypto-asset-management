@@ -11,6 +11,9 @@ class PortfolioAdd extends Component{
         super(props);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Fetch user Info onload
+     * -------------------------------------------------------------------------------- */
     componentDidMount(){
         const { userActions, cryptoIdsActions, coinmarketcapTicker } = this.props;
 
@@ -33,6 +36,9 @@ class PortfolioAdd extends Component{
 
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Page
+     * -------------------------------------------------------------------------------- */
     render(){
         return(
             <div>
