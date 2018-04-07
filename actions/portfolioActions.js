@@ -6,50 +6,80 @@ import * as cryptoHistoryActions from './cryptoHistoryActions';
 
 import { indexBy as __$indexBy } from 'underscore';
 
+/*
+ * set new item to store
+ */
 export const itemSet = ({payload}) => ({
     type: ACTION_TYPES.ITEM_SET,
     payload,
 })
 
+/*
+ * clear item from store
+ */
 export const itemClear = () => ({
     type: ACTION_TYPES.ITEM_CLEAR,
 })
 
+/*
+ * create new success message
+ */
 export const successSet = ({payload}) => ({
     type: ACTION_TYPES.SUCCESS_SET,
     payload,
 })
+
+/*
+ * clear success message
+ */
 export const successClear = () => ({
     type: ACTION_TYPES.SUCCESS_CLEAR,
 })
 
+/*
+ * set new error
+ */
 export const errorSet = ({payload}) => ({
     type: ACTION_TYPES.ERROR_SET,
     payload,
 })
+
+/*
+ * clear error
+ */
 export const errorClear = () => ({
     type: ACTION_TYPES.ERROR_CLEAR,
 })
 
-
+/*
+ * set new list of item (not used yet)
+ */
 export const itemListSet = ({payload}) => ({
     type: ACTION_TYPES.ITEMLIST_SET,
     payload,
 })
 
+/*
+ * merge portfoliolist and coinmarketcapTicker data
+ */
 export const itemListCompose = ({portfolioList, coinmarketcapTicker}) => ({
     type: ACTION_TYPES.ITEMLIST_COMPOSE,
     portfolioList,
     coinmarketcapTicker,
 });
 
+/*
+ * append an item on the list
+ */
 export const itemListAppend = ({item}) => ({
     type: ACTION_TYPES.ITEMLIST_APPEND,
     item,
 })
 
-
-export const portfolioCreate = ({params}) => {
+/* ----------------------------------------------------------------------------------
+ * Create new portfolio item on the database
+ * -------------------------------------------------------------------------------- */
+export const itemCreate = ({params}) => {
     return async dispatch => {
         try {
             // if success
@@ -68,7 +98,10 @@ export const portfolioCreate = ({params}) => {
     }
 }
 
-export const portfolioUpdate = ({_id, params}) => {
+/* ----------------------------------------------------------------------------------
+ * Update item from database by id
+ * -------------------------------------------------------------------------------- */
+export const itemUpdate = ({_id, params}) => {
     return async dispatch => {
         try {
             // if success
@@ -87,7 +120,10 @@ export const portfolioUpdate = ({_id, params}) => {
     }
 }
 
-export const portfolioRemove = ({_id}) => {
+/* ----------------------------------------------------------------------------------
+ * Remove item from database by id
+ * -------------------------------------------------------------------------------- */
+export const itemRemove = ({_id}) => {
     return async dispatch => {
         try {
             await axios.post('/api/portfolio/remove', {_id});
@@ -101,9 +137,9 @@ export const portfolioRemove = ({_id}) => {
     }
 }
 
-/* 
+/* ----------------------------------------------------------------------------------
  * Search for users portfolio & 7 day historyData, ath, atl based on his/her portfolio
- */
+ * -------------------------------------------------------------------------------- */
 export const itemListFindByUserId = ({params, coinmarketcapTicker}) => {
     return async dispatch => {
         try {

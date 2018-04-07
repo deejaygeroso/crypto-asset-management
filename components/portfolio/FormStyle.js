@@ -33,6 +33,10 @@ const FormStyle = () => (
                 padding: 0 0 10px 0px;
                 padding-right: 10px;
             }
+
+            .buy-price-wrapper > div{
+            }
+
             .inputField-password{
               margin-bottom: 10px !important;
               margin-left: 0px !important;

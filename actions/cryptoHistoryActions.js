@@ -34,18 +34,17 @@ export const volumeAthSet = ({payload}) => ({
     payload,
 });
 
-
-/* 
+/* ----------------------------------------------------------------------------------
  * Set the All time low data of price
- */
+ * -------------------------------------------------------------------------------- */
 export const volumeAtlSet = ({payload}) => ({
     type: ACTION_TYPES.VOLUME_ATL_SET,
     payload,
 });
 
-/* 
+/* ----------------------------------------------------------------------------------
  * Fin the 7 day historical data of crypto
- */
+ * -------------------------------------------------------------------------------- */
 export const find = ({params}) => {
   return async dispatch => {
     try {
@@ -66,10 +65,9 @@ export const find = ({params}) => {
   };
 }
 
-
-/* 
+/* ----------------------------------------------------------------------------------
  * Get the price ath and atl then calculate
- */
+ * -------------------------------------------------------------------------------- */
 export const calculatePriceAndVolumeAthAtl = ({params}) => {
   return async dispatch => {
     try {

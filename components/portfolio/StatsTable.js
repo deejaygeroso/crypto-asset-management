@@ -55,19 +55,19 @@ const StatsTable = ({portfolioList, onClick}) => (
                                 </td>
                                 { /* ------- 1h % Change ------ */ }
                                 <td scope="col">
-                                    <span className="num-span" style={{ color: portfolioList.byId[id]['percent_change_1h'].charAt(0)!=='-' ? 'green' : 'red' }}>
+                                    <span className="num-span" style={{ color: portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id]['percent_change_1h'] && portfolioList.byId[id]['percent_change_1h'].charAt(0)!=='-' ? 'green' : 'red' }}>
                                         {portfolioList.byId[id]['percent_change_1h']}
                                     </span>
                                 </td>
                                 { /* ------- 24h % Change ------ */ }
                                 <td scope="col">
-                                    <span className="num-span" style={{ color: portfolioList.byId[id]['percent_change_24h'].charAt(0)!=='-' ? 'green' : 'red' }}>
+                                    <span className="num-span" style={{ color: portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id]['percent_change_24h'] && portfolioList.byId[id]['percent_change_24h'].charAt(0)!=='-' ? 'green' : 'red' }}>
                                         {portfolioList.byId[id]['percent_change_24h']}
                                     </span>
                                 </td>
                                 { /* ------- 7d % Change ------ */ }
                                 <td scope="col">
-                                    <span className="num-span" style={{ color: portfolioList.byId[id]['percent_change_7d'].charAt(0)!=='-' ? 'green' : 'red' }}>
+                                    <span className="num-span" style={{ color: portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id]['percent_change_7d'] && portfolioList.byId[id]['percent_change_7d'].charAt(0)!=='-' ? 'green' : 'red' }}>
                                         {portfolioList.byId[id]['percent_change_7d']}
                                     </span>
                                 </td>

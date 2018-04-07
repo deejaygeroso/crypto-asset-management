@@ -4,6 +4,7 @@ import Router from 'next/router';
 
 import Navbar from '../containers/Navbar';
 import FormStyle from './portfolio/FormStyle';
+import { TextInput, NumberInput, TextArea } from './forms';
 
 import Cookies from 'js-cookie';
 import Select from 'react-select';
@@ -16,20 +17,22 @@ class PortfolioAdd extends Component{
         this.state = {
             amount: 0,
             crypto: {},
-            buy_price: 0,
-            description: '',
+            buy_price_usd: 0,
+            buy_price_btc: 0,
+            buy_price_eth: 0,
+            notes : '',
         }
-        this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);
         this.handleChangeSelect2 = this.handleChangeSelect2.bind(this);
+        this.onValueChange = this.onValueChange.bind(this);
     }
 
     componentWillUnmount(){
         const { portfolioActions } = this.props
-        portfolioActions.portfolioClear();
-        portfolioActions.portfolioSuccessClear();
-        portfolioActions.portfolioErrorClear();
+        portfolioActions.itemClear();
+        portfolioActions.successClear();
+        portfolioActions.errorClear();
     }
 
     componentDidMount(){
@@ -51,9 +54,11 @@ class PortfolioAdd extends Component{
         }
 
         this.setState({
-            amount      : portfolio && portfolio.amount ? portfolio.amount : 0,
-            buy_price   : portfolio && portfolio.buy_price ? portfolio.buy_price : 0,
-            description : portfolio && portfolio.description ? portfolio.description : '',
+            amount          : portfolio && portfolio.amount        ? portfolio.amount        : 0,
+            buy_price_usd   : portfolio && portfolio.buy_price_usd ? portfolio.buy_price_usd : 0,
+            buy_price_btc   : portfolio && portfolio.buy_price_btc ? portfolio.buy_price_btc : 0,
+            buy_price_eth   : portfolio && portfolio.buy_price_eth ? portfolio.buy_price_eth : 0,
+            notes           : portfolio && portfolio.notes         ? portfolio.notes         : '',
             crypto : {
                 id    : portfolio && portfolio.id ? portfolio.id : '',
                 value : portfolio && portfolio.value ? portfolio.value : '',
@@ -75,6 +80,7 @@ class PortfolioAdd extends Component{
                     <div className="fadeIn animated">
                        <div className=".card-profile">
 
+                            <p>Add Coin to your Portfolio</p>
                            <form className="form-signin">
 
                                {
@@ -99,7 +105,7 @@ class PortfolioAdd extends Component{
                                     </div> : <div />
                                 */}
 
-                                <label className="input-lable">Coin</label>
+                                <label className="input-lable">Coin*</label>
                                 <Select
                                     name="form-field-name"
                                     value={this.state.crypto}
@@ -109,33 +115,24 @@ class PortfolioAdd extends Component{
                                     placeholder="Select your favourite(s)"
                                     className="select-field"
                                 />
-                                <label className="input-lable">Amount</label>
-                                <input
-                                    type="number"
-                                    id="amount"
-                                    step="any"
-                                    value={this.state.amount}
-                                    className="form-control inputField"
-                                    placeholder="Amount"
-                                    onChange={(evt)=>this.onChange('amount', evt)}/>
-                                <label className="input-lable">Buy Price</label>
-                                <input
-                                    type="number"
-                                    id="buy_price"
-                                    step="any"
-                                    value={this.state.buy_price}
-                                    className="form-control inputField"
-                                    placeholder="Buy Price"
-                                    onChange={(evt)=>this.onChange('buy_price', evt)}/>
-                                <label className="input-lable">Description</label>
-                                <textarea
-                                    id="description"
-                                    className="form-control inputField textarea-field"
-                                    placeholder="Description"
-                                    value={this.state.description}
-                                    rows="4"
-                                    cols="50"
-                                    onChange={(evt)=>this.onChange('description', evt)}/>
+
+                                <NumberInput id="amount" value={this.state.amount} label="Amount" placeholder="Amount" onValueChange={this.onValueChange} />
+
+                                {/* ------ Buy Price ------ */}
+                                <div className="buy-price-wrapper row">
+                                    <div className="col-md-4">
+                                        <NumberInput id="buy_price_usd" value={this.state.buy_price} label="Buy Price (USD)" placeholder="Buy Price USD" onValueChange={this.onValueChange} />
+                                    </div>
+                                    <div className="col-md-4">
+                                        <NumberInput id="buy_price_btc" value={this.state.buy_price} label="Buy Price (BTC)" placeholder="Buy Price BTC" onValueChange={this.onValueChange} />
+                                    </div>
+                                    <div className="col-md-4">
+                                        <NumberInput id="buy_price_eth" value={this.state.buy_price} label="Buy Price (ETH)" placeholder="Buy Price ETH" onValueChange={this.onValueChange} />
+                                    </div>
+                                </div>
+
+                                <TextArea id="notes" value={this.state.notes} label="Notes" placeholder="Notes" onValueChange={this.onValueChange} />
+
                                 <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-submit" type="submit" >{addUpdateButtonName}</button>
                                 {
                                     portfolio && portfolio._id ?
@@ -157,42 +154,49 @@ class PortfolioAdd extends Component{
 		this.setState({ crypto });
     }
 
-    onChange(key, evt){
-        evt.preventDefault();
+    /* ----------------------------------------------------------------------------------
+     * Update state when input value has changed
+     * -------------------------------------------------------------------------------- */
+    onValueChange(key, value){
         let inputData = []
-        inputData[key] = evt.target.value;
+        inputData[key] = value;
         this.setState(inputData);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * When user press submit button
+     * -------------------------------------------------------------------------------- */
     onSubmit(evt){
         evt.preventDefault();
         const { user, portfolio, portfolioActions } = this.props;
         const { amount, crypto, buy_price, description } = this.state;
 
-        // make sure amount and crypto is not empty
-        if( !amount || Object.keys(crypto).length===0 || !buy_price || description==='' ){
-            portfolioActions.portfolioErrorSet({ payload: { message: 'Fill in all the input first' } });
-            portfolioActions.portfolioSuccessClear();
+        if( crypto.id==="" && crypto.value==="" && crypto.label==="" ){
+            portfolioActions.errorSet({ payload: { message: 'Please select a coin first' } });
+            portfolioActions.successClear();
             return;
         }
 
         if(portfolio._id){
-            portfolioActions.portfolioUpdate({
+            portfolioActions.itemUpdate({
                 _id: portfolio._id,
                 params: Object.assign({}, this.state, {user_id: user._id}),
             })
         }else{
-            portfolioActions.portfolioCreate({
+            portfolioActions.itemCreate({
                 params: Object.assign({}, this.state, {user_id: user._id}),
             });
         }
         Router.push('/portfolio/list');
     }
 
+    /* ----------------------------------------------------------------------------------
+     * When trying to update portfolio user can remove that item by pressing the delete button
+     * -------------------------------------------------------------------------------- */
     onRemove(evt){
         evt.preventDefault();
         const { portfolio, portfolioActions } = this.props;
-        portfolioActions.portfolioRemove({_id: portfolio._id});
+        portfolioActions.itemRemove({_id: portfolio._id});
         Router.push('/portfolio/list');
     }
 
