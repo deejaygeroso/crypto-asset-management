@@ -8,7 +8,6 @@ import * as portfolioActions from '../actions/portfolioActions';
 function mapStateToProps(state) {
   return {
     user:                state.user,
-    cryptoListPortfolio: state.cryptoListPortfolio,
     portfolioList:       state.portfolioList,
     cryptoHistory:       state.cryptoHistory,
     priceAth:            state.priceAth,

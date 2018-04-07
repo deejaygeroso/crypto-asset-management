@@ -46,7 +46,7 @@ class Portfolio extends Component{
         return(
             <div className="page-container">
                 <Navbar />
-                <Header user={user} cryptoGlobal={cryptoGlobal} cryptoList={cryptoListPortfolio} isTableView={isTableView} onClick={()=>this.setState({isTableView: !isTableView})} />
+                <Header user={user} cryptoGlobal={cryptoGlobal} cryptoList={portfolioList} isTableView={isTableView} onClick={()=>this.setState({isTableView: !isTableView})} />
 
                     <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
                 <div className="container">
