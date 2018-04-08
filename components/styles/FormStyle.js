@@ -14,6 +14,16 @@ const FormStyle = () => (
             .card-image-wrapper{
                 margin: 20px;
             }
+            .form-title{
+                color: #53d3aa;
+                text-align: center;
+                font-weight: 400;
+                font-size: 24px;
+                margin-top: 10px;
+                background-color: #12987014;
+                padding: 15px;
+                border-radius: 0;
+            }
             .inputField{
               padding: 10px;
               margin-left: 0px !important;

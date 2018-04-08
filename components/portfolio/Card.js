@@ -7,7 +7,7 @@ import {
 } from '../../lib/helpers';
 
 import History from './History';
-import CardStyle from './CardStyle';
+import CardStyle from '../styles/CardStyle';
 
 const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, onClick}) => (
     <div className="card card-clickable" onClick={()=>{onClick(portfolio)}} >

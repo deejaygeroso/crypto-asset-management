@@ -6,7 +6,7 @@ import {
     commarize
 } from '../../lib/helpers';
 
-import TableStyle from './TableStyle';
+import TableStyle from '../styles/TableStyle';
 
 const StatsTable = ({portfolioList, onClick}) => (
     <div className="bounceInRight animated">

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 
 import Navbar from '../../containers/Navbar';
-import FormStyle from './FormStyle';
+import FormStyle from '../styles/FormStyle';
 import { NumberInput, TextArea } from '../forms';
 
 import Select from 'react-select';
@@ -72,7 +72,7 @@ class FormPage extends Component{
                     <div className="fadeIn animated">
                        <div className=".card-profile">
 
-                            <p>Add Coin to your Portfolio</p>
+                            <p className="form-title">Add Coin to your Portfolio</p>
                            <form className="form-signin">
 
                                {
