@@ -99,6 +99,12 @@ class FormPage extends Component{
 
                                 <label className="input-lable">Coin*</label>
                                 <Select
+                                    // arrowRenderer={()=><div>hell</div>}
+                                    // valueRenderer={(crypto)=>(
+                                    //     <div>
+                                    //         {crypto.value}
+                                    //     </div>
+                                    // )}
                                     name="form-field-name"
                                     value={this.state.crypto}
                                     onChange={this.handleChangeSelect2}

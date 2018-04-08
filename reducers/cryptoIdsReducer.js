@@ -6,7 +6,7 @@ export const cryptoIds = (state = initialCrypto, {type, payload}) => {
         case ACTION_TYPES.ITEM_SET: {
             let cryptoIds = [];
             payload.map(data =>{
-                cryptoIds.push({id: data.id, value: data.id, label: data.name, symbol: data.symbol})
+                cryptoIds.push({id: data.id, value: data.id, label: `${data.name} (${data.symbol})`, symbol: data.symbol})
             });
             return cryptoIds;
         }

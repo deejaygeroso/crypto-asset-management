@@ -43,7 +43,7 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                             <tr id="portfolio-tr" onClick={()=>{onClick(portfolioList.byId[id])}} key={key}>
                                 {/* ------ Icon ------*/}
                                 <td scope="col">
-                                    <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} className="align-content-center" height="25" width="25" />
+                                    <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="25" width="25" />
                                 </td>
                                 {/* ------ Name ------*/}
                                 <td scope="col">{portfolioList.byId[id]['name']}</td>

@@ -17,7 +17,7 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
             {/* ----------- Image ----------- */}
             {/* ----------------------------- */}
             <div className="card-image" >
-                <img src={`/static/icon/${portfolio && portfolio.symbol && portfolio.symbol.toLowerCase()}.png`} className="align-content-center" height="60" width="60" / >
+                <img src={`/static/icon/${portfolio && portfolio.symbol && portfolio.symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="60" width="60" / >
             </div>
 
             <div className="card-bit-header pl-3" >

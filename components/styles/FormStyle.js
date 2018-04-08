@@ -29,7 +29,8 @@ const FormStyle = () => (
               margin-left: 0px !important;
               padding-left: 20px;
             }
-            .Select{
+            .Select-value{
+                margin-top: 4px;
             }
             .Select-control{
                 margin: 0px !important;
@@ -42,6 +43,9 @@ const FormStyle = () => (
                 border: 2px solid rgba(0, 0, 0, 0.1);
                 padding: 0 0 10px 0px;
                 padding-right: 10px;
+            }
+            .select-field:{
+                cursor: pointer !important;
             }
 
             .buy-price-wrapper > div{
