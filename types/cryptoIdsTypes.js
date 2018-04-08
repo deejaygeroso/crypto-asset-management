@@ -1,11 +1,8 @@
-export const CRYPTO_IDS_CREATE = 'CRYPTO_IDS_CREATE';
-export const CRYPTO_IDS_LOGIN = 'CRYPTO_IDS_LOGIN';
-export const CRYPTO_IDS_SET = 'CRYPTO_IDS_SET';
-export const CRYPTO_IDS_CLEAR = 'CRYPTO_IDS_CLEAR';
+const NAME = 'CRYPTO_IDS'
 
-export const CRYPTO_IDS_LIST_APPEND = 'CRYPTO_IDS_LIST_APPEND';
-export const CRYPTO_IDS_LIST_SET = 'CRYPTO_IDS_LIST_SET';
-export const CRYPTO_IDS_LIST_CLEAR = 'CRYPTO_IDS_LIST_CLEAR';
+export const ITEM_SET         = `${NAME}_SET`;
+export const ITEM_CLEAR       = `${NAME}_CLEAR`;
 
-export const CRYPTO_IDS_ERROR_SET = 'CRYPTO_IDS_ERROR_SET';
-export const CRYPTO_IDS_ERROR_CLEAR = 'CRYPTO_IDS_ERROR_CLEAR';
+export const ERROR_SET        = `${NAME}_ERROR_SET`;
+export const ERROR_CLEAR      = `${NAME}_ERROR_CLEAR`;
+

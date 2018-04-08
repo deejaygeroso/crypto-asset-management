@@ -1,14 +1,19 @@
-export const USER_CREATE = 'USER_CREATE';
-export const USER_LOGIN = 'USER_LOGIN';
-export const USER_SET = 'USER_SET';
-export const USER_CLEAR = 'USER_CLEAR';
+const NAME = 'USERS'
 
-export const USER_SUCCESS_SET = 'USER_SUCCESS_SET';
-export const USER_SUCCESS_CLEAR = 'USER_SUCCESS_CLEAR';
+export const ITEM_SET         = `${NAME}_SET`;
+export const ITEM_CLEAR       = `${NAME}_CLEAR`;
+export const ITEM_CREATE      = `${NAME}_CREATE`;
+export const ITEM_LOGIN       = `${NAME}_LOGIN`;
 
-export const USER_ERROR_SET = 'USER_ERROR_SET';
-export const USER_ERROR_CLEAR = 'USER_ERROR_CLEAR';
+export const ERROR_SET        = `${NAME}_ERROR_SET`;
+export const ERROR_CLEAR      = `${NAME}_ERROR_CLEAR`;
 
-export const USERS_LIST_APPEND = 'USERS_LIST_APPEND';
-export const USERS_LIST_SET = 'USERS_LIST_SET';
-export const USERS_LIST_CLEAR = 'USERS_LIST_CLEAR';
+export const SUCCESS_SET      = `${NAME}_SUCCESS_SET`;
+export const SUCCESS_CLEAR    = `${NAME}_SUCCESS_CLEAR`;
+
+export const ITEMLIST_SET     = `${NAME}_LIST_SET`;
+export const ITEMLIST_APPEND  = `${NAME}_LIST_APPEND`;
+export const ITEMLIST_COMPOSE = `${NAME}_LIST_COMPOSE`;
+export const ITEMLIST_CLEAR   = `${NAME}_LIST_CLEAR`;
+export const ITEMLIST_PATCH   = `${NAME}_LIST_PATCH`;
+export const ITEMLIST_REMOVE  = `${NAME}_LIST_REMOVE`;

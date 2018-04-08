@@ -1,4 +1,4 @@
-const NAME                    = 'PORTFOLIO'
+const NAME = 'PORTFOLIO'
 
 export const ITEM_SET         = `${NAME}_SET`;
 export const ITEM_CLEAR       = `${NAME}_CLEAR`;

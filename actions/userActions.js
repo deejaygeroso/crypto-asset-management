@@ -3,41 +3,41 @@ import axios from 'axios';
 import * as ACTION_TYPES from '../types/userTypes';
 
 export const itemListSet = ({payload}) => ({
-    type: ACTION_TYPES.USERS_LIST_SET,
+    type: ACTION_TYPES.ITEMLIST_SET,
     payload,
 })
 
 export const itemListAppend = ({item}) => ({
-    type: ACTION_TYPES.USERS_LIST_APPEND,
+    type: ACTION_TYPES.ITEMLIST_APPEND,
     item,
 })
 
 export const itemSet = ({payload}) => ({
-    type: ACTION_TYPES.USER_SET,
+    type: ACTION_TYPES.ITEM_SET,
     payload,
 })
 
 export const itemClear = ({payload}) => ({
-    type: ACTION_TYPES.USER_CLEAR,
+    type: ACTION_TYPES.ITEM_CLEAR,
     payload,
 })
 
 export const successSet = ({payload}) => ({
-    type: ACTION_TYPES.USER_SUCCESS_SET,
+    type: ACTION_TYPES.SUCCESS_SET,
     payload,
 })
 
 export const successClear = () => ({
-    type: ACTION_TYPES.USER_SUCCESS_CLEAR,
+    type: ACTION_TYPES.SUCCESS_CLEAR,
 })
 
 export const errorSet = ({payload}) => ({
-    type: ACTION_TYPES.USER_ERROR_SET,
+    type: ACTION_TYPES.ERROR_SET,
     payload,
 })
 
 export const errorClear = () => ({
-    type: ACTION_TYPES.USER_ERROR_CLEAR,
+    type: ACTION_TYPES.ERROR_CLEAR,
 })
 
 /* ----------------------------------------------------------------------------------
