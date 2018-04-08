@@ -13,10 +13,12 @@ class Navbar extends Component{
             toggleMobileViewNavbar: false,
         }
         this.userLogout = this.userLogout.bind(this);
+        this.getClassName = this.getClassName.bind(this);
     }
 
     componentDidMount(){
         const userCookie = Cookies.get('user');
+
         // if user has no cookie redirect to login
         if(!userCookie){
             Router.push('/login');
@@ -25,6 +27,7 @@ class Navbar extends Component{
             this.setState({user});
         }
     }
+
     render(){
         const { user, toggleMobileViewNavbar } = this.state;
         return(
@@ -39,17 +42,30 @@ class Navbar extends Component{
                         </div>
                         <div id="navbar" className={toggleMobileViewNavbar? "navbar-collapse collapse in" : "navbar-collapse collapse"}>
                           <ul className="nav navbar-nav navbar-right">
-                            { user && user.isLoggedIn ? <li><Link prefetch href="/portfolio/list"><a>Portfolio</a></Link></li> : <span /> }
-                            { user && user.isLoggedIn ? <li><Link prefetch href="/account/profile"><a>Profile</a></Link></li> : <span /> }
-                            { user && user.isAdmin ? <li><Link prefetch href="/admin/manage"><a>Manage</a></Link></li> : <span /> }
+                            { user && user.isLoggedIn ? <li><Link prefetch href="/portfolio/list"><a className={this.getClassName('portfolio')}>Portfolio</a></Link></li> : <span /> }
+                            { user && user.isLoggedIn ? <li><Link prefetch href="/account/profile"><a className={this.getClassName('account')}>Profile</a></Link></li> : <span /> }
+                            { user && user.isAdmin    ? <li><Link prefetch href="/admin/manage"><a className={this.getClassName('admin')}>Manage</a></Link></li> : <span /> }
                             { user && user.isLoggedIn ? <li><a href="#" onClick={this.userLogout}>Logout</a></li> : <span /> }
                           </ul>
                         </div>
                         </nav>
                       {/*-- </div> --*/}
                   </div>
+                    <style jsx global>{`
+                        .active-link{
+                            color: #52d3aa !important;
+                        }
+                    `}</style>
                 </header>
         );
+    }
+
+    getClassName(routeName){
+        const routeNameSplit = Router.pathname.split('/')
+        if(routeNameSplit[1]===routeName){
+            return "active-link";
+        }
+        return "";
     }
 
     userLogout(evt){
