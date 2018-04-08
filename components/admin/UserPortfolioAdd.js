@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import Router from 'next/router';
+import Router from 'next/router';
 
 import FormPage from '../../containers/portfolio/FormPage';
 
@@ -13,13 +13,15 @@ class UserPortfolioAdd extends Component{
     }
 
     componentDidMount(){
-        const { user, cryptoIdsActions, coinmarketcapTicker } = this.props;
+        const { cryptoIdsActions, coinmarketcapTicker } = this.props;
+
+        const user_id = (Router && Router.query && Router.query.user_id) || '';
+
+        if(!user_id || user_id===''){
+            Router.push('/admin/manage');
+        }
 
         cryptoIdsActions.itemSet({payload: coinmarketcapTicker});
-
-        if(!user._id && user.email===''){
-            // Router.push('/admin/manage')
-        }
 
     }
 

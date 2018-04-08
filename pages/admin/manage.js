@@ -8,16 +8,12 @@ import { initStore } from '../../store';
 import Layout from '../../components/Layout';
 import Manage from '../../containers/admin/Manage'
 
-import axios from 'axios';
-
 class ManagePage extends React.Component{
 
     static async getInitialProps({ store, req }) {
         const isServer = !!req;
 
-        const apiRes = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=0&&convert=ETH');
-
-        return { initialState: store.getState(), isServer, coinmarketcapTicker: apiRes.data };
+        return { initialState: store.getState(), isServer };
     }
 
     constructor(props) {
@@ -29,7 +25,7 @@ class ManagePage extends React.Component{
         return(
             <Provider store={this.store}>
                 <Layout>
-                    <Manage coinmarketcapTicker={this.props.coinmarketcapTicker}/>
+                    <Manage/>
                 </Layout>
             </Provider>
         )
@@ -38,7 +34,6 @@ class ManagePage extends React.Component{
 }
 
 ManagePage.propTypes = {
-    coinmarketcapTicker : PropTypes.array,
     initialState : PropTypes.object,
     isServer : PropTypes.bool,
 }

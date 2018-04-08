@@ -139,8 +139,14 @@ class MainPage extends Component{
      * Add new coin to portfolio
      * -------------------------------------------------------------------------------- */
     routeToPortfolioAdd(payload){
-        const { portfolioActions, portfolioAddRouteName } = this.props;
+        const { portfolioActions, portfolioAddRouteName, routerPush } = this.props;
         portfolioActions.itemSet({payload})
+
+        // used for admin to pass query object
+        if(routerPush){
+            return routerPush()
+        }
+
         Router.push(portfolioAddRouteName);
     }
 
@@ -161,6 +167,7 @@ MainPage.propTypes = {
     coinmarketcapGlobal : PropTypes.object,
     //actions
     portfolioActions    : PropTypes.object,
+    routerPush          : PropTypes.func,
 }
 
 export default MainPage;

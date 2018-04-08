@@ -219,7 +219,7 @@ class Manage extends Component {
      * Route to update specific clients portfolio
      * -------------------------------------------------------- */
     gotoUserPortfolio(user_id){
-        const { userActions, portfolioActions, coinmarketcapTicker } = this.props;
+        const { userActions } = this.props;
 
         // might have some issue with asnycronousity of data especially when updating or adding of user
         userActions.itemFind({
@@ -228,15 +228,12 @@ class Manage extends Component {
             }
         })
 
-        // get users id on cookie then fetch portfolio of user from database
-        portfolioActions.itemListFindByUserId({
-            params: {
+        Router.push({
+            pathname: '/admin/userportfolio',
+            query: {
                 user_id,
             },
-            coinmarketcapTicker,
-        });
-
-        Router.push('/admin/userportfolio');
+        })
     }
 
 }
@@ -247,8 +244,6 @@ Manage.propTypes = {
     userSuccess : PropTypes.object,
     usersList   : PropTypes.object,
     userActions : PropTypes.object,
-    portfolioActions : PropTypes.object,
-    coinmarketcapTicker : PropTypes.array,
 }
 
 export default Manage;
