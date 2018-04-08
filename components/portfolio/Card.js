@@ -129,7 +129,7 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
                             <br/>
                             <span>
                                 <span className="card-ath">$ {commarize(volumeAth[portfolio && portfolio.id])} (ATH)</span>
-                                <span className="card-atl">$ {commarize(volumeAtl[portfolio && portfolio.id])} (ATH)</span>
+                                <span className="card-atl">$ {commarize(volumeAtl[portfolio && portfolio.id])} (ATL)</span>
                             </span>
                         </p>
                     </div>
