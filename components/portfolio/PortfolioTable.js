@@ -178,8 +178,8 @@ export default PortfolioTable;
  * Formula: (Valuation/TotalValuation) * 100
  * -------------------------------------------------------------------------------- */
 function calculatePercentage(portfolioList, id){
-    let totalValuation = calculateTotalValuation(portfolioList)
-    let currentValuation = calculateValuation(portfolioList.byId[id], 'price_usd')
+    let totalValuation = calculateTotalValuation(portfolioList) || 0;
+    let currentValuation = calculateValuation(portfolioList.byId[id], 'price_usd') || 0;
     let currentPercentage = ( parseFloat(currentValuation)/parseFloat(totalValuation) ) * 100;
 
     return currentPercentage.toFixed(2);
@@ -204,8 +204,8 @@ function calculateTotalValuation(portfolioList){
  * Formulat: amount * price_usd
  * -------------------------------------------------------------------------------- */
 function calculateValuation(cryptoData, fieldName){
-    const amount = parseFloat(cryptoData.amount)
-    const market_price = parseFloat(cryptoData[fieldName]);
+    const amount = parseFloat(cryptoData.amount) || 0;
+    const market_price = parseFloat(cryptoData[fieldName]) || 0;
     
     const valuation = amount * market_price;
 
@@ -218,8 +218,8 @@ function calculateValuation(cryptoData, fieldName){
  * Formulat: (market_price - buy_price) / market_price
  * -------------------------------------------------------------------------------- */
 function calculateProfitOrLoss(cryptoData){
-    const market_price = parseFloat(cryptoData.price_usd);
-    const buy_price = parseFloat(cryptoData.buy_price_usd);
+    const market_price = parseFloat(cryptoData.price_usd) || 0;
+    const buy_price = parseFloat(cryptoData.buy_price_usd) || 0;
     const profitOrLoss = (market_price - buy_price) / market_price;
 
     if(profitOrLoss>=0){
@@ -235,8 +235,8 @@ function calculateProfitOrLoss(cryptoData){
  * also used for coloring green for profit and red for loss
  * -------------------------------------------------------------------------------- */
 function isCalculateProfitOrLoss(cryptoData){
-    const market_price = parseFloat(cryptoData.price_usd);
-    const buy_price = parseFloat(cryptoData.buy_price_usd);
+    const market_price = parseFloat(cryptoData.price_usd) || 0;
+    const buy_price = parseFloat(cryptoData.buy_price_usd) || 0;
     const profitOrLoss = (market_price - buy_price) / market_price;
 
     if(profitOrLoss>=0){

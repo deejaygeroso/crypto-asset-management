@@ -92,8 +92,8 @@ function calculateTotalValuation(cryptoList){
 }
 
 function calculateValuation(cryptoData){
-    const amount = parseFloat(cryptoData.amount)
-    const market_price = parseFloat(cryptoData.price_usd);
+    const amount = parseFloat(cryptoData.amount) || 0;
+    const market_price = parseFloat(cryptoData.price_usd) || 0;
     const valuation = amount * market_price;
 
     return valuation;

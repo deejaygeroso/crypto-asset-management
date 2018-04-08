@@ -17,7 +17,7 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
             {/* ----------- Image ----------- */}
             {/* ----------------------------- */}
             <div className="card-image" >
-                <img src={`/static/icon/${portfolio && portfolio.symbol && portfolio.symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="60" width="60" / >
+                <img src={`/static/icon/${portfolio && portfolio.symbol && portfolio.symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="60" width="60" />
             </div>
 
             <div className="card-bit-header pl-3" >
@@ -97,7 +97,7 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
                {/* ----------------------------- */}
                 <div className="rank d-flex flex-grow-1 align-self-center justify-content-center align-items-center text-center" >
                     <div className="flex-column" >
-                        <p className="text-center align-middle font-weight-600" > RANK </p> <br / >
+                        <p className="text-center align-middle font-weight-600" > RANK </p> <br />
                         <p className="text-center align-middle" > No: { portfolio && portfolio.rank } </p>
                     </div>
                 </div>
