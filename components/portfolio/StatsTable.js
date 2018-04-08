@@ -11,7 +11,6 @@ import TableStyle from './TableStyle';
 const StatsTable = ({portfolioList, onClick}) => (
     <div className="bounceInRight animated">
         <div className="table-view table-responsive">
-
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -49,7 +48,7 @@ const StatsTable = ({portfolioList, onClick}) => (
                                 { /* ------- Market Price / Buy Price USD ------ */ }
                                 <td scope="col">
                                         <span className="num-span">
-                                            {formatMoney(portfolioList.byId[id]['price_usd'], 2, 3, ',') }
+                                            {formatMoney(portfolioList.byId[id]['price_usd']) }
                                         </span>
                                 </td>
                                 { /* ------- 1h % Change ------ */ }
@@ -85,7 +84,7 @@ const StatsTable = ({portfolioList, onClick}) => (
                                 { /* ------- Maximum Supply ------ */ }
                                 <td scope="col">
                                     <span className="num-span">
-                                        {portfolioList.byId['max_supply'] ? commarize(portfolioList.byId[id]['max_supply']) : "N/A"}
+                                        {portfolioList.byId[id]['max_supply'] ? commarize(portfolioList.byId[id]['max_supply']) : "N/A"}
                                     </span>
                                 </td>
                                 { /* ------- Total Supply ------ */ }

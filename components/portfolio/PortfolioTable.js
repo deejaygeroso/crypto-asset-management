@@ -7,7 +7,6 @@ import {
 } from '../../lib/helpers';
 
 import TableStyle from './TableStyle';
-import { log } from 'util';
 
 const PortfolioTable = ({portfolioList, onClick}) => (
     <div className="bounceInLeft animated">
@@ -53,7 +52,7 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                                 {/* ------ Holdings/Amount ------*/}
                                 <td scope="col">
                                     <span className="num-span" style={{color: '#3F95EA'}}>
-                                        {formatMoney(portfolioList.byId[id]['amount'], 2, 3, ',') }
+                                        {formatMoney(portfolioList.byId[id]['amount']) }
                                     </span>
                                 </td>
                                 {/* ------ Buy Price USD ------*/}
@@ -77,7 +76,7 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                                 {/* ------ Market Price USD ------*/}
                                 <td scope="col">
                                     <span className="num-span td-market-price">
-                                        {formatMoney(portfolioList.byId[id]['price_usd'], 2, 3, ',') }
+                                        {formatMoney(portfolioList.byId[id]['price_usd']) }
                                     </span>
                                 </td>
                                 {/* ------ Market Price BTC ------*/}
@@ -95,19 +94,22 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                                 {/* ------ Valuation USD ------*/}
                                 <td scope="col">
                                     <span className="num-span">
-                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_usd'), 2, 3, ',') }
+                                        {/* {formatMoney(calculateValuation(portfolioList.byId[id], 'price_usd'), 2, 3, ',') } */}
+                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_usd')) }
                                     </span>
                                 </td>
                                 {/* ------ Valuation BTC ------*/}
                                 <td scope="col">
                                     <span className="num-span">
-                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_btc'), 2, 3, ',') }
+                                        {/* {formatMoney(calculateValuation(portfolioList.byId[id], 'price_btc'), 2, 3, ',') } */}
+                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_btc')) }
                                     </span>
                                 </td>
                                 {/* ------ Valuation ETH ------*/}
                                 <td scope="col">
                                     <span className="num-span">
-                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_eth'), 2, 3, ',') }
+                                        {/* {formatMoney(calculateValuation(portfolioList.byId[id], 'price_eth'), 2, 3, ',') } */}
+                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_eth')) }
                                     </span>
                                 </td>
                                 {/* ------ Profit/Lostt % ------*/}
