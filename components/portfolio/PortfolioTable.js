@@ -7,6 +7,7 @@ import {
 } from '../../lib/helpers';
 
 import TableStyle from './TableStyle';
+import { log } from 'util';
 
 const PortfolioTable = ({portfolioList, onClick}) => (
     <div className="bounceInLeft animated">
@@ -43,7 +44,7 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                             <tr id="portfolio-tr" onClick={()=>{onClick(portfolioList.byId[id])}} key={key}>
                                 {/* ------ Icon ------*/}
                                 <td scope="col">
-                                    <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} className="align-content-center" height="25" width="25" / >
+                                    <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} className="align-content-center" height="25" width="25" />
                                 </td>
                                 {/* ------ Name ------*/}
                                 <td scope="col">{portfolioList.byId[id]['name']}</td>
@@ -115,9 +116,10 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                                         {calculateProfitOrLoss(portfolioList.byId[id])}
                                     </span>
                                 </td>
+                                {/* ------ Allocation % ------*/}
                                 <td scope="col">
                                     <span className="num-span">
-                                        xx
+                                        {calculatePercentage(portfolioList, id)}
                                     </span>
                                 </td>
                             </tr>
@@ -168,33 +170,51 @@ export default PortfolioTable;
 //     return false;
 // }
 
-// function calculatePercentage(portfolioList, id){
-//     let totalValuation = calculateTotalValuation(portfolioList)
-//     let currentValuation = calculateValuation(portfolioList.byId[id])
-//     let currentPercentage = ( parseFloat(currentValuation)/parseFloat(totalValuation) ) * 100;
+/* ----------------------------------------------------------------------------------
+ * Calculate allocation percentage by deviding coins valuation over the sum 
+ * of total valuation the user on his/her portfolio
+ * Formula: (Valuation/TotalValuation) * 100
+ * -------------------------------------------------------------------------------- */
+function calculatePercentage(portfolioList, id){
+    let totalValuation = calculateTotalValuation(portfolioList)
+    let currentValuation = calculateValuation(portfolioList.byId[id], 'price_usd')
+    let currentPercentage = ( parseFloat(currentValuation)/parseFloat(totalValuation) ) * 100;
 
-//     return currentPercentage.toFixed(2);
-// }
+    return currentPercentage.toFixed(2);
+}
 
-// function calculateTotalValuation(portfolioList){
-//     let totalValuation = 0;
-//     portfolioList && portfolioList.allIds && portfolioList.allIds.map((id)=>{
-//         if(id){
-//             totalValuation = totalValuation + calculateValuation(portfolioList.byId[id])
-//         }
-//     })
-//     return totalValuation;
-// }
+/* ----------------------------------------------------------------------------------
+ * Sum of all valutaion
+ * Formulat: coin1Valuation + coin2Valuation ...
+ * -------------------------------------------------------------------------------- */
+function calculateTotalValuation(portfolioList){
+    let totalValuation = 0;
+    portfolioList && portfolioList.allIds && portfolioList.allIds.map((id)=>{
+        if(id){
+            totalValuation = totalValuation + calculateValuation(portfolioList.byId[id], 'price_usd')
+        }
+    })
+    return totalValuation;
+}
 
+/* ----------------------------------------------------------------------------------
+ * Sum up all valutaion per coin by multiplying the amount to market price
+ * Formulat: amount * price_usd
+ * -------------------------------------------------------------------------------- */
 function calculateValuation(cryptoData, fieldName){
     const amount = parseFloat(cryptoData.amount)
     const market_price = parseFloat(cryptoData[fieldName]);
+    
     const valuation = amount * market_price;
 
     return valuation;
 }
 
 
+/* ----------------------------------------------------------------------------------
+ * Calculate percentage whether its a profit or a loss
+ * Formulat: (market_price - buy_price) / market_price
+ * -------------------------------------------------------------------------------- */
 function calculateProfitOrLoss(cryptoData){
     const market_price = parseFloat(cryptoData.price_usd);
     const buy_price = parseFloat(cryptoData.buy_price_usd);
@@ -207,7 +227,11 @@ function calculateProfitOrLoss(cryptoData){
     return profitOrLoss.toFixed(2);
 }
 
-// check if its a positive or negative
+/* ----------------------------------------------------------------------------------
+ * check if its a positive or negative
+ * this is mainly used only for adding "-" or "+" to a number
+ * also used for coloring green for profit and red for loss
+ * -------------------------------------------------------------------------------- */
 function isCalculateProfitOrLoss(cryptoData){
     const market_price = parseFloat(cryptoData.price_usd);
     const buy_price = parseFloat(cryptoData.buy_price_usd);
