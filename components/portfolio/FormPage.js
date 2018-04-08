@@ -189,7 +189,7 @@ class FormPage extends Component{
         }
 
         if(portfolioMainPageRouteName==='/admin/userportfolio'){
-            onSubmit();
+            return onSubmit();
         }
 
         Router.push(portfolioMainPageRouteName);

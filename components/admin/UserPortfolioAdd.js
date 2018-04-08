@@ -42,6 +42,13 @@ class UserPortfolioAdd extends Component{
             coinmarketcapTicker,
         });
 
+        const user_id = (Router && Router.query && Router.query.user_id) || '';
+        Router.push({
+            pathname: '/admin/userportfolio',
+            query: {
+                user_id,
+            },
+        })
 
     }
 }
