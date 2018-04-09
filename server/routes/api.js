@@ -187,10 +187,11 @@ module.exports = function(app, router, auth){
                 doc[data] = portfolioData[data]
             })
 
-            doc['id']    = portfolioData.crypto.id
-            doc['value'] = portfolioData.crypto.value
-            doc['label'] = portfolioData.crypto.label
-
+            doc['id']     = portfolioData.crypto.id
+            doc['value']  = portfolioData.crypto.value
+            doc['label']  = portfolioData.crypto.label
+            doc['symbol'] = portfolioData.crypto.symbol
+            
             doc.save();
             res.send(doc)
           });

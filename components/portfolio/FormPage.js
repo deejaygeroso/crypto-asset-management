@@ -50,9 +50,10 @@ class FormPage extends Component{
             buy_price_eth   : portfolio && portfolio.buy_price_eth ? portfolio.buy_price_eth : 0,
             notes           : portfolio && portfolio.notes         ? portfolio.notes         : '',
             crypto : {
-                id    : portfolio && portfolio.id ? portfolio.id : '',
-                value : portfolio && portfolio.value ? portfolio.value : '',
-                label : portfolio && portfolio.label ? portfolio.label : '',
+                id     : portfolio && portfolio.id     ? portfolio.id     : '',
+                value  : portfolio && portfolio.value  ? portfolio.value  : '',
+                label  : portfolio && portfolio.label  ? portfolio.label  : '',
+                symbol : portfolio && portfolio.symbol ? portfolio.symbol : '',
             },
         })
 

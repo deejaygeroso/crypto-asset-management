@@ -113,7 +113,7 @@ class Profile extends Component {
                             }
 
                             <TextInput     id="name"  value={this.state.name}  label="Full Name" placeholder="Full Name" onValueChange={this.onValueChange} />
-                            <EmailInput    id="email" value={this.state.email} label="Email"     placeholder="Email"     onValueChange={this.onValueChange} />
+                            <EmailInput    id="email" value={this.state.email} label="Email*"     placeholder="Email"     onValueChange={this.onValueChange} />
                             <PasswordInput id="password" label="Password"  placeholder="Password"  onValueChange={this.onValueChange} />
 
                             <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Update</button>

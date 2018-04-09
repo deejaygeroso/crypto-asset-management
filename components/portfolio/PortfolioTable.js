@@ -22,10 +22,13 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                       <th scope="col" colSpan="3" className="table-th-colspan">Buy Price</th>
                       <th scope="col" colSpan="3" className="table-th-colspan">Market Price</th>
                       <th scope="col" colSpan="3" className="table-th-colspan">Valuation</th>
-                      <th scope="col" rowSpan="2">Profilt/Loss(%)</th>
+                      <th scope="col" colSpan="3">Profilt/Loss(%)</th>
                       <th scope="col" rowSpan="2">Allocation (%)</th>
                     </tr>
                     <tr>
+                        <th>USD</th>
+                        <th>BTC</th>
+                        <th>ETH</th>
                         <th>USD</th>
                         <th>BTC</th>
                         <th>ETH</th>
@@ -112,10 +115,22 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                                         {formatMoney(calculateValuation(portfolioList.byId[id], 'price_eth')) }
                                     </span>
                                 </td>
-                                {/* ------ Profit/Lostt % ------*/}
+                                {/* ------ Profit/Lostt USD % ------*/}
                                 <td scope="col">
-                                    <span className="num-span" style={{ color: isCalculateProfitOrLoss(portfolioList.byId[id]) ? 'green' : 'red' }}>
-                                        {calculateProfitOrLoss(portfolioList.byId[id])}
+                                    <span className="num-span" style={{ color: isCalculateProfitOrLoss(portfolioList.byId[id], 'buy_price_usd') ? 'green' : 'red' }}>
+                                        {calculateProfitOrLoss(portfolioList.byId[id], 'buy_price_usd')}
+                                    </span>
+                                </td>
+                                {/* ------ Profit/Lostt BTC % ------*/}
+                                <td scope="col">
+                                    <span className="num-span" style={{ color: isCalculateProfitOrLoss(portfolioList.byId[id], 'buy_price_btc') ? 'green' : 'red' }}>
+                                        {calculateProfitOrLoss(portfolioList.byId[id], 'buy_price_btc')}
+                                    </span>
+                                </td>
+                                {/* ------ Profit/Lostt ETH % ------*/}
+                                <td scope="col">
+                                    <span className="num-span" style={{ color: isCalculateProfitOrLoss(portfolioList.byId[id], 'buy_price_eth') ? 'green' : 'red' }}>
+                                        {calculateProfitOrLoss(portfolioList.byId[id], 'buy_price_eth')}
                                     </span>
                                 </td>
                                 {/* ------ Allocation % ------*/}
@@ -217,9 +232,9 @@ function calculateValuation(cryptoData, fieldName){
  * Calculate percentage whether its a profit or a loss
  * Formulat: (market_price - buy_price) / market_price
  * -------------------------------------------------------------------------------- */
-function calculateProfitOrLoss(cryptoData){
+function calculateProfitOrLoss(cryptoData, fieldName){
     const market_price = parseFloat(cryptoData.price_usd) || 0;
-    const buy_price = parseFloat(cryptoData.buy_price_usd) || 0;
+    const buy_price = parseFloat(cryptoData[fieldName]) || 0;
     const profitOrLoss = (market_price - buy_price) / market_price;
 
     if(profitOrLoss>=0){
@@ -234,10 +249,12 @@ function calculateProfitOrLoss(cryptoData){
  * this is mainly used only for adding "-" or "+" to a number
  * also used for coloring green for profit and red for loss
  * -------------------------------------------------------------------------------- */
-function isCalculateProfitOrLoss(cryptoData){
+function isCalculateProfitOrLoss(cryptoData, fieldName){
     const market_price = parseFloat(cryptoData.price_usd) || 0;
-    const buy_price = parseFloat(cryptoData.buy_price_usd) || 0;
+
+    const buy_price = parseFloat(cryptoData[fieldName]) || 0;
     const profitOrLoss = (market_price - buy_price) / market_price;
+    // console.log(cryptoData.id, profitOrLoss, market_price, buy_price)
 
     if(profitOrLoss>=0){
         return true;
