@@ -15,7 +15,6 @@ const TableStyle = () => (
             }
             .table-th-colspan{
                 text-align: center;
-
             }
             .table-th-rowspan{
                 padding-bottom: 25px;

@@ -83,6 +83,9 @@ body{
   border-right: 1px solid #d0dde8ba;
   border-bottom: 1px solid #d0dde8ba;
 }
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
 td {
   text-align: center;
  }

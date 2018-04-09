@@ -103,9 +103,11 @@ class MainPage extends Component{
                         <i className="fas fa-lg fa-plus"></i>
                     </span>
                 </button>
+                <div style={{padding: 80}} />
                 <style jsx global>{`
                     .card-container{
                         margin-top: 10px;
+                        margin-bottom: 50px;
                     }
                     .btn-wrapper{
                         margin: 10px;
