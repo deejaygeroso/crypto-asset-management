@@ -13,9 +13,9 @@ class MainPage extends Component{
     constructor(props){
         super(props);
         this.state = {
-            isWidgetVisible    : true,
+            isPortfolioTableVisible : true,
             isStatsTableVisible : false,
-            isPortfolioTableVisible : false,
+            isWidgetVisible    : false,
         }
         this.routeToPortfolioAdd = this.routeToPortfolioAdd.bind(this);
         this.toggleView = this.toggleView.bind(this);
@@ -53,7 +53,7 @@ class MainPage extends Component{
                 {
                     isPortfolioTableVisible ?
                         <div className="container-fluid" style={{paddingLeft: 50, paddingRight: 50}}>
-                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100'}}>Portfolio Table</h1>
+                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Profit Margin</h1>
                             <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
                         </div> : <div></div>
                 }
@@ -64,7 +64,7 @@ class MainPage extends Component{
                 {
                     isStatsTableVisible ?
                         <div>
-                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100'}}>Stats Table</h1>
+                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Other Stats</h1>
                             <div className="container-fluid d-flex align-items-center justify-content-center">
                                 <StatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
                             </div>
@@ -76,19 +76,22 @@ class MainPage extends Component{
                 {/* ----------------------------- */}
                 {
                     isWidgetVisible ?
-                        <div className="d-flex align-content-around flex-wrap justify-content-center bounceInUp animated">
-                            {
-                                portfolioList && portfolioList.allIds && portfolioList.allIds.map(_id=>(
-                                    <Card portfolio={portfolioList.byId[_id]} 
-                                          cryptoHistory={cryptoHistory} 
-                                          priceAth={priceAth} 
-                                          priceAtl={priceAtl} 
-                                          volumeAth={volumeAth} 
-                                          volumeAtl={volumeAtl} 
-                                          onClick={this.routeToPortfolioAdd} 
-                                          key={_id}/>
-                                )) 
-                            }
+                        <div>
+                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Volume Overview</h1>
+                            <div className="d-flex align-content-around flex-wrap justify-content-center bounceInUp animated">
+                                {
+                                    portfolioList && portfolioList.allIds && portfolioList.allIds.map(_id=>(
+                                        <Card portfolio={portfolioList.byId[_id]} 
+                                              cryptoHistory={cryptoHistory} 
+                                              priceAth={priceAth} 
+                                              priceAtl={priceAtl} 
+                                              volumeAth={volumeAth} 
+                                              volumeAtl={volumeAtl} 
+                                              onClick={this.routeToPortfolioAdd} 
+                                              key={_id}/>
+                                    )) 
+                                }
+                            </div>
                         </div> : <div></div>
                 }
 

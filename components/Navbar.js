@@ -38,7 +38,7 @@ class Navbar extends Component{
                         <div className="navbar-header">
                             {/*-- Mobile Toggle Menu Button --*/}
                             <a href="#" onClick={()=>this.setState({toggleMobileViewNavbar: !toggleMobileViewNavbar})} className="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-                         <a className="navbar-brand" href="index.html">BlockPSV</a>
+                         <Link prefetch href="/portfolio/list"><a className="navbar-brand" href="">BlockPSV</a></Link>
                         </div>
                         <div id="navbar" className={toggleMobileViewNavbar? "navbar-collapse collapse in" : "navbar-collapse collapse"}>
                           <ul className="nav navbar-nav navbar-right">
