@@ -9,7 +9,7 @@ import {
 import TableStyle from '../styles/TableStyle';
 
 const StatsTable = ({portfolioList, onClick}) => (
-    <div className="bounceInRight animated">
+    <div className="bounceInUp animated">
         <div className="table-view table-responsive">
             <table className="table table-hover">
                 <thead>

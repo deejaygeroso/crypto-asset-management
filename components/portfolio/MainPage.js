@@ -78,7 +78,7 @@ class MainPage extends Component{
                     isWidgetVisible ?
                         <div>
                             <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Volume Overview</h1>
-                            <div className="d-flex align-content-around flex-wrap justify-content-center bounceInUp animated">
+                            <div className="d-flex align-content-around flex-wrap justify-content-center bounceInRight animated">
                                 {
                                     portfolioList && portfolioList.allIds && portfolioList.allIds.map(_id=>(
                                         <Card portfolio={portfolioList.byId[_id]} 
