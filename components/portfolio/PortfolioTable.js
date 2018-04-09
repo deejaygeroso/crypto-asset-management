@@ -11,7 +11,6 @@ import TableStyle from '../styles/TableStyle';
 const PortfolioTable = ({portfolioList, onClick}) => (
     <div className="bounceInLeft animated">
         <div className="table-view table-responsive">
-
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -220,8 +219,7 @@ function calculateTotalValuation(portfolioList){
  * -------------------------------------------------------------------------------- */
 function calculateValuation(cryptoData, fieldName){
     const amount = parseFloat(cryptoData.amount) || 0;
-    const market_price = parseFloat(cryptoData[fieldName]) || 0;
-    
+    const market_price = parseFloat(cryptoData[fieldName]) || 0; 
     const valuation = amount * market_price;
 
     return valuation;
@@ -235,10 +233,14 @@ function calculateValuation(cryptoData, fieldName){
 function calculateProfitOrLoss(cryptoData, fieldName){
     const market_price = parseFloat(cryptoData.price_usd) || 0;
     const buy_price = parseFloat(cryptoData[fieldName]) || 0;
-    const profitOrLoss = (market_price - buy_price) / market_price;
+    const profitOrLoss = (market_price - buy_price) / buy_price;
+
+    if (profitOrLoss == Number.POSITIVE_INFINITY || profitOrLoss == Number.NEGATIVE_INFINITY){
+        return "0.00";
+    }
 
     if(profitOrLoss>=0){
-        return `+${profitOrLoss.toFixed(2)}`;
+        return `+${formatMoney(profitOrLoss)}`;
     }
 
     return profitOrLoss.toFixed(2);
@@ -253,8 +255,7 @@ function isCalculateProfitOrLoss(cryptoData, fieldName){
     const market_price = parseFloat(cryptoData.price_usd) || 0;
 
     const buy_price = parseFloat(cryptoData[fieldName]) || 0;
-    const profitOrLoss = (market_price - buy_price) / market_price;
-    // console.log(cryptoData.id, profitOrLoss, market_price, buy_price)
+    const profitOrLoss = (market_price - buy_price) / buy_price;
 
     if(profitOrLoss>=0){
         return true;
