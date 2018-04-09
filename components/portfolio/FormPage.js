@@ -6,6 +6,8 @@ import Navbar from '../../containers/Navbar';
 import FormStyle from '../styles/FormStyle';
 import { NumberInput, TextArea } from '../forms';
 
+import { confirmAlert } from 'react-confirm-alert'; // Import
+
 import Select from 'react-select';
 
 class FormPage extends Component{
@@ -201,9 +203,25 @@ class FormPage extends Component{
      * -------------------------------------------------------------------------------- */
     onRemove(evt){
         evt.preventDefault();
-        const { portfolio, portfolioActions, portfolioMainPageRouteName } = this.props;
-        portfolioActions.itemRemove({_id: portfolio._id});
-        Router.push(portfolioMainPageRouteName);
+
+        confirmAlert({
+            title: 'Are you sure?',
+            message: 'You are about to delete this Coin.',
+            buttons: [
+              {
+                label: 'Delete',
+                onClick: () => {
+                    const { portfolio, portfolioActions, portfolioMainPageRouteName } = this.props;
+                    portfolioActions.itemRemove({_id: portfolio._id});
+                    Router.push(portfolioMainPageRouteName);
+                }
+            },
+            {
+                label: 'Cancel',
+                onClick: () => {}
+            }
+        ]
+    })
     }
 
 }

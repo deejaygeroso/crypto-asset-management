@@ -45,6 +45,7 @@ const Layout = ({children}) => (
         	<link rel="stylesheet" href="/static/css/bootstrap.css"/>
         	<link rel="stylesheet" href="/static/css/flex.css"/>
             <link rel="stylesheet" href="/static/css/react-select.css" />
+            <link rel="stylesheet" href="/static/css/react-confirm-alert.css" />
             <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossOrigin="anonymous"></script>
             {/*
             	1. pink.css
