@@ -121,7 +121,7 @@ function loopDate(cryptoHistory){
             data.push(
                 <div key={i} className="history-box history-box-date text-center">
                     <p className="font-size-10 align-middle">
-                        {moment(cryptoHistory[i]['last_updated']*1000).format('MMM DD')}
+                        {moment.utc(cryptoHistory[i]['last_updated']*1000).format('MMM DD')}
                     </p>
                 </div>
             )
