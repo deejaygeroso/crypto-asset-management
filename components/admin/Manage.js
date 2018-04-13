@@ -121,7 +121,9 @@ class Manage extends Component {
                         </div> : <div />
                     }
 
-
+                {/* ----------------------- */}
+                {/* ------ User List ------ */}
+                {/* ----------------------- */}
                 <div className="card-container container bounceInUp animated">
                     {usersList.allIds.map((item, key) => this.renderUsersCard(item, key) )}
                 </div>
@@ -140,6 +142,7 @@ class Manage extends Component {
                         .card-container{
                             margin-top: 15px;
                             max-width: 580px;
+                            padding-bottom: 210px;
                         }
                         .card{
                             margin: 10px;
