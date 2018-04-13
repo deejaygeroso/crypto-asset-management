@@ -43,6 +43,7 @@ const Layout = ({children}) => (
         	<link rel="stylesheet" href="/static/css/magnific-popup.css"/>
         	{/*-- Bootstrap  --*/}
         	<link rel="stylesheet" href="/static/css/bootstrap.css"/>
+        	<link rel="stylesheet" href="/static/css/blockpsv.css"/>
         	<link rel="stylesheet" href="/static/css/flex.css"/>
             <link rel="stylesheet" href="/static/css/react-select.css" />
             <link rel="stylesheet" href="/static/css/react-confirm-alert.css" />

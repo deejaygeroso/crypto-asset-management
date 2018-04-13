@@ -7,6 +7,7 @@ import {
 } from '../../lib/helpers';
 
 import TableStyle from '../styles/TableStyle';
+import SortIcon from './SortIcon'
 
 const PortfolioTable = ({portfolioList, onClick}) => (
     <div className="bounceInLeft animated">
@@ -15,28 +16,28 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                 <thead>
                     <tr>
                       <th scope="col" rowSpan="2" className="th-icon">Icon</th>
-                      <th scope="col" rowSpan="2">Coin Name</th>
-                      <th scope="col" rowSpan="2">Symbol</th>
-                      <th scope="col" rowSpan="2">Holdings</th>
+                      <th scope="col" rowSpan="2" className="sortable">Coin Name <SortIcon /></th>
+                      <th scope="col" rowSpan="2" className="sortable">Symbol <SortIcon /></th>
+                      <th scope="col" rowSpan="2" className="sortable">Holdings <SortIcon /></th>
                       <th scope="col" colSpan="3" className="table-th-colspan">Buy Price</th>
                       <th scope="col" colSpan="3" className="table-th-colspan">Market Price</th>
                       <th scope="col" colSpan="3" className="table-th-colspan">Valuation</th>
                       <th scope="col" colSpan="3">Profilt/Loss (%)</th>
-                      <th scope="col" rowSpan="2">Allocation (%)</th>
+                      <th scope="col" rowSpan="2" className="sortable">Allocation (%) <SortIcon /></th>
                     </tr>
                     <tr>
-                        <th>USD</th>
-                        <th>BTC</th>
-                        <th>ETH</th>
-                        <th>USD</th>
-                        <th>BTC</th>
-                        <th>ETH</th>
-                        <th>USD</th>
-                        <th>BTC</th>
-                        <th>ETH</th>
-                        <th>USD</th>
-                        <th>BTC</th>
-                        <th>ETH</th>
+                        <th className="sortable">USD <SortIcon /></th>
+                        <th className="sortable">BTC <SortIcon /></th>
+                        <th className="sortable">ETH <SortIcon /></th>
+                        <th className="sortable">USD <SortIcon /></th>
+                        <th className="sortable">BTC <SortIcon /></th>
+                        <th className="sortable">ETH <SortIcon /></th>
+                        <th className="sortable">USD <SortIcon /></th>
+                        <th className="sortable">BTC <SortIcon /></th>
+                        <th className="sortable">ETH <SortIcon /></th>
+                        <th className="sortable">USD <SortIcon /></th>
+                        <th className="sortable">BTC <SortIcon /></th>
+                        <th className="sortable">ETH <SortIcon /></th>
                     </tr>
                 </thead>
                 <tbody>
