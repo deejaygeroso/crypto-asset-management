@@ -16,16 +16,25 @@ class Manage extends Component {
         this.gotoUserPortfolio = this.gotoUserPortfolio.bind(this);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Find all user
+     * -------------------------------------------------------------------------------- */
     componentDidMount(){
         const { userActions } = this.props;
         userActions.itemListFindAll();
 
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Clear All user error so no errors will be found when navigating to portfolio form
+     * -------------------------------------------------------------------------------- */
     componentWillUnmount(){
         this.props.userActions.errorClear()
     }
 
+    /* ----------------------------------------------------------------------------------
+     * User's Card
+     * -------------------------------------------------------------------------------- */
     renderUsersCard(user_id, key){
         const { usersList } = this.props;
         const user = usersList.byId[user_id];
@@ -44,6 +53,9 @@ class Manage extends Component {
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Form for adding new user
+     * -------------------------------------------------------------------------------- */
     renderFormComponent(){
         return(
             <div className="user-add d-flex align-items-center justify-content-center fadeIn animated" >
@@ -84,6 +96,9 @@ class Manage extends Component {
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Component
+     * -------------------------------------------------------------------------------- */
     render(){
         const { usersList, userError, userSuccess } = this.props;
         return(
@@ -175,12 +190,18 @@ class Manage extends Component {
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * On Change update state for the form
+     * -------------------------------------------------------------------------------- */
     onChange(key, value){
         let inputData = []
         inputData[key] = value;
         this.setState(inputData);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Add new user
+     * -------------------------------------------------------------------------------- */
     onSubmit(evt){
         const { userActions } = this.props;
         const { email, password } = this.state;
@@ -213,14 +234,18 @@ class Manage extends Component {
         this.setState({email: '', password: ''});
     }
 
+    /* ----------------------------------------------------------------------------------
+     * before submit validate email
+     * -------------------------------------------------------------------------------- */
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
-    /* ----------------------------------------------------------
+
+    /* ----------------------------------------------------------------------------------
      * Route to update specific clients portfolio
-     * -------------------------------------------------------- */
+     * -------------------------------------------------------------------------------- */
     gotoUserPortfolio(user_id){
         const { userActions } = this.props;
 

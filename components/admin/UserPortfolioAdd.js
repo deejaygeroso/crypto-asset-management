@@ -12,6 +12,9 @@ class UserPortfolioAdd extends Component{
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * If no user id is passed redirect back to manage page 
+     * -------------------------------------------------------------------------------- */
     componentDidMount(){
         const { cryptoIdsActions, coinmarketcapTicker } = this.props;
 
@@ -25,12 +28,18 @@ class UserPortfolioAdd extends Component{
 
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Page. 
+     * -------------------------------------------------------------------------------- */
     render(){
         return(
             <FormPage portfolioMainPageRouteName="/admin/userportfolio" onSubmit={this.onSubmit}/>
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * On submit pass back the user id back to userportfolio page 
+     * -------------------------------------------------------------------------------- */
     onSubmit(){
         
         const { user, portfolioActions, coinmarketcapTicker } = this.props;

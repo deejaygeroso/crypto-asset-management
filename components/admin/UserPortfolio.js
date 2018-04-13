@@ -14,6 +14,9 @@ class Portfolio extends Component{
         this.routerPush = this.routerPush.bind(this);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * fetch user portfolio based on user_id passed from the selected user from manage page
+     * -------------------------------------------------------------------------------- */
     componentDidMount(){
         const { portfolioActions, coinmarketcapTicker } = this.props;
 
@@ -32,6 +35,9 @@ class Portfolio extends Component{
 
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Component 
+     * -------------------------------------------------------------------------------- */
     render(){
         return(
             <div>
@@ -40,6 +46,9 @@ class Portfolio extends Component{
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Attach selected user Id to the next routed page which is routerPush for edit
+     * -------------------------------------------------------------------------------- */
     routerPush(){
         const user_id = (Router && Router.query && Router.query.user_id) || '';
         Router.push({
