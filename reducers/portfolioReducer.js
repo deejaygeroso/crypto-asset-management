@@ -2,6 +2,7 @@ import * as ACTION_TYPES from '../types/portfolioTypes';
 import { 
     indexBy as __$indexBy,
     findWhere as __$findWhere,
+    uniq as __$uniq,
 } from 'underscore';
 
 const initialPortfolio = { email: '' };
@@ -67,7 +68,12 @@ export const portfolioList = (state = initialPortfoliosList, {type, payload, ite
             // normalize using _id. We did not use id to allow duplication of data
             const byId = __$indexBy(newPortfolioList, '_id');
             const allIds = Object.keys(byId);
-            return  Object.assign({}, { byId, allIds });
+
+            // normalized to avoid duplication of the data this will be used on other stats and volume overview
+            const uniqId = __$uniq(newPortfolioList, 'id');
+            const allIdsUniq = uniqId.map(a => a._id); // get all the _id from newPortfolioList (uniqe crypto name. data that has been pushed already from the array were ommitted)
+
+            return  Object.assign({}, { byId, allIds, allIdsUniq });
         }
         case ACTION_TYPES.ITEMLIST_APPEND: {
             const { byId } = state;
