@@ -9,6 +9,7 @@ class Portfolio extends Component{
 
     constructor(props){
         super(props);
+        this.sortTableBy = this.sortTableBy.bind(this);
     }
 
     /* ----------------------------------------------------------------------------------
@@ -45,9 +46,15 @@ class Portfolio extends Component{
     render(){
         return(
             <div>
-                <MainPage  portfolioAddRouteName="/portfolio/add" coinmarketcapGlobal={this.props.coinmarketcapGlobal}/>
+                <MainPage portfolioAddRouteName="/portfolio/add" 
+                    sortTableBy={this.sortTableBy}
+                    coinmarketcapGlobal={this.props.coinmarketcapGlobal}/>
             </div>
         )
+    }
+
+    sortTableBy(data){
+        console.log(data)
     }
 
 }

@@ -9,7 +9,7 @@ import {
 import TableStyle from '../styles/TableStyle';
 import SortIcon from './SortIcon'
 
-const PortfolioTable = ({portfolioList, onClick}) => (
+const PortfolioTable = ({portfolioList, onClick, sortTableBy}) => (
     <div className="bounceInLeft animated">
         <div className="table-view table-responsive">
             <table className="table table-hover">
@@ -26,9 +26,9 @@ const PortfolioTable = ({portfolioList, onClick}) => (
                       <th scope="col" rowSpan="2" className="sortable">Allocation (%) <SortIcon /></th>
                     </tr>
                     <tr>
-                        <th className="sortable">USD <SortIcon /></th>
-                        <th className="sortable">BTC <SortIcon /></th>
-                        <th className="sortable">ETH <SortIcon /></th>
+                        <th className="sortable" onClick={()=>{sortTableBy('buy_price_usd')}}>USD <SortIcon /></th>
+                        <th className="sortable" onClick={()=>{sortTableBy('buy_price_btc')}}>BTC <SortIcon /></th>
+                        <th className="sortable" onClick={()=>{sortTableBy('buy_price_eth')}}>ETH <SortIcon /></th>
                         <th className="sortable">USD <SortIcon /></th>
                         <th className="sortable">BTC <SortIcon /></th>
                         <th className="sortable">ETH <SortIcon /></th>
@@ -174,6 +174,7 @@ const PortfolioTable = ({portfolioList, onClick}) => (
 PortfolioTable.propTypes = {
     portfolioList: PropTypes.object,
     onClick: PropTypes.func,
+    sortTableBy : PropTypes.func,
 }
 
 export default PortfolioTable;

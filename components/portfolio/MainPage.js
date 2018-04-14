@@ -19,6 +19,7 @@ class MainPage extends Component{
         }
         this.routeToPortfolioAdd = this.routeToPortfolioAdd.bind(this);
         this.toggleView = this.toggleView.bind(this);
+        this.sortTableBy = this.sortTableBy.bind(this);
     }
 
     componentWillUnmount(){
@@ -30,7 +31,7 @@ class MainPage extends Component{
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
-        const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, coinmarketcapGlobal } = this.props;
+        const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, coinmarketcapGlobal, sortTableBy } = this.props;
         const { isWidgetVisible, isStatsTableVisible, isPortfolioTableVisible } = this.state;
         
         return(
@@ -54,7 +55,7 @@ class MainPage extends Component{
                     isPortfolioTableVisible ?
                         <div className="container-fluid" style={{paddingLeft: 50, paddingRight: 50}}>
                             <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Profit Margin</h1>
-                            <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
+                            <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.sortTableBy} />
                         </div> : <div></div>
                 }
 
@@ -153,6 +154,10 @@ class MainPage extends Component{
         }
 
         Router.push(portfolioAddRouteName);
+    }
+
+    sortTableBy(sortFieldName){
+        this.props.portfolioActions.itemsListSortData({sortFieldName})
     }
 
 }

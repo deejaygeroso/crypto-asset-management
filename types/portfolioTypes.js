@@ -15,3 +15,4 @@ export const ITEMLIST_COMPOSE = `${NAME}_LIST_COMPOSE`;
 export const ITEMLIST_CLEAR   = `${NAME}_LIST_CLEAR`;
 export const ITEMLIST_PATCH   = `${NAME}_LIST_PATCH`;
 export const ITEMLIST_REMOVE  = `${NAME}_LIST_REMOVE`;
+export const ITEMLIST_SORTDATA = `${NAME}_LIST_SORTDATA`;

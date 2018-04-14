@@ -48,7 +48,7 @@ export const portfolioError = (state = initialPortfolioError, {type, payload}) =
 }
 
 const initialPortfoliosList = { byId: {}, allIds: [] };
-export const portfolioList = (state = initialPortfoliosList, {type, payload, item, portfolioList, coinmarketcapTicker}) => {
+export const portfolioList = (state = initialPortfoliosList, {type, payload, item, portfolioList, coinmarketcapTicker, sortFieldName}) => {
     switch (type) {
         case ACTION_TYPES.ITEMLIST_SET: {
             const byId = __$indexBy(payload, '_id');
@@ -89,6 +89,9 @@ export const portfolioList = (state = initialPortfoliosList, {type, payload, ite
         }
         case ACTION_TYPES.ITEMLIST_CLEAR:
             return initialPortfoliosList;
+        case ACTION_TYPES.ITEMLIST_SORTDATA:
+            console.log('sd`l', sortFieldName)
+            return state;
         default:
             return state;
     }

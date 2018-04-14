@@ -98,6 +98,14 @@ export const itemListClear = () => ({
     type: ACTION_TYPES.ITEMLIST_CLEAR,
 })
 
+/*
+ * sort data from the table
+ */
+export const itemsListSortData = ({sortFieldName}) => ({
+    type: ACTION_TYPES.ITEMLIST_SORTDATA,
+    sortFieldName,
+})
+
 /* ----------------------------------------------------------------------------------
  * Create new portfolio item on the database
  * -------------------------------------------------------------------------------- */
@@ -182,6 +190,15 @@ export const itemListFindByUserId = ({params, coinmarketcapTicker}) => {
         } catch (error) {
             const payload = { message: 'Unable to fetch your portfolio' }
             dispatch(errorSet({payload}));
+        }
+    }
+}
+
+export const itemListSortBy = ({sortData}) => {
+    return async dispatch => {
+        try {
+            dispatch(itemsListSortData({sortData}));
+        } catch (error) {
         }
     }
 }
