@@ -34,7 +34,7 @@ const StatsTable = ({portfolioList, onClick}) => (
                     </tr>
                 </thead>
                 <tbody>
-                    {portfolioList && portfolioList.allIds && portfolioList.allIds.map((id, key)=>(
+                    {portfolioList && portfolioList.allIdsUniq && portfolioList.allIdsUniq.map((id, key)=>(
                         id ?
                             <tr id="portfolio-tr" onClick={()=>{onClick(portfolioList.byId[id])}} key={key}>
                                 { /* ------- Icon ------ */ }

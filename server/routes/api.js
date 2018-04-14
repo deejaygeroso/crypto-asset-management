@@ -148,7 +148,7 @@ module.exports = function(app, router, auth){
      * Add new coin to user's portfolio
      * -------------------------------------------------------- */
     router.post('/portfolio/create', (req, res)=>{
-        const { user_id, amount, crypto, description, buy_price_usd, buy_price_btc, buy_price_eth, notes } = req.body;
+        const { user_id, amount, crypto, buy_price_usd, buy_price_btc, buy_price_eth, notes } = req.body;
 
         // create a new portfolio
         const newPortfolio = new PortfolioModel({
