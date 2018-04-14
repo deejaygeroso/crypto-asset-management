@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    // formatMoney,
+    formatPrice,
     commarize
 } from '../../lib/helpers';
 
@@ -65,10 +65,10 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
                     <div className="card-ath-atl line-height-0-4" >
                         <p className="line-height-0-4 font-size-10" >
                             <span className="card-ath">
-                                $ {commarize(priceAth[portfolio && portfolio.id])} (ATH)
+                                $ {formatPrice(priceAth[portfolio && portfolio.id])} (ATH)
                             </span>
                             <span className="card-atl"> &nbsp;
-                                $ {commarize(priceAtl[portfolio && portfolio.id])} (ATL)
+                                $ {formatPrice(priceAtl[portfolio && portfolio.id])} (ATL)
                             </span>
                             <span>
                                 &nbsp;

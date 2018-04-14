@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { commarize } from '../../lib/helpers';
+import { commarize, formatPrice } from '../../lib/helpers';
 import moment from 'moment';
 
 const History = ({id, cryptoHistory}) => (
@@ -93,7 +93,7 @@ function loopPrice(cryptoHistory){
             data.push(
                 <div key={i} className="history-box text-center">
                     <p className="history-sub-text align-middle text-center">
-                        {commarize(cryptoHistory[i]['price_usd'])}
+                        {formatPrice(cryptoHistory[i]['price_usd'])}
                     </p>
                 </div>
             )
