@@ -101,9 +101,10 @@ export const itemListClear = () => ({
 /*
  * sort data from the table
  */
-export const itemsListSortData = ({sortFieldName}) => ({
+export const itemsListSortData = ({sortFieldName, sortFieldStatus}) => ({
     type: ACTION_TYPES.ITEMLIST_SORTDATA,
     sortFieldName,
+    sortFieldStatus,
 })
 
 /* ----------------------------------------------------------------------------------
@@ -190,15 +191,6 @@ export const itemListFindByUserId = ({params, coinmarketcapTicker}) => {
         } catch (error) {
             const payload = { message: 'Unable to fetch your portfolio' }
             dispatch(errorSet({payload}));
-        }
-    }
-}
-
-export const itemListSortBy = ({sortData}) => {
-    return async dispatch => {
-        try {
-            dispatch(itemsListSortData({sortData}));
-        } catch (error) {
         }
     }
 }

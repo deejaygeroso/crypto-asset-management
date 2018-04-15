@@ -16,6 +16,10 @@ class MainPage extends Component{
             isPortfolioTableVisible : true,
             isStatsTableVisible : false,
             isWidgetVisible    : false,
+
+            sortFieldName: '',
+            sortFieldStatus: '',
+
         }
         this.routeToPortfolioAdd = this.routeToPortfolioAdd.bind(this);
         this.toggleView = this.toggleView.bind(this);
@@ -31,9 +35,8 @@ class MainPage extends Component{
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
-        const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, coinmarketcapGlobal, sortTableBy } = this.props;
+        const { user, portfolioList, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl, coinmarketcapGlobal } = this.props;
         const { isWidgetVisible, isStatsTableVisible, isPortfolioTableVisible } = this.state;
-        
         return(
             <div className="page-container">
                 <Navbar />
@@ -49,13 +52,13 @@ class MainPage extends Component{
 
                 
                 {/* ----------------------------- */}
-                {/* ------ Portfolio Table ------ */}
+                {/* ------- Profit Margin ------- */}
                 {/* ----------------------------- */}
                 {
                     isPortfolioTableVisible ?
                         <div className="container-fluid" style={{paddingLeft: 50, paddingRight: 50}}>
                             <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Profit Margin</h1>
-                            <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.sortTableBy} />
+                            <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.sortTableBy} sortFieldName={this.state.sortFieldName} sortFieldStatus={this.state.sortFieldStatus}/>
                         </div> : <div></div>
                 }
 
@@ -156,8 +159,38 @@ class MainPage extends Component{
         Router.push(portfolioAddRouteName);
     }
 
-    sortTableBy(sortFieldName){
-        this.props.portfolioActions.itemsListSortData({sortFieldName})
+    sortTableBy(sortFieldNameInput){
+        const { sortFieldName, sortFieldStatus } = this.state;
+        let status = '';
+        if(sortFieldName===sortFieldNameInput){
+            // if(sortFieldStatus===''){
+            //     // if pressed the 4th time back to the cycle
+            //     status='up';
+            // }
+            if(sortFieldStatus==='up'){
+                // second press is descending
+                status='down';
+            }
+            if(sortFieldStatus==='down'){
+                // third press is back to neutral
+                status='up';
+            }
+        }else{
+            // first press is ascending
+            status='up'
+        }
+
+        // set the status for changing of sort icons per column
+        this.setState({
+            sortFieldName: sortFieldNameInput,
+            sortFieldStatus: status,
+        })
+
+        // sort table
+        this.props.portfolioActions.itemsListSortData({
+            sortFieldName: sortFieldNameInput,
+            sortFieldStatus: status,
+        })
     }
 
 }

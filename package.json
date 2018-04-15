@@ -45,7 +45,10 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "reinstall": "^2.0.0",
+    "sort-array-objects": "^2.0.0",
     "sort-by": "^1.2.0",
+    "sorted-collection": "^1.0.8",
+    "string-sort": "^1.2.0",
     "to": "^0.2.9",
     "underscore": "^1.8.3"
   },

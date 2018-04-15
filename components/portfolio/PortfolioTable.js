@@ -9,169 +9,170 @@ import {
 import TableStyle from '../styles/TableStyle';
 import SortIcon from './SortIcon'
 
-const PortfolioTable = ({portfolioList, onClick, sortTableBy}) => (
-    <div className="bounceInLeft animated">
-        <div className="table-view table-responsive">
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                      <th scope="col" rowSpan="2" className="th-icon">Icon</th>
-                      <th scope="col" rowSpan="2" className="sortable">Coin Name <SortIcon /></th>
-                      <th scope="col" rowSpan="2" className="sortable">Symbol <SortIcon /></th>
-                      <th scope="col" rowSpan="2" className="sortable">Holdings <SortIcon /></th>
-                      <th scope="col" colSpan="3" className="table-th-colspan">Buy Price</th>
-                      <th scope="col" colSpan="3" className="table-th-colspan">Market Price</th>
-                      <th scope="col" colSpan="3" className="table-th-colspan">Valuation</th>
-                      <th scope="col" colSpan="3">Profilt/Loss (%)</th>
-                      <th scope="col" rowSpan="2" className="sortable">Allocation (%) <SortIcon /></th>
-                    </tr>
-                    <tr>
-                        <th className="sortable" onClick={()=>{sortTableBy('buy_price_usd')}}>USD <SortIcon /></th>
-                        <th className="sortable" onClick={()=>{sortTableBy('buy_price_btc')}}>BTC <SortIcon /></th>
-                        <th className="sortable" onClick={()=>{sortTableBy('buy_price_eth')}}>ETH <SortIcon /></th>
-                        <th className="sortable">USD <SortIcon /></th>
-                        <th className="sortable">BTC <SortIcon /></th>
-                        <th className="sortable">ETH <SortIcon /></th>
-                        <th className="sortable">USD <SortIcon /></th>
-                        <th className="sortable">BTC <SortIcon /></th>
-                        <th className="sortable">ETH <SortIcon /></th>
-                        <th className="sortable">USD <SortIcon /></th>
-                        <th className="sortable">BTC <SortIcon /></th>
-                        <th className="sortable">ETH <SortIcon /></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {portfolioList && portfolioList.allIds && portfolioList.allIds.map((id, key)=>(
-                        id ?
-                            <tr id="portfolio-tr" onClick={()=>{onClick(portfolioList.byId[id])}} key={key}>
-                                {/* ------ Icon ------*/}
-                                <td scope="col">
-                                    <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="25" width="25" />
-                                </td>
-                                {/* ------ Name ------*/}
-                                <td scope="col">{portfolioList.byId[id]['name']}</td>
-                                {/* ------ Symbol ------*/}
-                                <td scope="col">{portfolioList.byId[id]['symbol']}</td>
-                                {/* ------ Holdings/Amount ------*/}
-                                <td scope="col">
-                                    <span className="num-span" style={{color: '#3F95EA'}}>
-                                        {formatMoney(portfolioList.byId[id]['amount']) }
-                                    </span>
-                                </td>
-                                {/* ------ Buy Price USD ------*/}
-                                <td scope="col">
-                                    <span className="num-span" style={{color: '#3F95EA'}}>
-                                        {portfolioList.byId[id]['buy_price_usd']}
-                                    </span>
-                                </td>
-                                {/* ------ Buy Price BTC ------*/}
-                                <td scope="col">
-                                    <span className="num-span" style={{color: '#3F95EA'}}>
-                                        {portfolioList.byId[id]['buy_price_btc']}
-                                    </span>
-                                </td>
-                                {/* ------ Buy Price ETH ------*/}
-                                <td scope="col">
-                                    <span className="num-span" style={{color: '#3F95EA'}}>
-                                        {portfolioList.byId[id]['buy_price_eth']}
-                                    </span>
-                                </td>
-                                {/* ------ Market Price USD ------*/}
-                                <td scope="col">
-                                    <span className="num-span td-market-price">
-                                        {formatMoney(portfolioList.byId[id]['price_usd']) }
-                                    </span>
-                                </td>
-                                {/* ------ Market Price BTC ------*/}
-                                <td scope="col">
-                                    <span className="num-span td-market-price">
-                                        {portfolioList.byId[id]['price_btc']}
-                                    </span>
-                                </td>
-                                {/* ------ Market Price ETH ------*/}
-                                <td scope="col">
-                                    <span className="num-span td-market-price">
-                                        {portfolioList.byId[id]['price_eth']}
-                                    </span>
-                                </td>
-                                {/* ------ Valuation USD ------*/}
-                                <td scope="col">
-                                    <span className="num-span">
-                                        {/* {formatMoney(calculateValuation(portfolioList.byId[id], 'price_usd'), 2, 3, ',') } */}
-                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_usd')) }
-                                    </span>
-                                </td>
-                                {/* ------ Valuation BTC ------*/}
-                                <td scope="col">
-                                    <span className="num-span">
-                                        {/* {formatMoney(calculateValuation(portfolioList.byId[id], 'price_btc'), 2, 3, ',') } */}
-                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_btc')) }
-                                    </span>
-                                </td>
-                                {/* ------ Valuation ETH ------*/}
-                                <td scope="col">
-                                    <span className="num-span">
-                                        {/* {formatMoney(calculateValuation(portfolioList.byId[id], 'price_eth'), 2, 3, ',') } */}
-                                        {formatMoney(calculateValuation(portfolioList.byId[id], 'price_eth')) }
-                                    </span>
-                                </td>
-                                {/* ------ Profit/Lostt USD % ------*/}
-                                <td scope="col">
-                                    <span className="num-span" style={{ color: isCalculateProfitOrLoss(portfolioList.byId[id], 'price_usd', 'buy_price_usd') ? 'green' : 'red' }}>
-                                        {calculateProfitOrLoss(portfolioList.byId[id], 'price_usd', 'buy_price_usd')}
-                                    </span>
-                                </td>
-                                {/* ------ Profit/Lostt BTC % ------*/}
-                                <td scope="col">
-                                    <span className="num-span" style={{ color: isCalculateProfitOrLoss(portfolioList.byId[id], 'price_btc', 'buy_price_btc') ? 'green' : 'red' }}>
-                                        {calculateProfitOrLoss(portfolioList.byId[id], 'price_btc', 'buy_price_btc')}
-                                    </span>
-                                </td>
-                                {/* ------ Profit/Lostt ETH % ------*/}
-                                <td scope="col">
-                                    <span className="num-span" style={{ color: isCalculateProfitOrLoss(portfolioList.byId[id], 'price_eth', 'buy_price_eth') ? 'green' : 'red' }}>
-                                        {calculateProfitOrLoss(portfolioList.byId[id], 'price_eth', 'buy_price_eth')}
-                                    </span>
-                                </td>
-                                {/* ------ Allocation % ------*/}
-                                <td scope="col">
-                                    <span className="num-span">
-                                        {calculatePercentage(portfolioList, id)}
-                                    </span>
-                                </td>
+const PortfolioTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sortFieldStatus}) => {
+        return (
+            <div className="bounceInLeft animated">
+                <div className="table-view table-responsive">
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                              <th scope="col" rowSpan="2" className="th-icon">Icon</th>
+                              <th scope="col" rowSpan="2" className="sortable" onClick={()=>sortTableBy('name')}>Coin Name <SortIcon name="name" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus}/></th>
+                              <th scope="col" rowSpan="2" className="sortable" onClick={()=>sortTableBy('symbol')}>Symbol <SortIcon name="symbol" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                              <th scope="col" rowSpan="2" className="sortable" onClick={()=>sortTableBy('amount')}>Holdings <SortIcon name="amount" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                              <th scope="col" colSpan="3" className="table-th-colspan">Buy Price</th>
+                              <th scope="col" colSpan="3" className="table-th-colspan">Market Price</th>
+                              <th scope="col" colSpan="3" className="table-th-colspan">Valuation</th>
+                              <th scope="col" colSpan="3" className="table-th-colspan">Profilt/Loss (%)</th>
+                              <th scope="col" rowSpan="2" className="sortable" onClick={()=>sortTableBy('allocation')}>Allocation (%) <SortIcon name="allocation" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                             </tr>
-                        :
-                            <tr key={key}>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
-                                <td scope="col"></td>
+                            <tr>
+                                <th className="sortable" onClick={()=>{sortTableBy('buy_price_usd')}}>USD <SortIcon name="buy_price_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('buy_price_btc')}}>BTC <SortIcon name="buy_price_btc" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('buy_price_eth')}}>ETH <SortIcon name="buy_price_eth" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('price_usd')}}>USD <SortIcon name="price_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('price_btc')}}>BTC <SortIcon name="price_btc" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('price_eth')}}>ETH <SortIcon name="price_eth" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('valuation_usd')}}>USD <SortIcon name="valuation_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('valuation_btc')}}>BTC <SortIcon name="valuation_btc" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('valuation_eth')}}>ETH <SortIcon name="valuation_eth" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('profit_loss_usd')}}>USD <SortIcon name="profit_loss_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('profit_loss_btc')}}>BTC <SortIcon name="profit_loss_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('profit_loss_eth')}}>ETH <SortIcon name="profit_loss_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                             </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-        {/*
-            <div className="btn-wrapper">
-                <button onClick={()=>onClick({})} className="btn btn-lg btn-primary btn-block" type="submit">
-                    Add Coin
-                </button>
-            </div>
-        */}
+                        </thead>
+                        <tbody>
+                            {portfolioList && portfolioList.allIds_profitMargin && portfolioList.allIds_profitMargin.map((id, key)=>(
+                                id ?
+                                    <tr id="portfolio-tr" onClick={()=>{onClick(portfolioList.byId[id])}} key={key}>
+                                        {/* ------ Icon ------*/}
+                                        <td scope="col">
+                                            <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="25" width="25" />
+                                        </td>
+                                        {/* ------ Name ------*/}
+                                        <td scope="col">{guarding(portfolioList, id, 'name')}</td>
+                                        {/* ------ Symbol ------*/}
+                                        <td scope="col">{guarding(portfolioList, id, 'symbol')}</td>
+                                        {/* ------ Holdings/Amount ------*/}
+                                        <td scope="col">
+                                            <span className="num-span" style={{color: '#3F95EA'}}>
+                                                {formatMoney(guarding(portfolioList, id, 'amount')) }
+                                            </span>
+                                        </td>
+                                        {/* ------ Buy Price USD ------*/}
+                                        <td scope="col">
+                                            <span className="num-span" style={{color: '#3F95EA'}}>
+                                                {guarding(portfolioList, id, 'buy_price_usd')}
+                                            </span>
+                                        </td>
+                                        {/* ------ Buy Price BTC ------*/}
+                                        <td scope="col">
+                                            <span className="num-span" style={{color: '#3F95EA'}}>
+                                                {guarding(portfolioList, id, 'buy_price_btc')}
+                                            </span>
+                                        </td>
+                                        {/* ------ Buy Price ETH ------*/}
+                                        <td scope="col">
+                                            <span className="num-span" style={{color: '#3F95EA'}}>
+                                                {guarding(portfolioList, id, 'buy_price_eth')}
+                                            </span>
+                                        </td>
+                                        {/* ------ Market Price USD ------*/}
+                                        <td scope="col">
+                                            <span className="num-span td-market-price">
+                                                {formatMoney(guarding(portfolioList, id, 'price_usd')) }
+                                            </span>
+                                        </td>
+                                        {/* ------ Market Price BTC ------*/}
+                                        <td scope="col">
+                                            <span className="num-span td-market-price">
+                                                {guarding(portfolioList, id, 'price_btc')}
+                                            </span>
+                                        </td>
+                                        {/* ------ Market Price ETH ------*/}
+                                        <td scope="col">
+                                            <span className="num-span td-market-price">
+                                                {guarding(portfolioList, id, 'price_eth')}
+                                            </span>
+                                        </td>
+                                        {/* ------ Valuation USD ------*/}
+                                        <td scope="col">
+                                            <span className="num-span">
+                                                {formatMoney(guarding(portfolioList, id, 'valuation_usd'))}
+                                            </span>
+                                        </td>
+                                        {/* ------ Valuation BTC ------*/}
+                                        <td scope="col">
+                                            <span className="num-span">
+                                                {formatMoney(guarding(portfolioList, id, 'valuation_btc'))}
+                                            </span>
+                                        </td>
+                                        {/* ------ Valuation ETH ------*/}
+                                        <td scope="col">
+                                            <span className="num-span">
+                                                {formatMoney(guarding(portfolioList, id, 'valuation_eth'))}
+                                            </span>
+                                        </td>
+                                        {/* ------ Profit/Lostt USD % ------*/}
+                                        <td scope="col">
+                                            <span className="num-span" style={{ color: isProfitOrLossPositive(guarding(portfolioList, id, 'profit_loss_usd')) ? 'green' : 'red' }}>
+                                                {formatProfitOrLoss(guarding(portfolioList, id, 'profit_loss_usd'))}
+                                            </span>
+                                        </td>
+                                        {/* ------ Profit/Lostt BTC % ------*/}
+                                        <td scope="col">
+                                            <span className="num-span" style={{ color: isProfitOrLossPositive(guarding(portfolioList, id, 'profit_loss_btc')) ? 'green' : 'red' }}>
+                                                {formatProfitOrLoss(guarding(portfolioList, id, 'profit_loss_btc'))}
+                                            </span>
+                                        </td>
+                                        {/* ------ Profit/Lostt ETH % ------*/}
+                                        <td scope="col">
+                                            <span className="num-span" style={{ color: isProfitOrLossPositive(guarding(portfolioList, id, 'profit_loss_eth')) ? 'green' : 'red' }}>
+                                                {formatProfitOrLoss(guarding(portfolioList, id, 'profit_loss_eth'))}
+                                            </span>
+                                        </td>
+                                        {/* ------ Allocation % ------*/}
+                                        <td scope="col">
+                                            <span className="num-span">
+                                                {guarding(portfolioList, id, 'allocation').toFixed(2)}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                :
+                                <tr key={key}>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                    </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                {/*
+                    <div className="btn-wrapper">
+                        <button onClick={()=>onClick({})} className="btn btn-lg btn-primary btn-block" type="submit">
+                            Add Coin
+                        </button>
+                    </div>
+                */}
 
-        <TableStyle />
-    </div>
-)
+              <TableStyle />
+          </div>
+       )
+}
 
 PortfolioTable.propTypes = {
+    sortFieldName : PropTypes.string,
+    sortFieldStatus : PropTypes.string,
     portfolioList: PropTypes.object,
     onClick: PropTypes.func,
     sortTableBy : PropTypes.func,
@@ -179,72 +180,18 @@ PortfolioTable.propTypes = {
 
 export default PortfolioTable;
 
-// check if its a positive or negative
-// function isPositiveNumber(numberString){
-//     const number = parseFloat(numberString)
-//     if(number>=0){
-//         return true;
-//     }
-//     return false;
-// }
-
-/* ----------------------------------------------------------------------------------
- * Calculate allocation percentage by deviding coins valuation over the sum 
- * of total valuation the user on his/her portfolio
- * Formula: (Valuation/TotalValuation) * 100
- * -------------------------------------------------------------------------------- */
-function calculatePercentage(portfolioList, id){
-    let totalValuation = calculateTotalValuation(portfolioList) || 0;
-    let currentValuation = calculateValuation(portfolioList.byId[id], 'price_usd') || 0;
-    let currentPercentage = ( parseFloat(currentValuation)/parseFloat(totalValuation) ) * 100;
-
-    return currentPercentage.toFixed(2);
+function guarding(portfolioList, id, fieldName){
+    return portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id][fieldName];
 }
-
-/* ----------------------------------------------------------------------------------
- * Sum of all valutaion
- * Formulat: coin1Valuation + coin2Valuation ...
- * -------------------------------------------------------------------------------- */
-function calculateTotalValuation(portfolioList){
-    let totalValuation = 0;
-    portfolioList && portfolioList.allIds && portfolioList.allIds.map((id)=>{
-        if(id){
-            totalValuation = totalValuation + calculateValuation(portfolioList.byId[id], 'price_usd')
-        }
-    })
-    return totalValuation;
-}
-
-/* ----------------------------------------------------------------------------------
- * Sum up all valutaion per coin by multiplying the amount to market price
- * Formulat: amount * price_usd
- * -------------------------------------------------------------------------------- */
-function calculateValuation(cryptoData, fieldName){
-    const amount = parseFloat(cryptoData.amount) || 0;
-    const market_price = parseFloat(cryptoData[fieldName]) || 0; 
-    const valuation = amount * market_price;
-
-    return valuation;
-}
-
 
 /* ----------------------------------------------------------------------------------
  * Calculate percentage whether its a profit or a loss
  * Formulat: (market_price - buy_price) / market_price
  * -------------------------------------------------------------------------------- */
-function calculateProfitOrLoss(cryptoData, marketPriceFieldName, buyPriceFieldName){
-    const market_price = parseFloat(cryptoData[marketPriceFieldName]) || 0;
-    const buy_price = parseFloat(cryptoData[buyPriceFieldName]) || 0;
-    const profitOrLoss = ((market_price - buy_price) / buy_price) * 100;
-
-    if (profitOrLoss == Number.POSITIVE_INFINITY || profitOrLoss == Number.NEGATIVE_INFINITY){
-        return "0.00";
-    }
-
+function formatProfitOrLoss(profitOrLoss){
     if(profitOrLoss>=0){
         return `+${formatMoney(profitOrLoss)}`;
     }
-
     return profitOrLoss.toFixed(2);
 }
 
@@ -253,12 +200,7 @@ function calculateProfitOrLoss(cryptoData, marketPriceFieldName, buyPriceFieldNa
  * this is mainly used only for adding "-" or "+" to a number
  * also used for coloring green for profit and red for loss
  * -------------------------------------------------------------------------------- */
-function isCalculateProfitOrLoss(cryptoData, marketPriceFieldName, buyPriceFieldName){
-    const market_price = parseFloat(cryptoData[marketPriceFieldName]) || 0;
-
-    const buy_price = parseFloat(cryptoData[buyPriceFieldName]) || 0;
-    const profitOrLoss = ((market_price - buy_price) / buy_price) * 100;
-
+function isProfitOrLossPositive(profitOrLoss){
     if(profitOrLoss>=0){
         return true;
     }
