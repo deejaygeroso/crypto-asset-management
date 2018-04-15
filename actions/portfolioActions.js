@@ -99,10 +99,19 @@ export const itemListClear = () => ({
 })
 
 /*
- * sort data from the table
+ * Profit Margin sort data from the table
  */
 export const itemsListSortData = ({sortFieldName, sortFieldStatus}) => ({
     type: ACTION_TYPES.ITEMLIST_SORTDATA,
+    sortFieldName,
+    sortFieldStatus,
+})
+
+/*
+ * Other Stats sort data from the table
+ */
+export const itemsListOtherStatsSortData = ({sortFieldName, sortFieldStatus}) => ({
+    type: ACTION_TYPES.ITEMLIST_OTHER_STATS_SORTDATA,
     sortFieldName,
     sortFieldStatus,
 })

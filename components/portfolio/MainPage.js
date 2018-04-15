@@ -20,10 +20,14 @@ class MainPage extends Component{
             sortFieldName: '',
             sortFieldStatus: '',
 
+            statsSortFieldName: '',
+            statsSortFieldStatus: '',
+
         }
         this.routeToPortfolioAdd = this.routeToPortfolioAdd.bind(this);
         this.toggleView = this.toggleView.bind(this);
         this.sortTableBy = this.sortTableBy.bind(this);
+        this.statsSortTableBy = this.statsSortTableBy.bind(this);
     }
 
     componentWillUnmount(){
@@ -70,7 +74,7 @@ class MainPage extends Component{
                         <div>
                             <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Other Stats</h1>
                             <div className="container-fluid d-flex align-items-center justify-content-center">
-                                <StatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} />
+                                <StatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.statsSortTableBy} sortFieldName={this.state.statsSortFieldName} sortFieldStatus={this.state.statsSortFieldStatus}/>
                             </div>
                         </div> : <div></div>
                 }
@@ -159,6 +163,9 @@ class MainPage extends Component{
         Router.push(portfolioAddRouteName);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Sort Profit Margin Table 
+     * -------------------------------------------------------------------------------- */
     sortTableBy(sortFieldNameInput){
         const { sortFieldName, sortFieldStatus } = this.state;
         let status = '';
@@ -186,9 +193,46 @@ class MainPage extends Component{
             sortFieldStatus: status,
         })
 
-        // sort table
+        // sort table of profit margin
         this.props.portfolioActions.itemsListSortData({
             sortFieldName: sortFieldNameInput,
+            sortFieldStatus: status,
+        })
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Sort Other Stats
+     * -------------------------------------------------------------------------------- */
+    statsSortTableBy(statsSortFieldNameInput){
+        const { statsSortFieldName, statsSortFieldStatus } = this.state;
+        let status = '';
+        if(statsSortFieldName===statsSortFieldNameInput){
+            // if(statsSortFieldStatus===''){
+            //     // if pressed the 4th time back to the cycle
+            //     status='up';
+            // }
+            if(statsSortFieldStatus==='up'){
+                // second press is descending
+                status='down';
+            }
+            if(statsSortFieldStatus==='down'){
+                // third press is back to neutral
+                status='up';
+            }
+        }else{
+            // first press is ascending
+            status='up'
+        }
+
+        // set the status for changing of sort icons per column
+        this.setState({
+            statsSortFieldName: statsSortFieldNameInput,
+            statsSortFieldStatus: status,
+        })
+
+        // sort table of other stats
+        this.props.portfolioActions.itemsListOtherStatsSortData({
+            sortFieldName: statsSortFieldNameInput,
             sortFieldStatus: status,
         })
     }

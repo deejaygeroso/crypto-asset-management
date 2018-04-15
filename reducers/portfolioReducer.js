@@ -109,6 +109,7 @@ export const portfolioList = (state = initialPortfoliosList, {
                         allIdsUniq, // not sure where im using this
                         list: newPortfolioList, // just list of portolio data which is in array
                         allIds_profitMargin: allIds, // used under profit margin
+                        allIds_otherStats: allIds, // used under other stats
                         totalValuation, // total valuation of all portfolio
                     });
         }
@@ -121,7 +122,8 @@ export const portfolioList = (state = initialPortfoliosList, {
             byId[item._id] = item;
             const allIds = Array.prototype.concat([item._id], state.allIds)
             const allIds_profitMargin = Array.prototype.concat([item._id], state.allIds_profitMargin)
-            return Object.assign({}, state, { allIds, byId, allIds_profitMargin, });
+            const allIds_otherStats   = Array.prototype.concat([item._id], state.allIds_otherStats)
+            return Object.assign({}, state, { allIds, byId, allIds_profitMargin, allIds_otherStats });
         }
         /*
          * update data from a specific portfolio on byId
@@ -156,7 +158,7 @@ export const portfolioList = (state = initialPortfoliosList, {
             return initialPortfoliosList;
         }
         /*
-         * sorting
+         * sorting of profit margin
          */
         case ACTION_TYPES.ITEMLIST_SORTDATA:{
 
@@ -174,6 +176,26 @@ export const portfolioList = (state = initialPortfoliosList, {
             
             const allIds_profitMargin = Object.keys(byId);
             return Object.assign({}, state, { allIds_profitMargin });
+        }
+        /*
+         * sorting of other stats
+         */
+        case ACTION_TYPES.ITEMLIST_OTHER_STATS_SORTDATA:{
+
+            const { list } = state;
+            
+            let sortList = [];
+            if(sortFieldStatus==='up'){
+                sortList = __sort(list, [sortFieldName], ASC);
+            }
+            if(sortFieldStatus==='down'){
+                sortList = __sort(list, [sortFieldName], DESC);
+            }
+            
+            const byId = __$indexBy(sortList, '_id');
+            
+            const allIds_otherStats = Object.keys(byId);
+            return Object.assign({}, state, { allIds_otherStats });
         }
         default:
             return state;
