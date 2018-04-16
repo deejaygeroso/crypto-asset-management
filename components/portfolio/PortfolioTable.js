@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
+    formatPrice,
     formatMoney,
     // commarize
 } from '../../lib/helpers';
@@ -80,7 +81,7 @@ const PortfolioTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sor
                                         {/* ------ Market Price USD ------*/}
                                         <td scope="col">
                                             <span className="num-span td-market-price">
-                                                {formatMoney(guarding(portfolioList, id, 'price_usd')) }
+                                                {formatPrice(guarding(portfolioList, id, 'price_usd')) }
                                             </span>
                                         </td>
                                         {/* ------ Market Price BTC ------*/}
@@ -134,7 +135,7 @@ const PortfolioTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sor
                                         {/* ------ Allocation % ------*/}
                                         <td scope="col">
                                             <span className="num-span">
-                                                {guarding(portfolioList, id, 'allocation').toFixed(2)}
+                                                {guarding(portfolioList, id, 'allocation') ? portfolioList.byId[id].allocation.toFixed(2) : '0.00'}
                                             </span>
                                         </td>
                                     </tr>
@@ -192,7 +193,8 @@ function formatProfitOrLoss(profitOrLoss){
     if(profitOrLoss>=0){
         return `+${formatMoney(profitOrLoss)}`;
     }
-    return profitOrLoss.toFixed(2);
+    
+    return profitOrLoss ? profitOrLoss.toFixed(2) : 'N/A';
 }
 
 /* ----------------------------------------------------------------------------------

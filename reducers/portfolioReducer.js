@@ -149,6 +149,11 @@ export const portfolioList = (state = initialPortfoliosList, {
                 state.allIds_profitMargin.splice(index_profitMargin, 1);
             }
 
+            const index_otherStats = state.allIds_otherStats.indexOf(_id);
+            if (index_otherStats > -1) {
+                state.allIds_profitMargin.splice(index_otherStats, 1);
+            }
+
             return Object.assign({}, state);
         }
         /*
