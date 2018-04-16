@@ -91,7 +91,7 @@
     white-space: nowrap;
   }
   .table > thead > tr > th.sortable:hover{
-    background-color: green;
+    background-color: #dce8f3;
   }
   .table > tbody > tr > td {
     vertical-align: middle;
