@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from '../store';
 
-import Layout from '../components/Layout';
-import Login from '../containers/Login'
+import Layout from '../modules/core/components/Layout';
+import Login from '../modules/pages/containers/Login'
 
 
 class LoginPage extends React.Component{

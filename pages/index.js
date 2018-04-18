@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from '../store';
 
-import Layout from '../components/Layout';
-import Home from '../components/Home'
+import Layout from '../modules/core/components/Layout';
+import Home from '../modules/pages/components/Home'
 
 
 class App extends React.Component{

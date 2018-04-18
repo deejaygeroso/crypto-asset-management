@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from '../../store';
 
-import Layout from '../../components/Layout';
-import Manage from '../../containers/admin/Manage'
+import Layout from '../../modules/core/components/Layout';
+import Manage from '../../modules/admin/containers/Manage'
 
 class ManagePage extends React.Component{
 

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from '../store';
 
-import Layout from '../components/Layout';
+import Layout from '../modules/core/components/Layout';
 
 class AboutPage extends React.Component{
 

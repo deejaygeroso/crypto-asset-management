@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from '../../store';
 
-import Layout from '../../components/Layout';
-import Profile from '../../containers/Profile'
+import Layout from '../../modules/core/components/Layout';
+import Profile from '../../modules/pages/containers/Profile'
 
 import axios from 'axios';
 

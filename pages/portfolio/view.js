@@ -6,16 +6,17 @@ import withRedux from 'next-redux-wrapper';
 import { initStore } from '../../store';
 
 import Layout from '../../modules/core/components/Layout';
-import UserPortfolioAdd from '../../modules/admin/containers/UserPortfolioAdd'
+import PortfolioView from '../../modules/pages/containers/PortfolioView'
 
 import axios from 'axios';
 
-class UserPortfolioPage extends React.Component{
+class PortfolioViewPage extends React.Component{
 
     static async getInitialProps({ store, req }) {
+
         const isServer = !!req;
 
-        const apiRes = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=0&&convert=ETH');
+        const apiRes = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=0');
 
         return { initialState: store.getState(), isServer, coinmarketcapTicker: apiRes.data };
     }
@@ -26,21 +27,21 @@ class UserPortfolioPage extends React.Component{
     }
 
     render(){
+        // console.log('props', this.props);
         return(
             <Provider store={this.store}>
                 <Layout>
-                    <UserPortfolioAdd coinmarketcapTicker={this.props.coinmarketcapTicker}/>
+                    <PortfolioView coinmarketcapTicker={this.props.coinmarketcapTicker}/>
                 </Layout>
             </Provider>
         )
     }
-
 }
 
-UserPortfolioPage.propTypes = {
-    coinmarketcapTicker : PropTypes.array,
+PortfolioViewPage.propTypes = {
     initialState : PropTypes.object,
+    coinmarketcapTicker : PropTypes.array,
     isServer : PropTypes.bool,
 }
 
-export default withRedux(initStore)(UserPortfolioPage);
+export default withRedux(initStore)(PortfolioViewPage);
