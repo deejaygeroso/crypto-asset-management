@@ -66,6 +66,8 @@ class Form extends Component{
             buy_price_btc   : portfolio && portfolio.buy_price_btc ? portfolio.buy_price_btc : 0,
             buy_price_eth   : portfolio && portfolio.buy_price_eth ? portfolio.buy_price_eth : 0,
             notes           : portfolio && portfolio.notes         ? portfolio.notes         : '',
+            links           : portfolio && portfolio.links         ? portfolio.links         : [],
+            isCustom        : portfolio && portfolio.isCustom      ? portfolio.isCustom      : false,
             crypto : {
                 id     : portfolio && portfolio.id     ? portfolio.id     : '',
                 value  : portfolio && portfolio.value  ? portfolio.value  : '',
@@ -203,12 +205,24 @@ class Form extends Component{
             <div className="page-container">
                 <div className="card container flex-column align-items-center justify-content-center fadeIn animated">
                     <div className=".card-profile">
-                        <p className="form-title">Add Coin to your Portfolio</p>
+                    
+                        {/* ------------------------------*/}
+                        {/* --------- Form Title -------- */}
+                        {/* ------------------------------*/}
+                        <p className="form-title">
+                            { addUpdateButtonName==='Create' ? "Add Coin to your Portfolio" : (this.state.isCustom ? "Custom Portfolio Coin" : "Portfolio Coin") }
+                        </p>
 
-                        <div className="d-flex flex-row align-items-center justify-content-center">
-                            <div className="btn" onClick={()=>this.setState({isCustom: false})}>Select</div>
-                            <div className="btn" onClick={()=>this.setState({isCustom: true})}>Custom</div>
-                        </div>
+                        {/* ------------------------------*/}
+                        {/* ------ Selecting Custom ----- */}
+                        {/* ------------------------------*/}
+                        {
+                            addUpdateButtonName==='Create'?
+                            <div className="d-flex flex-row align-items-center justify-content-center">
+                                <div className="btn" onClick={()=>this.setState({isCustom: false})}>Select</div>
+                                <div className="btn" onClick={()=>this.setState({isCustom: true})}>Custom</div>
+                            </div> : <div />
+                        }
 
                         {/* ------------------------------*/}
                         {/* ------------ Error ---------- */}
