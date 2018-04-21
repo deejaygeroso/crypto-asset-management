@@ -28,11 +28,11 @@ module.exports = function(app, router){
             return res.redirect(main_page);
         })
 
-    router.route('/userportfolioadd')
+    router.route('/userportfolioview')
         .get(function (req, res) {
             const isAdmin = (req.cookies && req.cookies.user && req.cookies.user.isAdmin) || null;
             if(isAdmin){
-                return app.render(req, res, '/admin/userportfolioadd')
+                return app.render(req, res, '/admin/userportfolioview')
             }
             return res.redirect(main_page);
         })

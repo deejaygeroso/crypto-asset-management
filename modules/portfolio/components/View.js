@@ -5,6 +5,8 @@ import Navbar from '../../core/containers/Navbar';
 import FormStyle from '../../styles/FormStyle';
 import Form from '../containers/Form';
 
+import Cookies from 'js-cookie';
+
 class View extends Component {
 
     constructor(props){
@@ -14,12 +16,22 @@ class View extends Component {
         }
     }
 
+    componentDidMount(){
+        const { portfolioActions } = this.props;
+        const portfolio = Cookies.get('portfolio');
+
+        portfolioActions.itemSet({
+            payload: JSON.parse(portfolio),
+        })
+    }
+
     renderForm() {
         return <Form portfolioMainPageRouteName={this.props.portfolioMainPageRouteName} />
     }
 
     renderDataView(){
         const { portfolio } = this.props;
+
         return(
             <div className="container flex-column align-items-center justify-content-center mt-20">
                 {/* ------------------------------*/}
@@ -96,6 +108,7 @@ class View extends Component {
 
 View.propTypes = {
     portfolio : PropTypes.object,
+    portfolioActions: PropTypes.object,
     portfolioMainPageRouteName : PropTypes.string,
 };
 

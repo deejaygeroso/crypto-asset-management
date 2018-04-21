@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 
-import Form from '../../portfolio/containers/Form';
+import View from '../../portfolio/containers/View';
 
+import Cookies from 'js-cookie';
 
-class UserPortfolioAdd extends Component{
+class UserPortfolioView extends Component{
 
     constructor(props){
         super(props);
@@ -18,7 +19,7 @@ class UserPortfolioAdd extends Component{
     componentDidMount(){
         const { cryptoIdsActions, coinmarketcapTicker } = this.props;
 
-        const user_id = (Router && Router.query && Router.query.user_id) || '';
+        const user_id = Cookies.get('user_id') ;
 
         if(!user_id || user_id===''){
             Router.push('/admin/manage');
@@ -33,7 +34,7 @@ class UserPortfolioAdd extends Component{
      * -------------------------------------------------------------------------------- */
     render(){
         return(
-            <Form portfolioMainPageRouteName="/admin/userportfolio" onSubmit={this.onSubmit}/>
+            <View portfolioMainPageRouteName="/admin/userportfolio" onSubmit={this.onSubmit}/>
         )
     }
 
@@ -62,7 +63,7 @@ class UserPortfolioAdd extends Component{
     }
 }
 
-UserPortfolioAdd.propTypes = {
+UserPortfolioView.propTypes = {
     user             : PropTypes.object,
     userActions      : PropTypes.object,
     portfolio        : PropTypes.object,
@@ -74,4 +75,4 @@ UserPortfolioAdd.propTypes = {
     coinmarketcapTicker : PropTypes.array,
 }
 
-export default UserPortfolioAdd;
+export default UserPortfolioView;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import UserPortfolioAdd from '../components/UserPortfolioAdd';
+import UserPortfolioView from '../components/UserPortfolioView';
 import * as userActions from '../../../actions/userActions';
 import * as cryptoIdsActions from '../../../actions/cryptoIdsActions';
 import * as portfolioActions from '../../../actions/portfolioActions';
@@ -23,4 +23,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPortfolioAdd);
+export default connect(mapStateToProps, mapDispatchToProps)(UserPortfolioView);

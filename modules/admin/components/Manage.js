@@ -4,6 +4,8 @@ import Router from 'next/router';
 
 import Navbar from '../../core/containers/Navbar';
 
+import Cookies from 'js-cookie';
+
 class Manage extends Component {
 
     constructor(props) {
@@ -243,7 +245,6 @@ class Manage extends Component {
         return re.test(String(email).toLowerCase());
     }
 
-
     /* ----------------------------------------------------------------------------------
      * Route to update specific clients portfolio
      * -------------------------------------------------------------------------------- */
@@ -253,16 +254,16 @@ class Manage extends Component {
         // might have some issue with asnycronousity of data especially when updating or adding of user
         userActions.itemFind({
             params: {
-                _id : user_id
+                _id : user_id,
             }
-        })
+        });
+
+        Cookies.set('user_id', user_id, { expires: 1 });
 
         Router.push({
             pathname: '/admin/userportfolio',
-            query: {
-                user_id,
-            },
-        })
+        });
+
     }
 
 }

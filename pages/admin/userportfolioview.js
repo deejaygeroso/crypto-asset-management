@@ -6,7 +6,7 @@ import withRedux from 'next-redux-wrapper';
 import { initStore } from '../../store';
 
 import Layout from '../../modules/core/components/Layout';
-import UserPortfolioAdd from '../../modules/admin/containers/UserPortfolioAdd'
+import UserPortfolioAdd from '../../modules/admin/containers/UserPortfolioView'
 
 import axios from 'axios';
 

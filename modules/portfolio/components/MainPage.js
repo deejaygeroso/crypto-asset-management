@@ -8,6 +8,8 @@ import PortfolioTable from './PortfolioTable';
 import Header from './Header';
 import Card from './Card';
 
+import Cookies from 'js-cookie';
+
 class MainPage extends Component{
 
     constructor(props){
@@ -153,11 +155,13 @@ class MainPage extends Component{
      * -------------------------------------------------------------------------------- */
     routeToPortfolioAdd(payload){
         const { portfolioActions, portfolioAddRouteName, routerPush } = this.props;
+        
         portfolioActions.itemSet({payload})
+        Cookies.set('portfolio', payload, { expires: 1 });
 
         // used for admin to pass query object
         if(routerPush){
-            return routerPush()
+            return routerPush();
         }
 
         Router.push(portfolioAddRouteName);

@@ -4,6 +4,8 @@ import Router from 'next/router';
 
 import MainPage from '../../portfolio/containers/MainPage';
 
+import Cookies from 'js-cookie';
+
 class Portfolio extends Component{
 
     constructor(props){
@@ -20,7 +22,7 @@ class Portfolio extends Component{
     componentDidMount(){
         const { portfolioActions, coinmarketcapTicker } = this.props;
 
-        const user_id = (Router && Router.query && Router.query.user_id) || '';
+        const user_id = Cookies.get('user_id');
 
         if(!user_id || user_id===''){
             Router.push('/admin/manage');
@@ -28,7 +30,7 @@ class Portfolio extends Component{
         // get users id on cookie then fetch portfolio of user from database
         portfolioActions.itemListFindByUserId({
             params: {
-                user_id
+                user_id,
             },
             coinmarketcapTicker,
         });
@@ -41,7 +43,7 @@ class Portfolio extends Component{
     render(){
         return(
             <div>
-                <MainPage routerPush={this.routerPush} portfolioAddRouteName="/admin/userportfolioadd" coinmarketcapGlobal={this.props.coinmarketcapGlobal}/>
+                <MainPage routerPush={this.routerPush} portfolioAddRouteName="/admin/userportfolioview" coinmarketcapGlobal={this.props.coinmarketcapGlobal}/>
             </div>
         )
     }
@@ -50,12 +52,8 @@ class Portfolio extends Component{
      * Attach selected user Id to the next routed page which is routerPush for edit
      * -------------------------------------------------------------------------------- */
     routerPush(){
-        const user_id = (Router && Router.query && Router.query.user_id) || '';
         Router.push({
-            pathname: '/admin/userportfolioadd',
-            query: {
-                user_id,
-            },
+            pathname: '/admin/userportfolioview',
         })
     }
 }
