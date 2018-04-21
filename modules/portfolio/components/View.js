@@ -14,27 +14,37 @@ class View extends Component {
         super(props);
         this.state = {
             isFormVisible: false,
+            isFormCreate: false,
         }
     }
 
     componentDidMount(){
         const { portfolioActions } = this.props;
-        const portfolio = Cookies.get('portfolio');
+        const portfolioCookie = Cookies.get('portfolio');
+        const portfolio = JSON.parse(portfolioCookie);
 
+        // set portfolio
         portfolioActions.itemSet({
-            payload: JSON.parse(portfolio),
+            payload: portfolio,
         })
 
-        if(Object.keys(portfolio).length===0){
-            this.setState({isFormVisible: true});
+        // show portfolio form instead of the view info if user is in create portfolio mode
+        if(!(portfolio && portfolio._id)){
+            this.setState({isFormVisible: true, isFormCreate: true});
         }
 
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Render create/update portfolio form
+     * -------------------------------------------------------------------------------- */
     renderForm() {
         return <Form portfolioMainPageRouteName={this.props.portfolioMainPageRouteName} onSubmit={()=>this.setState({isFormVisible: false})}/>
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Render data information of user's portfolio
+     * -------------------------------------------------------------------------------- */
     renderDataView(){
         const { portfolio } = this.props;
         return(
@@ -117,6 +127,7 @@ class View extends Component {
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
+        const { portfolio } = this.props;
         const { isFormVisible } = this.state;
         return(
             <div className="page-container">
@@ -132,9 +143,13 @@ class View extends Component {
                 {/* ------------------------------*/}
                 {/* ------ Edit Form Button ----- */}
                 {/* ------------------------------*/}
-                <span onClick={()=>this.setState({isFormVisible: !isFormVisible})} className="flip animated edit-button">
-                    <i className="fas fa-lg fa-pencil-alt fa-view-icon"></i>
-                </span>
+                {
+                    portfolio && portfolio._id ?
+                        <span onClick={()=>this.setState({isFormVisible: !isFormVisible})} className="flip animated edit-button">
+                            { isFormVisible ? <i className="fas fa-lg fa-times fa-view-icon"></i> : <i className="fas fa-lg fa-pencil-alt fa-view-icon"></i> }
+                        </span>
+                    : <div/>
+                }
 
                 {/* ------------------------------*/}
                 {/* --------- Back Button ------- */}

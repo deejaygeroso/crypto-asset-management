@@ -73,6 +73,12 @@ class Form extends Component{
                 label  : portfolio && portfolio.label  ? portfolio.label  : '',
                 symbol : portfolio && portfolio.symbol ? portfolio.symbol : '',
             },
+            cryptoCustom : {
+                id     : portfolio && portfolio.id     ? portfolio.id     : '',
+                value  : portfolio && portfolio.value  ? portfolio.value  : '',
+                label  : portfolio && portfolio.label  ? portfolio.label  : '',
+                symbol : portfolio && portfolio.symbol ? portfolio.symbol : '',
+            },
         })
 
     }
@@ -220,7 +226,7 @@ class Form extends Component{
                         {
                             addUpdateButtonName==='Create'?
                             <div className="d-flex flex-row align-items-center justify-content-center">
-                                <div className="btn" onClick={()=>this.setState({isCustom: false})}>Select</div>
+                                <div className="btn" onClick={()=>this.setState({isCustom: false})}>Normal</div>
                                 <div className="btn" onClick={()=>this.setState({isCustom: true})}>Custom</div>
                             </div> : <div />
                         }
