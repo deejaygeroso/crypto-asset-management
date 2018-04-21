@@ -14,6 +14,8 @@ const PortfolioSchema = new mongoose.Schema({
     label         : { type: String },
     symbol        : { type: String },
     notes         : { type: String },
+    links         : { type: Array },
+    isCustom      : { type: Boolean },
 }, { collection   : 'portfolio' });
 
 /* ----------------------------------------------------------

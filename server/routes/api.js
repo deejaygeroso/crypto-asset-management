@@ -148,20 +148,21 @@ module.exports = function(app, router, auth){
      * Add new coin to user's portfolio
      * -------------------------------------------------------- */
     router.post('/portfolio/create', (req, res)=>{
-        const { user_id, amount, crypto, buy_price_usd, buy_price_btc, buy_price_eth, notes } = req.body;
 
         // create a new portfolio
         const newPortfolio = new PortfolioModel({
-            user_id,
-            amount,
-            buy_price_usd,
-            buy_price_btc,
-            buy_price_eth,
-            notes,
-            id     : crypto.id,
-            value  : crypto.value,
-            label  : crypto.label,
-            symbol : crypto.symbol,
+            user_id       : req.body.user_id,
+            amount        : req.body.amount,
+            buy_price_usd : req.body.buy_price_usd,
+            buy_price_btc : req.body.buy_price_btc,
+            buy_price_eth : req.body.buy_price_eth,
+            notes         : req.body.notes,
+            id            : req.body.id,
+            value         : req.body.value,
+            label         : req.body.label, 
+            symbol        : req.body.symbol, 
+            links         : req.body.links,
+            isCustom      : req.body.isCustom,
         });
 
         // save user to database
@@ -187,11 +188,6 @@ module.exports = function(app, router, auth){
                 doc[data] = portfolioData[data]
             })
 
-            doc['id']     = portfolioData.crypto.id
-            doc['value']  = portfolioData.crypto.value
-            doc['label']  = portfolioData.crypto.label
-            doc['symbol'] = portfolioData.crypto.symbol
-            
             doc.save();
             res.send(doc)
           });

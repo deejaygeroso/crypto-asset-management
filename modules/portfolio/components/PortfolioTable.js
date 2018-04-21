@@ -18,7 +18,7 @@ const PortfolioTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sor
                         <thead>
                             <tr>
                               <th scope="col" rowSpan="2" className="th-icon">Icon</th>
-                              <th scope="col" rowSpan="2" className="sortable" onClick={()=>sortTableBy('name')}>Coin Name <SortIcon name="name" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus}/></th>
+                              <th scope="col" rowSpan="2" className="sortable" onClick={()=>sortTableBy('id')}>Coin Name <SortIcon name="name" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus}/></th>
                               <th scope="col" rowSpan="2" className="sortable" onClick={()=>sortTableBy('symbol')}>Symbol <SortIcon name="symbol" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                               <th scope="col" rowSpan="2" className="sortable" onClick={()=>sortTableBy('amount')}>Holdings <SortIcon name="amount" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                               <th scope="col" colSpan="3" className="table-th-colspan">Buy Price</th>
@@ -51,7 +51,7 @@ const PortfolioTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sor
                                             <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="25" width="25" />
                                         </td>
                                         {/* ------ Name ------*/}
-                                        <td scope="col">{guarding(portfolioList, id, 'name')}</td>
+                                        <td scope="col">{guarding(portfolioList, id, 'name') ? guarding(portfolioList, id, 'name') : getPortfolioName(portfolioList, id, 'id') }</td>
                                         {/* ------ Symbol ------*/}
                                         <td scope="col">{guarding(portfolioList, id, 'symbol')}</td>
                                         {/* ------ Holdings/Amount ------*/}
@@ -183,6 +183,15 @@ export default PortfolioTable;
 
 function guarding(portfolioList, id, fieldName){
     return portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id][fieldName];
+}
+
+/* ----------------------------------------------------------------------------------
+ * Get the portfolio name from portfolio id 
+ * Basically used with custom portfolios
+ * -------------------------------------------------------------------------------- */
+function getPortfolioName(portfolioList, id, fieldName){
+    const portfolioName = portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id][fieldName];
+    return portfolioName.charAt(0).toUpperCase() + portfolioName.slice(1);
 }
 
 /* ----------------------------------------------------------------------------------

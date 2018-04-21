@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Form from '../../portfolio/containers/Form';
+import View from '../../portfolio/containers/View';
 
 import Cookies from 'js-cookie';
 
@@ -42,7 +42,7 @@ class PortfolioView extends Component{
     render(){
         return(
             <div>
-                <Form portfolioMainPageRouteName="/portfolio/list" />
+                <View portfolioMainPageRouteName="/portfolio/list" />
             </div>
         )
     }

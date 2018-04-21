@@ -186,7 +186,6 @@ export const itemListFindByUserId = ({params, coinmarketcapTicker}) => {
         try {
             const { user_id } = params;
             const res = await axios.post('/api/portfolio/list', {user_id});
-
             dispatch(itemListCompose({portfolioList: res.data, coinmarketcapTicker}));
 
             // get all the id of crypto to be used in fetching historydata & ath,atl of price

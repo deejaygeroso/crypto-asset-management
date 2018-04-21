@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 
-import Navbar from '../../core/containers/Navbar';
 import FormStyle from '../../styles/FormStyle';
-import { NumberInput, TextArea } from '../../lib/forms';
+import { TextInput, NumberInput, TextArea, ErrorMessage } from '../../lib/forms';
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 
@@ -17,18 +16,32 @@ class Form extends Component{
 
         this.state = {
             amount: 0,
-            crypto: {},
+            crypto: {
+                id: '',
+                value: '',
+                label: '',
+                symbol: '',
+            },
+            cryptoCustom: {
+                id: '',
+                symbol: '',
+            },
             buy_price_usd: 0,
             buy_price_btc: 0,
             buy_price_eth: 0,
             notes : '',
+            links: [],
 
-            isFormVisible: false,
+            isCustom: '',
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);
         this.handleChangeSelect2 = this.handleChangeSelect2.bind(this);
+        this.addNewLinks = this.addNewLinks.bind(this);
+        this.removeNewLinks = this.removeNewLinks.bind(this);
         this.onValueChange = this.onValueChange.bind(this);
+        this.onCryptoValueChange = this.onCryptoValueChange.bind(this);
+        this.onLinkValueChange = this.onLinkValueChange.bind(this);
     }
 
     /* ----------------------------------------------------------------------------------
@@ -66,179 +79,235 @@ class Form extends Component{
     /* ----------------------------------------------------------------------------------
      * Form Card
      * -------------------------------------------------------------------------------- */
-    renderFormCard(){
-        const { cryptoIds, portfolio, portfolioError } = this.props;
-        const addUpdateButtonName = portfolio && portfolio._id ? 'Update' : 'Create';
+    renderForm(){
+        const { cryptoIds } = this.props;
         return(
-            <div className="card container flex-column align-items-center justify-content-center ">
+            <form className="form-signin">
+                {/* ------------------------------*/}
+                {/* ------------ Coin ----------- */}
+                {/* ------------------------------*/}
+                <label className="input-lable">Coin*</label>
+                <Select
+                    // arrowRenderer={()=><div>hell</div>}
+                    // valueRenderer={(crypto)=>(
+                    //     <div>
+                    //         {crypto.value}
+                    //     </div>
+                    // )}
+                    name="form-field-name"
+                    value={this.state.crypto}
+                    onChange={this.handleChangeSelect2}
+                    multi={false}
+                    options={cryptoIds}
+                    placeholder="Select your favourite(s)"
+                    className="select-field"
+                />
+                <div style={{marginBottom: 15}} />
 
-                <div className="fadeIn animated">
-                    <div className=".card-profile">
+                {/* ------------------------------*/}
+                {/* ----------- Amount ---------- */}
+                {/* ------------------------------*/}
+                <NumberInput id="amount" value={this.state.amount} label="Amount" placeholder="Amount" onValueChange={this.onValueChange} />
 
-                        <p className="form-title">Add Coin to your Portfolio</p>
-                        <form className="form-signin">
-
-                                {/* ------------------------------*/}
-                                {/* ------------ Error ---------- */}
-                                {/* ------------------------------*/}
-                                {
-                                    portfolioError && portfolioError.message ?
-                                    <div className="bounceIn animated">
-                                        <div className="bs-component">
-                                            <div className="alert alert-dismissible alert-danger portfolio-error">
-                                                {portfolioError.message}
-                                            </div>
-                                        </div>
-                                    </div> : <div />
-                                }
-
-                                {/* ------------------------------*/}
-                                {/* ----------- Success --------- */}
-                                {/* ------------------------------*/}
-                                {/*
-                                    portfolioSuccess && portfolioSuccess.message ?
-                                    <div className="">
-                                        <div className="bs-component">
-                                            <div className="alert alert-dismissible alert-success">
-                                                {portfolioSuccess.message}
-                                            </div>
-                                        </div>
-                                    </div> : <div />
-                                */}
-
-                                {/* ------------------------------*/}
-                                {/* ------------ Coin ----------- */}
-                                {/* ------------------------------*/}
-                                <label className="input-lable">Coin*</label>
-                                <Select
-                                    // arrowRenderer={()=><div>hell</div>}
-                                    // valueRenderer={(crypto)=>(
-                                    //     <div>
-                                    //         {crypto.value}
-                                    //     </div>
-                                    // )}
-                                    name="form-field-name"
-                                    value={this.state.crypto}
-                                    onChange={this.handleChangeSelect2}
-                                    multi={false}
-                                    options={cryptoIds}
-                                    placeholder="Select your favourite(s)"
-                                    className="select-field"
-                                />
-
-                                {/* ------------------------------*/}
-                                {/* ----------- Amount ---------- */}
-                                {/* ------------------------------*/}
-                                <NumberInput id="amount" value={this.state.amount} label="Amount" placeholder="Amount" onValueChange={this.onValueChange} />
-
-                                {/* ------------------------------*/}
-                                {/* ---------- Buy Price -------- */}
-                                {/* ------------------------------*/}
-                                <div className="buy-price-wrapper row">
-                                    <div className="col-md-4 col-sm-4">
-                                        <NumberInput id="buy_price_usd" value={this.state.buy_price_usd} label="Buy Price (USD)" placeholder="Buy Price USD" onValueChange={this.onValueChange} />
-                                    </div>
-                                    <div className="col-md-4 col-sm-4">
-                                        <NumberInput id="buy_price_btc" value={this.state.buy_price_btc} label="Buy Price (BTC)" placeholder="Buy Price BTC" onValueChange={this.onValueChange} />
-                                    </div>
-                                    <div className="col-md-4 col-sm-4">
-                                        <NumberInput id="buy_price_eth" value={this.state.buy_price_eth} label="Buy Price (ETH)" placeholder="Buy Price ETH" onValueChange={this.onValueChange} />
-                                    </div>
-                                </div>
-
-                                {/* ------------------------------*/}
-                                {/* ------------ Notes ---------- */}
-                                {/* ------------------------------*/}
-                                <TextArea id="notes" value={this.state.notes} label="Notes" placeholder="Notes" onValueChange={this.onValueChange} />
-
-                                <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-submit" type="submit" >{addUpdateButtonName}</button>
-                                {
-                                    portfolio && portfolio._id ?
-                                        <button onClick={this.onRemove} className="btn btn-lg btn-danger btn-block btn-signin" type="submit" >Remove</button>
-                                    : <div />
-                                }
-                        </form>
+                {/* ------------------------------*/}
+                {/* ---------- Buy Price -------- */}
+                {/* ------------------------------*/}
+                <div className="buy-price-wrapper row">
+                    <div className="col-md-4 col-sm-4">
+                        <NumberInput id="buy_price_usd" value={this.state.buy_price_usd} label="Buy Price (USD)" placeholder="Buy Price USD" onValueChange={this.onValueChange} />
+                    </div>
+                    <div className="col-md-4 col-sm-4">
+                        <NumberInput id="buy_price_btc" value={this.state.buy_price_btc} label="Buy Price (BTC)" placeholder="Buy Price BTC" onValueChange={this.onValueChange} />
+                    </div>
+                    <div className="col-md-4 col-sm-4">
+                        <NumberInput id="buy_price_eth" value={this.state.buy_price_eth} label="Buy Price (ETH)" placeholder="Buy Price ETH" onValueChange={this.onValueChange} />
                     </div>
                 </div>
 
-
-            </div>
+                {/* ------------------------------*/}
+                {/* ------------ Notes ---------- */}
+                {/* ------------------------------*/}
+                <TextArea id="notes" value={this.state.notes} label="Notes" placeholder="Notes" onValueChange={this.onValueChange} />
+            </form>
         )
     }
 
-    renderFormDataView(){
-        const { portfolio } = this.props;
+    /* ----------------------------------------------------------------------------------
+     * Custom Form Card
+     * -------------------------------------------------------------------------------- */
+    renderCustomForm(){
         return(
-            <div className="container flex-column align-items-center justify-content-center mt-20">
+            <form className="form-signin">
+
                 {/* ------------------------------*/}
-                {/* ------ Form View Title ------ */}
+                {/* --------- Custom Coin ------- */}
                 {/* ------------------------------*/}
-                <div className="d-flex align-items-center justify-content-center mt-30">
-                    <div className="d-flex align-items-center justify-content-center icon-wrapper form-view-title">
-                        <img src={`/static/icon/${portfolio && portfolio.symbol && portfolio.symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="80" width="80" />
-                        <h1 className=" pl-10">{portfolio && portfolio.name}</h1>
+                <div className="buy-price-wrapper row">
+                    <div className="col-md-6 col-sm-6">
+                        <TextInput id="id" value={this.state.cryptoCustom.id} label="Coin*" placeholder="Coin" onValueChange={this.onCryptoValueChange} />
                     </div>
-                    <div>
+                    <div className="col-md-6 col-sm-6">
+                        <TextInput id="symbol" value={this.state.cryptoCustom.symbol} label="Symbol*" placeholder="Symbol" onValueChange={this.onCryptoValueChange} />
                     </div>
                 </div>
 
                 {/* ------------------------------*/}
                 {/* ----------- Amount ---------- */}
                 {/* ------------------------------*/}
-                <div className="d-flex flex-column align-items-center justify-content-center mt-20">
-                    <span className="form-view-text form-view-amount">$ {portfolio && portfolio.amount ? portfolio.amount.toFixed(2) : "0.00"}</span>
-                    <span className="form-view-text form-view-amount-title">Amount</span>
-                </div>
+                <NumberInput id="amount" value={this.state.amount} label="Amount" placeholder="Amount" onValueChange={this.onValueChange} />
+
                 {/* ------------------------------*/}
                 {/* ---------- Buy Price -------- */}
                 {/* ------------------------------*/}
-                <div className="d-flex flex-row align-items-center justify-content-center mt-100">
-                    <div className="d-flex flex-column align-items-center justify-content-center">
-                        <span className="form-view-text">Buy Price (USD)</span>
-                        <span className="form-view-value">{portfolio && portfolio.buy_price_usd}</span>
-                    </div>
-                    <div className="d-flex flex-column align-items-center justify-content-center ml-40 mr-40">
-                        <span className="form-view-text">Buy Price (BTC)</span>
-                        <span className="form-view-value">{portfolio && portfolio.buy_price_btc}</span>
-                    </div>
-                    <div className="d-flex flex-column align-items-center justify-content-center">
-                        <span className="form-view-text">Buy Price (ETH)</span>
-                        <span className="form-view-value">{portfolio && portfolio.buy_price_eth}</span>
-                    </div>
-                </div>
+                <NumberInput id="buy_price_usd" value={this.state.buy_price_usd} label="Buy Price (USD)" placeholder="Buy Price USD" onValueChange={this.onValueChange} />
+
                 {/* ------------------------------*/}
                 {/* ------------ Notes ---------- */}
                 {/* ------------------------------*/}
-                <div className="d-flex flex-column align-items-center justify-content-center mt-50">
-                    <span className="form-view-text">Notes</span>
-                    <span className="form-view-text">{portfolio && portfolio.notes}</span>
-                </div>
-            </div>
+                <TextArea id="notes" value={this.state.notes} label="Notes" placeholder="Notes" onValueChange={this.onValueChange} />
+            </form>
         )
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Render Add New Links Text Input 
+     * -------------------------------------------------------------------------------- */
+    renderAddNewLinks(){
+        const { links } = this.state;
+        const linksComponent = [];
+        links && links.length!==0 && links.map((link, index)=>{
+            linksComponent.push(
+                <div className="buy-price-wrapper row" key={index}>
+                    <div className="col-md-5 col-sm-5">
+                        <TextInput id="name" value={link.name} label="Link Name" placeholder="Link Name" onValueChange={(fieldName, value)=>this.onLinkValueChange(fieldName, value, index)} />
+                    </div>
+                    <div className="col-md-5 col-sm-5">
+                        <TextInput id="symbol" value={link.symbol} label="Link Address" placeholder="Link Address" onValueChange={(fieldName, value)=>this.onLinkValueChange(fieldName, value, index)} />
+                    </div>
+                    <div className="col-md-2 col-sm-2">
+                        <button onClick={()=>this.removeNewLinks(index)} className="btn btn-lg btn-danger btn-block btn-submit" type="button">-</button>
+                    </div>
+                </div>
+            )
+        })
+        return linksComponent;
     }
 
     /* ----------------------------------------------------------------------------------
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
-        const { isFormVisible } = this.state;
+        const { portfolio, portfolioError } = this.props;
+        const addUpdateButtonName = portfolio && portfolio._id ? 'Update' : 'Create';
         return(
             <div className="page-container">
-                <Navbar />
+                <div className="card container flex-column align-items-center justify-content-center fadeIn animated">
+                    <div className=".card-profile">
+                        <p className="form-title">Add Coin to your Portfolio</p>
 
+                        <div className="d-flex flex-row align-items-center justify-content-center">
+                            <div className="btn" onClick={()=>this.setState({isCustom: false})}>Select</div>
+                            <div className="btn" onClick={()=>this.setState({isCustom: true})}>Custom</div>
+                        </div>
 
-                <div className="gradient-header">
-                    {this.state.isFormVisible ? this.renderFormCard() : this.renderFormDataView()}
+                        {/* ------------------------------*/}
+                        {/* ------------ Error ---------- */}
+                        {/* ------------------------------*/}
+                        <ErrorMessage message={portfolioError && portfolioError.message} />
 
+                        {/* ------------------------------*/}
+                        {/* ----------- Success --------- */}
+                        {/* ------------------------------*/}
+                        {/* <SuccessMessage message={portfolioSuccess && portfolioSuccess.message} /> */}
+
+                        {/* ------------------------------*/}
+                        {/* ---- Portfolio Coin Form ---- */}
+                        {/* ------------------------------*/}
+                        { !this.state.isCustom ? this.renderForm() : this.renderCustomForm() }
+
+                        {/* ------------------------------*/}
+                        {/* ---- Links Form & Button ---- */}
+                        {/* ------------------------------*/}
+                        {this.renderAddNewLinks()}
+                        <button onClick={this.addNewLinks} className="btn btn-lg btn-primary btn-block btn-submit" type="button" >Add Links</button>
+
+                        {/* ------------------------------*/}
+                        {/* --- Submit & Remove Button -- */}
+                        {/* ------------------------------*/}
+                        <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-submit" type="submit" >{addUpdateButtonName}</button>
+                        { portfolio && portfolio._id ?
+                            <button onClick={this.onRemove} className="btn btn-lg btn-danger btn-block btn-signin" type="submit" >Remove</button>
+                        : <div /> }
+                        <FormStyle />
+                   </div>
                 </div>
-                <button onClick={()=>this.setState({isFormVisible: !isFormVisible})} className="btn btn-lg btn-warning flip animated edit-button" type="submit" >
-                    <span>
-                        <i className="fas fa-lg fa-pencil-alt " color></i>
-                    </span>
-                </button>
-                <FormStyle />
             </div>
         )
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * For crypto custom value change 
+     * -------------------------------------------------------------------------------- */
+    onCryptoValueChange(fieldName, value){
+        const { cryptoCustom } = this.state;
+        cryptoCustom[fieldName] = value;
+        this.setState({cryptoCustom});
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Add New Link Form 
+     * -------------------------------------------------------------------------------- */
+    addNewLinks(){
+        const { links } = this.state;
+        const newLink = {
+            name   : '',
+            symbol : '',
+        }
+        links.push(newLink);
+        this.setState({links});
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Remove selected link 
+     * -------------------------------------------------------------------------------- */
+    removeNewLinks(index){
+        const { links } = this.state;
+
+        // if links are just empty then delete anyway
+        if(links[index].name==='' && links[index].symbol===''){
+            links.splice(index, 1);
+            this.setState({links})
+        }else{
+            // if links are not empty or has changes then confirm user deletion
+            confirmAlert({
+                title: 'Are you sure?',
+                message: 'You are about to remove this Link.',
+                buttons: [
+                    {
+                        label: 'Delete',
+                        onClick: () => {
+                            links.splice(index, 1);
+                            this.setState({links})
+                        }
+                    },
+                    {
+                        label: 'Cancel',
+                        onClick: () => {}
+                    }
+                ]
+            });
+        }
+
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Update the value of the selected link 
+     * -------------------------------------------------------------------------------- */
+    onLinkValueChange(fieldName, value, index){
+        const { links } = this.state;
+        links[index][fieldName]=value;
+        this.setState({links});
+
     }
 
     /* ----------------------------------------------------------------------------------
@@ -262,31 +331,100 @@ class Form extends Component{
      * -------------------------------------------------------------------------------- */
     onSubmit(evt){
         evt.preventDefault();
-        const { user, portfolio, portfolioActions, portfolioMainPageRouteName, onSubmit } = this.props;
-        const { crypto } = this.state;
+        const { portfolio, portfolioActions, portfolioMainPageRouteName, onSubmit } = this.props;
+        const { isCustom } = this.state;
+        let params = {};
 
-        if( crypto.id==="" && crypto.value==="" && crypto.label==="" ){
-            portfolioActions.errorSet({ payload: { message: 'Please select a coin first' } });
-            portfolioActions.successClear();
-            return;
+        if(isCustom){
+            params = this.onSubmitCustomCoin();
+        }else{
+            params = this.onSubmitCMCCoin()
         }
 
+        // submit form
         if(portfolio._id){
             portfolioActions.itemUpdate({
                 _id: portfolio._id,
-                params: Object.assign({}, this.state, {user_id: user._id}),
+                params,
             })
         }else{
             portfolioActions.itemCreate({
-                params: Object.assign({}, this.state, {user_id: user._id}),
+                params,
             });
         }
-
+    
+        // if user is admin
         if(portfolioMainPageRouteName==='/admin/userportfolio'){
             return onSubmit();
         }
-
+    
         Router.push(portfolioMainPageRouteName);
+    }
+    
+    /* ----------------------------------------------------------------------------------
+     * On Submit from selected Coinmarketcap coin 
+     * -------------------------------------------------------------------------------- */
+    onSubmitCMCCoin(){
+        const { user, portfolioActions } = this.props;
+
+        // make sure user selects a coin
+        if( crypto.id==="" && crypto.value==="" && crypto.label==="" && crypto.symbol==="" ){
+            portfolioActions.successClear();
+            portfolioActions.errorSet({ payload: { message: 'Please select a coin first' } });
+            return {};
+        }
+
+        // get all data to be submitted to the server
+        const params = {
+            user_id       : user._id,
+            amount        : this.state.amount,
+            buy_price_usd : this.state.buy_price_usd,
+            buy_price_btc : this.state.buy_price_btc,
+            buy_price_eth : this.state.buy_price_eth,
+            notes         : this.state.notes,
+            id            : this.state.crypto.id,
+            value         : this.state.crypto.value,
+            label         : this.state.crypto.label,
+            symbol        : this.state.crypto.symbol,
+            links         : this.state.links,
+            isCustom      : false,
+        };
+    
+        return params;
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * On Submit from a custom coin 
+     * -------------------------------------------------------------------------------- */
+    onSubmitCustomCoin(){
+        const { user, portfolioActions } = this.props;
+        const { cryptoCustom } = this.state;
+
+        // make sure user selects a coin
+        if( crypto.id==="" || crypto.symbol==="" ){
+            portfolioActions.successClear();
+            portfolioActions.errorSet({ payload: { message: 'Please fill the required form first!' } });
+            return {};
+        }
+
+        // get all data to be submitted to the server
+        const params = {
+            user_id       : user._id,
+            amount        : this.state.amount,
+            buy_price_usd : this.state.buy_price_usd,
+            buy_price_btc : 0,
+            buy_price_eth : 0,
+            notes         : this.state.notes,
+            id            : cryptoCustom.id,
+            name          : cryptoCustom.id,
+            value         : cryptoCustom.id,
+            label         : `${cryptoCustom.id} (${cryptoCustom.symbol})`,
+            symbol        : cryptoCustom.symbol,
+            links         : this.state.links,
+            isCustom      : true,
+        };
+
+        return params;
     }
 
     /* ----------------------------------------------------------------------------------
