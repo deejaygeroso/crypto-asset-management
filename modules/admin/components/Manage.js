@@ -17,6 +17,7 @@ class Manage extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.gotoUserPortfolio = this.gotoUserPortfolio.bind(this);
+        this.onUserDelete = this.onUserDelete.bind(this);
     }
 
     /* ----------------------------------------------------------------------------------
@@ -47,10 +48,13 @@ class Manage extends Component {
                     <img src="/static/profile-pic.svg" className="align-content-center" height="60" width="60" />
                 </div>
                 <div className="flex-grow-1"></div>
-                <div className="">
-                    <span className="align-items-end">
+                <div className="d-flex  flex-row align-items-center justify-content-center">
+                    <span className="align-items-end" style={{paddingRight: 20}}>
                         {user.email}
                     </span>
+                    <button onClick={(e)=>this.onUserDelete(e, user._id)} className="btn btn-lg btn-danger btn-block btn-submit" type="button">
+                        <i className="fas fa-times"></i>
+                    </button>
                 </div>
             </div>
         )
@@ -235,6 +239,17 @@ class Manage extends Component {
         });
 
         this.setState({email: '', password: ''});
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Delete a certain user (Soft Delete)
+     * -------------------------------------------------------------------------------- */
+    onUserDelete(e, user_id){
+        e.stopPropagation();
+        const { userActions } = this.props;
+        userActions.itemRemove({
+            _id : user_id,
+        })
     }
 
     /* ----------------------------------------------------------------------------------

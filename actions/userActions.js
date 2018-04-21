@@ -2,40 +2,72 @@ import Router from 'next/router';
 import axios from 'axios';
 import * as ACTION_TYPES from '../types/userTypes';
 
+/*
+ * set the list of data for the user
+ */
 export const itemListSet = ({payload}) => ({
     type: ACTION_TYPES.ITEMLIST_SET,
     payload,
 })
 
+/*
+ * append an item to the list of users.
+ */
 export const itemListAppend = ({item}) => ({
     type: ACTION_TYPES.ITEMLIST_APPEND,
     item,
 })
 
+/*
+ * remove an item from the list of users.
+ */
+export const itemListRemove = ({item}) => ({
+    type: ACTION_TYPES.ITEMLIST_REMOVE,
+    item,
+})
+
+/*
+ * set user item.
+ */
 export const itemSet = ({payload}) => ({
     type: ACTION_TYPES.ITEM_SET,
     payload,
 })
 
+/*
+ * clear item.
+ */
 export const itemClear = ({payload}) => ({
     type: ACTION_TYPES.ITEM_CLEAR,
     payload,
 })
 
+/*
+ * set success message.
+ */
 export const successSet = ({payload}) => ({
     type: ACTION_TYPES.SUCCESS_SET,
     payload,
 })
 
+/*
+ * clear success message.
+ */
 export const successClear = () => ({
     type: ACTION_TYPES.SUCCESS_CLEAR,
 })
 
+/*
+ * set error message.
+ */
 export const errorSet = ({payload}) => ({
     type: ACTION_TYPES.ERROR_SET,
     payload,
 })
 
+/*
+ * clear error message.
+ */
 export const errorClear = () => ({
     type: ACTION_TYPES.ERROR_CLEAR,
 })
@@ -76,6 +108,10 @@ export const itemFind = ({params}) => {
     };
 }
 
+/* ----------------------------------------------------------------------------------
+ * Used by admin when creating new user.
+ * Only admin account can add a user client account. 
+ * -------------------------------------------------------------------------------- */
 export const itemCreate = ({params}) => {
     return async dispatch => {
         try {
@@ -90,7 +126,9 @@ export const itemCreate = ({params}) => {
     };
 }
 
-// not yet used
+/* ----------------------------------------------------------------------------------
+ * Used for updating personal user information 
+ * -------------------------------------------------------------------------------- */
 export const itemUpdate = ({params}) => {
     return async dispatch => {
         try {
@@ -106,6 +144,28 @@ export const itemUpdate = ({params}) => {
     };
 }
 
+/* ----------------------------------------------------------------------------------
+ * Remove user form the list and from the database. Soft Delete only. 
+ * -------------------------------------------------------------------------------- */
+export const itemRemove = ({_id}) => {
+    return async dispatch => {
+        try {
+            await axios.post('/api/account/remove', {_id});
+            dispatch(itemListRemove({item: {_id}}));
+            dispatch(successSet({payload: {message: 'User deleted!'}}));
+            dispatch(errorClear());
+            
+        } catch (err) {
+            const payload = { message: 'Removing user Failed!' }
+            dispatch(errorSet({payload}));
+            dispatch(successClear());
+        }
+    }
+}
+
+/* ----------------------------------------------------------------------------------
+ * User Login. 
+ * -------------------------------------------------------------------------------- */
 export const login = ({params}) => {
     return async dispatch => {
         try {
@@ -126,6 +186,9 @@ export const login = ({params}) => {
     };
 }
 
+/* ----------------------------------------------------------------------------------
+ * User Logout. 
+ * -------------------------------------------------------------------------------- */
 export const logout = () => {
     return async dispatch => {
         try {

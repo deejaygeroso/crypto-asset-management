@@ -143,6 +143,22 @@ module.exports = function(app, router, auth){
         });
     })
 
+    /* ----------------------------------------------------------
+     * Delete a selected user by id.
+     * Soft delete only.
+     * -------------------------------------------------------- */
+    router.post('/account/remove', (req, res)=>{
+        const { _id } = req.body;
+        UserModel.findById(_id, function(err, doc) {
+            if(err) return res.status(400).send({message: err});
+            
+            // soft delete user
+            doc['isDeleted'] = true;
+
+            doc.save();
+            res.send(doc)
+          });
+    })
 
     /* ----------------------------------------------------------
      * Add new coin to user's portfolio

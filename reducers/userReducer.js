@@ -58,6 +58,17 @@ export const usersList = (state = initialUsersList, {type, payload, item}) => {
             const allIds = Array.prototype.concat([item._id], state.allIds)
             return Object.assign({}, state, { allIds, byId });
         }
+        case ACTION_TYPES.ITEMLIST_REMOVE: {
+            const { _id } = item;
+
+            // just remove the id/key from the allIds though not used by component anymore but only as reference.
+            const index = state.allIds.indexOf(_id);
+            if (index > -1) {
+                state.allIds.splice(index, 1);
+            }
+
+            return Object.assign({}, state);
+        }
         case ACTION_TYPES.ITEMLIST_CLEAR:
             return initialUsersList;
         default:
