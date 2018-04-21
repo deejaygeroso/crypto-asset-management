@@ -32,7 +32,7 @@ class Form extends Component{
             notes : '',
             links: [],
 
-            isCustom: '',
+            isCustom: false,
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);
@@ -207,7 +207,9 @@ class Form extends Component{
      * -------------------------------------------------------------------------------- */
     render(){
         const { portfolio, portfolioError } = this.props;
+        const { isCustom } = this.state;
         const addUpdateButtonName = portfolio && portfolio._id ? 'Update' : 'Create';
+        const customButtonStyle = {background: '#64d6b1', color: '#fff'};
         return(
             <div className="page-container">
                 <div className="card container flex-column align-items-center justify-content-center fadeIn animated">
@@ -226,8 +228,8 @@ class Form extends Component{
                         {
                             addUpdateButtonName==='Create'?
                             <div className="d-flex flex-row align-items-center justify-content-center">
-                                <div className="btn" onClick={()=>this.setState({isCustom: false})}>Normal</div>
-                                <div className="btn" onClick={()=>this.setState({isCustom: true})}>Custom</div>
+                                <div className="btn" onClick={()=>this.setState({isCustom: false})} style={!isCustom ? customButtonStyle : {}}>Normal</div>
+                                <div className="btn" onClick={()=>this.setState({isCustom: true})} style={isCustom ? customButtonStyle : {}}>Custom</div>
                             </div> : <div />
                         }
 
