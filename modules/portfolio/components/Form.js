@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 
-import FormStyle from '../../styles/FormStyle';
+import FormStyle from '../styles/FormStyle';
 import { TextInput, NumberInput, TextArea, ErrorMessage } from '../../lib/forms';
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -48,8 +48,7 @@ class Form extends Component{
      * Clear all when unmounted
      * -------------------------------------------------------------------------------- */
     componentWillUnmount(){
-        const { portfolioActions } = this.props
-        portfolioActions.itemClear();
+        const { portfolioActions } = this.props;
         portfolioActions.successClear();
         portfolioActions.errorClear();
     }
@@ -181,13 +180,15 @@ class Form extends Component{
             linksComponent.push(
                 <div className="buy-price-wrapper row" key={index}>
                     <div className="col-md-5 col-sm-5">
-                        <TextInput id="name" value={link.name} label="Link Name" placeholder="Link Name" onValueChange={(fieldName, value)=>this.onLinkValueChange(fieldName, value, index)} />
+                        <TextInput id="name" value={link.name} label="Name" placeholder="Link Name" onValueChange={(fieldName, value)=>this.onLinkValueChange(fieldName, value, index)} />
                     </div>
                     <div className="col-md-5 col-sm-5">
-                        <TextInput id="symbol" value={link.symbol} label="Link Address" placeholder="Link Address" onValueChange={(fieldName, value)=>this.onLinkValueChange(fieldName, value, index)} />
+                        <TextInput id="address" value={link.address} label="Address" placeholder="Link Address" onValueChange={(fieldName, value)=>this.onLinkValueChange(fieldName, value, index)} />
                     </div>
-                    <div className="col-md-2 col-sm-2">
-                        <button onClick={()=>this.removeNewLinks(index)} className="btn btn-lg btn-danger btn-block btn-submit" type="button">-</button>
+                    <div className="col-md-2 col-sm-2" style={{marginTop: 18}}>
+                        <button onClick={()=>this.removeNewLinks(index)} className="btn btn-lg btn-danger btn-block btn-submit" type="button">
+                            <i className="fas fa-times"></i>
+                        </button>
                     </div>
                 </div>
             )
@@ -242,16 +243,26 @@ class Form extends Component{
                         {/* ------------------------------*/}
                         {/* ---- Links Form & Button ---- */}
                         {/* ------------------------------*/}
+                        <div className="mt-40" />
+                        <p className="form-title mb-5 add-link-button" onClick={this.addNewLinks}>
+                            Click Here to Add Links
+                            &nbsp;
+                            <i className="fas fa-plus add-link-button"></i>
+                        </p>
                         {this.renderAddNewLinks()}
-                        <button onClick={this.addNewLinks} className="btn btn-lg btn-primary btn-block btn-submit" type="button" >Add Links</button>
+                        {/* <button onClick={this.addNewLinks} className="btn btn-lg btn-primary btn-block btn-submit" type="button" >Add Links</button> */}
 
                         {/* ------------------------------*/}
                         {/* --- Submit & Remove Button -- */}
                         {/* ------------------------------*/}
-                        <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-submit" type="submit" >{addUpdateButtonName}</button>
-                        { portfolio && portfolio._id ?
-                            <button onClick={this.onRemove} className="btn btn-lg btn-danger btn-block btn-signin" type="submit" >Remove</button>
-                        : <div /> }
+                        <div className="row">
+                            <div className="col-md-6">
+                                <button onClick={this.onRemove} className="btn btn-lg btn-danger btn-block btn-submit" type="submit" >Remove</button>
+                            </div>
+                            <div className="col-md-6">
+                                <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-submit" type="submit" >{addUpdateButtonName}</button>
+                            </div>
+                        </div>
                         <FormStyle />
                    </div>
                 </div>
@@ -345,14 +356,14 @@ class Form extends Component{
      * -------------------------------------------------------------------------------- */
     onSubmit(evt){
         evt.preventDefault();
-        const { portfolio, portfolioActions, portfolioMainPageRouteName, onSubmit } = this.props;
+        const { portfolio, portfolioActions, onSubmit } = this.props;
         const { isCustom } = this.state;
         let params = {};
 
         if(isCustom){
             params = this.onSubmitCustomCoin();
         }else{
-            params = this.onSubmitCMCCoin()
+            params = this.onSubmitCMCCoin();
         }
 
         // submit form
@@ -367,12 +378,7 @@ class Form extends Component{
             });
         }
     
-        // if user is admin
-        if(portfolioMainPageRouteName==='/admin/userportfolio'){
-            return onSubmit();
-        }
-    
-        Router.push(portfolioMainPageRouteName);
+        onSubmit();
     }
     
     /* ----------------------------------------------------------------------------------

@@ -2,53 +2,6 @@ import React from 'react';
 
 const FormStyle = () => (
     <style jsx global>{`
-            .gradient-header{
-                height: 100vh;
-            }
-            .card{
-                padding: 15px 30px 30px 30px;
-                padding-bottom: 50px;
-                line-height: 1;
-                box-shadow: 2px 2px 5px #888;
-                max-width: 680px;
-                margin-bottom: 120px;
-                margin-top: 80px;
-            }
-            .card-image-wrapper{
-                margin: 20px;
-            }
-
-            .form-view-title{
-                background-color: #2e73878f;
-                border-radius: 43px;
-                padding: 10px 29px 7px 9px;
-            }
-            .form-view-title > h1{
-                padding: 0 0 5px 20px;
-                color: #fff;
-                margin: 0;
-            }
-            .form-view-text{
-                color: #fff;
-            }
-            .form-view-value{
-                color: #e7ff00;
-            }
-            .form-view-amount{
-                font-size: 89px;
-                line-height: 0.8;
-                color: #e7ff00;
-            }
-            .form-view-amount-title{
-                font-size: 35px;
-            }
-            .edit-button{
-                position: fixed;
-                background-color: white;
-                right: 33px;
-                top: 79px;
-            }
-
             .form-title{
                 color: #53d3aa;
                 text-align: center;
@@ -119,6 +72,12 @@ const FormStyle = () => (
                     margin-left: 20px;
                     margin-right: 20px;
                 }
+            }
+            .add-link-button{
+                cursor: pointer;
+            }
+            .add-link-button:hover{
+                color: #3E3C3C;
             }
   `}</style>
 )
