@@ -4,6 +4,7 @@ import Router from 'next/router';
 
 import Navbar from '../../core/containers/Navbar';
 
+import { confirmAlert } from 'react-confirm-alert'; // Import
 import Cookies from 'js-cookie';
 
 class Manage extends Component {
@@ -52,7 +53,7 @@ class Manage extends Component {
                     <span className="align-items-end" style={{paddingRight: 20}}>
                         {user.email}
                     </span>
-                    <button onClick={(e)=>this.onUserDelete(e, user._id)} className="btn btn-lg btn-danger btn-block btn-submit" type="button">
+                    <button onClick={(e)=>this.onUserDelete(e, user)} className="btn btn-lg btn-danger btn-block btn-submit" type="button">
                         <i className="fas fa-times"></i>
                     </button>
                 </div>
@@ -244,12 +245,28 @@ class Manage extends Component {
     /* ----------------------------------------------------------------------------------
      * Delete a certain user (Soft Delete)
      * -------------------------------------------------------------------------------- */
-    onUserDelete(e, user_id){
+    onUserDelete(e, user){
         e.stopPropagation();
         const { userActions } = this.props;
-        userActions.itemRemove({
-            _id : user_id,
-        })
+
+            confirmAlert({
+                title: 'Are you sure?',
+                message: `You are about to delete ${user.email}.`,
+                buttons: [
+                    {
+                        label: 'Delete',
+                        onClick: () => {
+                            userActions.itemRemove({
+                                _id : user._id,
+                            })
+                        }
+                    },
+                    {
+                        label: 'Cancel',
+                        onClick: () => {}
+                    }
+                ]
+            });
     }
 
     /* ----------------------------------------------------------------------------------
