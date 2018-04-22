@@ -161,6 +161,23 @@ module.exports = function(app, router, auth){
     })
 
     /* ----------------------------------------------------------
+     * Find portfolio.
+     * -------------------------------------------------------- */
+    router.post('/portfolio/find', (req, res)=>{
+        const userData = req.body;
+
+        // if userData object is empty return an error
+        if(Object.keys(userData).length===0 || !userData._id || userData._id===''){
+            return res.send({message: 'No portfolio id was passed as a parameter!'});
+        }
+
+        PortfolioModel.findOne(userData, (err, docs) => {
+            if(err) return res.status(400).send({message: err});
+            res.send(docs)
+        });
+    })
+
+    /* ----------------------------------------------------------
      * Add new coin to user's portfolio
      * -------------------------------------------------------- */
     router.post('/portfolio/create', (req, res)=>{

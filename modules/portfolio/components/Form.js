@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Router from 'next/router';
 
 import FormStyle from '../styles/FormStyle';
-import { TextInput, NumberInput, TextArea, ErrorMessage } from '../../lib/forms';
+import { TextInput, NumberInput, TextArea } from '../../lib/forms';
 
 import { confirmAlert } from 'react-confirm-alert';
-
 import Select from 'react-select';
 
 class Form extends Component{
@@ -207,14 +205,14 @@ class Form extends Component{
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
-        const { portfolio, portfolioError } = this.props;
+        const { portfolio } = this.props;
         const { isCustom } = this.state;
         const addUpdateButtonName = portfolio && portfolio._id ? 'Update' : 'Create';
         const customButtonStyle = {background: '#64d6b1', color: '#fff'};
         return(
             <div className="page-container">
                 <div className="card container flex-column align-items-center justify-content-center fadeIn animated">
-                    <div className=".card-profile">
+                    <div className="card-profile">
                     
                         {/* ------------------------------*/}
                         {/* --------- Form Title -------- */}
@@ -233,16 +231,6 @@ class Form extends Component{
                                 <div className="btn" onClick={()=>this.setState({isCustom: true})} style={isCustom ? customButtonStyle : {}}>Custom</div>
                             </div> : <div />
                         }
-
-                        {/* ------------------------------*/}
-                        {/* ------------ Error ---------- */}
-                        {/* ------------------------------*/}
-                        <ErrorMessage message={portfolioError && portfolioError.message} />
-
-                        {/* ------------------------------*/}
-                        {/* ----------- Success --------- */}
-                        {/* ------------------------------*/}
-                        {/* <SuccessMessage message={portfolioSuccess && portfolioSuccess.message} /> */}
 
                         {/* ------------------------------*/}
                         {/* ---- Portfolio Coin Form ---- */}
@@ -455,6 +443,7 @@ class Form extends Component{
      * -------------------------------------------------------------------------------- */
     onRemove(evt){
         evt.preventDefault();
+        const { onRemove } = this.props;
 
         confirmAlert({
             title: 'Are you sure?',
@@ -463,9 +452,9 @@ class Form extends Component{
                 {
                     label: 'Delete',
                     onClick: () => {
-                        const { portfolio, portfolioActions, portfolioMainPageRouteName } = this.props;
+                        const { portfolio, portfolioActions } = this.props;
                         portfolioActions.itemRemove({_id: portfolio._id});
-                        Router.push(portfolioMainPageRouteName);
+                        onRemove();
                     }
                 },
                 {
@@ -489,6 +478,7 @@ Form.propTypes = {
     cryptoIds        : PropTypes.array,
     cryptoIdsActions : PropTypes.object,
     coinmarketcapTicker : PropTypes.array,
+    onRemove : PropTypes.func,
     onSubmit : PropTypes.func,
 }
 

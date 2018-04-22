@@ -4,6 +4,7 @@ import * as ACTION_TYPES from '../types/portfolioTypes';
 import * as cryptoHistoryActions from './cryptoHistoryActions';
 
 import { indexBy as __$indexBy } from 'underscore';
+import { toasterSuccessMessage, toasterErrorMessage } from '../modules/lib/helpers';
 
 /*
  * set new item to store
@@ -117,6 +118,20 @@ export const itemsListOtherStatsSortData = ({sortFieldName, sortFieldStatus}) =>
 })
 
 /* ----------------------------------------------------------------------------------
+ * Find portfolio by id
+ * -------------------------------------------------------------------------------- */
+export const itemFind = ({_id}) => {
+    return async dispatch => {
+        try {
+            const res = await axios.post('/api/portfolio/find', {_id});
+            dispatch(itemSet({payload: res.data}))
+        } catch (error) {
+            toasterErrorMessage('Fail to find coin!');
+        }
+    }
+}
+
+/* ----------------------------------------------------------------------------------
  * Create new portfolio item on the database
  * -------------------------------------------------------------------------------- */
 export const itemCreate = ({params}) => {
@@ -126,13 +141,9 @@ export const itemCreate = ({params}) => {
             const res = await axios.post('/api/portfolio/create', params);
             dispatch(itemSet({payload: res.data}))
             dispatch(itemListAppend({item: res.data}));
-            dispatch(errorClear());
-            dispatch(successSet({payload: {message: 'Coin successfuly created!'} }));
-
+            toasterSuccessMessage('Coin successfuly created!');
         } catch (error) {
-            const payload = { message: 'Fail to create coin!' }
-            dispatch(successClear());
-            dispatch(errorSet({payload}));
+            toasterErrorMessage('Fail to create coin!');
         }
     }
 }
@@ -143,18 +154,12 @@ export const itemCreate = ({params}) => {
 export const itemUpdate = ({_id, params}) => {
     return async dispatch => {
         try {
-            // if success
             const res = await axios.post('/api/portfolio/update', Object.assign({}, params, { _id }));
-            
             dispatch(itemSet({payload: res.data}))
             dispatch(itemListPatch({item: res.data}));
-            dispatch(successSet({payload: {message: 'Coin successfuly creatd!'} }));
-            dispatch(errorClear());
-
+            toasterSuccessMessage('Coin successfuly updated!');
         } catch (error) {
-            const payload = { message: 'Fail to create coin!' }
-            dispatch(errorSet({payload}));
-            dispatch(successClear());
+            toasterErrorMessage('Fail to update coin!');
         }
     }
 }
@@ -166,13 +171,11 @@ export const itemRemove = ({_id}) => {
     return async dispatch => {
         try {
             await axios.post('/api/portfolio/remove', {_id});
-            const message = 'Coin successfuly removed!';
-            dispatch(successSet({payload: {message} }));
+            dispatch(itemClear())
             dispatch(itemListRemove({item: {_id}}));
-            dispatch(errorClear());
-
+            toasterSuccessMessage('Coin successfuly created!');
         } catch (error) {
-            // console.log('error', error);
+            toasterErrorMessage('Fail to remove coin!');
         }
     }
 }
@@ -196,8 +199,7 @@ export const itemListFindByUserId = ({params, coinmarketcapTicker}) => {
             dispatch(cryptoHistoryActions.calculatePriceAndVolumeAthAtl( {params: {ids} }));
 
         } catch (error) {
-            const payload = { message: 'Unable to fetch your portfolio' }
-            dispatch(errorSet({payload}));
+            toasterErrorMessage('Unable to fetch your portfolio');
         }
     }
 }

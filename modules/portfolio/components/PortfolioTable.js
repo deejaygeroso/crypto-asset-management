@@ -38,8 +38,8 @@ const PortfolioTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sor
                                 <th className="sortable" onClick={()=>{sortTableBy('valuation_btc')}}>BTC <SortIcon name="valuation_btc" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                                 <th className="sortable" onClick={()=>{sortTableBy('valuation_eth')}}>ETH <SortIcon name="valuation_eth" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                                 <th className="sortable" onClick={()=>{sortTableBy('profit_loss_usd')}}>USD <SortIcon name="profit_loss_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
-                                <th className="sortable" onClick={()=>{sortTableBy('profit_loss_btc')}}>BTC <SortIcon name="profit_loss_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
-                                <th className="sortable" onClick={()=>{sortTableBy('profit_loss_eth')}}>ETH <SortIcon name="profit_loss_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('profit_loss_btc')}}>BTC <SortIcon name="profit_loss_btc" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                <th className="sortable" onClick={()=>{sortTableBy('profit_loss_eth')}}>ETH <SortIcon name="profit_loss_eth" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,13 +69,13 @@ const PortfolioTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sor
                                         {/* ------ Buy Price BTC ------*/}
                                         <td scope="col">
                                             <span className="num-span" style={{color: '#3F95EA'}}>
-                                                {guarding(portfolioList, id, 'buy_price_btc')}
+                                                {parseFloat(guarding(portfolioList, id, 'buy_price_btc')).toFixed(8)}
                                             </span>
                                         </td>
                                         {/* ------ Buy Price ETH ------*/}
                                         <td scope="col">
                                             <span className="num-span" style={{color: '#3F95EA'}}>
-                                                {guarding(portfolioList, id, 'buy_price_eth')}
+                                                {parseFloat(guarding(portfolioList, id, 'buy_price_eth')).toFixed(8)}
                                             </span>
                                         </td>
                                         {/* ------ Market Price USD ------*/}
@@ -87,13 +87,13 @@ const PortfolioTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sor
                                         {/* ------ Market Price BTC ------*/}
                                         <td scope="col">
                                             <span className="num-span td-market-price">
-                                                {guarding(portfolioList, id, 'price_btc')}
+                                                {parseFloat(guarding(portfolioList, id, 'price_btc')).toFixed(8)}
                                             </span>
                                         </td>
                                         {/* ------ Market Price ETH ------*/}
                                         <td scope="col">
                                             <span className="num-span td-market-price">
-                                                {guarding(portfolioList, id, 'price_eth')}
+                                                {parseFloat(guarding(portfolioList, id, 'price_eth')).toFixed(8)}
                                             </span>
                                         </td>
                                         {/* ------ Valuation USD ------*/}

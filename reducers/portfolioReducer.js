@@ -144,26 +144,26 @@ export const portfolioList = (state = initialPortfoliosList, {
          */
         case ACTION_TYPES.ITEMLIST_REMOVE: {
             const { _id } = item;
-
+            const newState = Object.assign({}, state);
             // just remove the id/key from the allIds though not used by component anymore but only as reference.
-            const index = state.allIds.indexOf(_id);
+            const index = newState.allIds.indexOf(_id);
             if (index > -1) {
-                state.allIds.splice(index, 1);
+                newState.allIds.splice(index, 1);
             }
 
             // just remove the id/key from the allIds_profitMargin
-            const index_profitMargin = state.allIds_profitMargin.indexOf(_id);
+            const index_profitMargin = newState && newState.allIds_otherStats && newState.allIds_profitMargin.indexOf(_id);
             if (index_profitMargin > -1) {
-                state.allIds_profitMargin.splice(index_profitMargin, 1);
+                newState.allIds_profitMargin.splice(index_profitMargin, 1);
             }
 
             // just remove the id/key from the allIds_otherstats
-            const index_otherStats = state.allIds_otherStats.indexOf(_id);
+            const index_otherStats = newState && newState.allIds_otherStats && newState.allIds_otherStats.indexOf(_id);
             if (index_otherStats > -1) {
-                state.allIds_otherStats.splice(index_otherStats, 1);
+                newState.allIds_otherStats.splice(index_otherStats, 1);
             }
 
-            return Object.assign({}, state);
+            return Object.assign({}, newState);
         }
         /*
          * clear all list

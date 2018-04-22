@@ -1,5 +1,28 @@
+import { toast } from 'react-toastify';
 
+/* ----------------------------------------------------------------------------------
+ * Generate toaster success message 
+ * -------------------------------------------------------------------------------- */
+export const toasterSuccessMessage = (message) => {
+    toast(message, {
+        position: toast.POSITION.BOTTOM_LEFT,
+        className: 'toaster-background',
+        bodyClassName: 'toaster-body',
+        progressClassName: 'toaster-progress-success',
+    });
+}
 
+/* ----------------------------------------------------------------------------------
+ * Generate toaster Error message 
+ * -------------------------------------------------------------------------------- */
+export const toasterErrorMessage = (message) => {
+    toast(message, {
+        position: toast.POSITION.BOTTOM_LEFT,
+        className: 'toaster-background',
+        bodyClassName: 'toaster-body',
+        progressClassName: 'toaster-progress-error',
+    });
+}
 
 /* ----------------------------------------------------------------------------------
  * if price is more than $1 then only add two decimal but 4 if less than $1 

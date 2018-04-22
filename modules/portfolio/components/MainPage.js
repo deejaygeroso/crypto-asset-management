@@ -9,6 +9,7 @@ import Header from './Header';
 import Card from './Card';
 
 import Cookies from 'js-cookie';
+import { ToastContainer } from 'react-toastify';
 
 class MainPage extends Component{
 
@@ -45,6 +46,7 @@ class MainPage extends Component{
         const { isWidgetVisible, isStatsTableVisible, isPortfolioTableVisible } = this.state;
         return(
             <div className="page-container">
+                <ToastContainer />
                 <Navbar />
                 <Header user={user} 
                         cryptoGlobal={coinmarketcapGlobal} 

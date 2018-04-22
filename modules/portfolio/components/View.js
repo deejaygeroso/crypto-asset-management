@@ -7,7 +7,7 @@ import Form from '../containers/Form';
 import ViewStyle from '../styles/ViewStyles';
 
 import Cookies from 'js-cookie';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 class View extends Component {
 
@@ -16,6 +16,7 @@ class View extends Component {
         this.state = {
             isFormVisible: false,
             isFormCreate: false,
+            isPortfolioRemoved: false,
         }
     }
 
@@ -24,9 +25,9 @@ class View extends Component {
         const portfolioCookie = Cookies.get('portfolio');
         const portfolio = JSON.parse(portfolioCookie);
 
-        // set portfolio
-        portfolioActions.itemSet({
-            payload: portfolio,
+        // find portfolio from the database
+        portfolioActions.itemFind({
+            _id: portfolio._id,
         })
 
         // show portfolio form instead of the view info if user is in create portfolio mode
@@ -37,43 +38,10 @@ class View extends Component {
     }
 
     /* ----------------------------------------------------------------------------------
-     * Show Toaster for success and error actions from managing user create/removing. 
-     * -------------------------------------------------------------------------------- */
-    componentWillReceiveProps(nextProps){
-        const { portfolioSuccess, portfolioError } = nextProps;
-
-        // show success message toaster
-        if(portfolioSuccess && portfolioSuccess.message && portfolioSuccess.message!==''){
-            toast(`${portfolioSuccess.message}`, {
-                position: toast.POSITION.BOTTOM_LEFT,
-                className: 'toaster-background',
-                bodyClassName: 'toaster-body',
-                progressClassName: 'toaster-progress-success',
-                onOpen: () => {
-                    this.props.portfolioActions.successClear()
-                },
-            });
-        }
-
-        // show error message toaster
-        if(portfolioError && portfolioError.message && portfolioError.message!==''){
-            toast(`${portfolioError.message}`, {
-                position: toast.POSITION.BOTTOM_LEFT,
-                className: 'toaster-background',
-                bodyClassName: 'toaster-body',
-                progressClassName: 'toaster-progress-error',
-                onOpen: () => {
-                    this.props.portfolioActions.errorClear()
-                },
-            });
-        }
-    }
-
-    /* ----------------------------------------------------------------------------------
      * Render create/update portfolio form
      * -------------------------------------------------------------------------------- */
     renderForm() {
-        return <Form portfolioMainPageRouteName={this.props.portfolioMainPageRouteName} onSubmit={()=>this.setState({isFormVisible: false})}/>
+        return <Form portfolioMainPageRouteName={this.props.portfolioMainPageRouteName} onSubmit={()=>this.setState({isFormVisible: false})} onRemove={()=>this.setState({isPortfolioRemoved: true})}/>
     }
 
     /* ----------------------------------------------------------------------------------
@@ -160,28 +128,41 @@ class View extends Component {
         return `http://${address}`;
     }
 
+    renderDataRemovedMessage(){
+        return(
+            <div style={{marginTop: 90, textAlign: 'center'}}>
+                <p>
+                data removed
+                </p>
+            </div>
+        )
+    }
+
     /* ----------------------------------------------------------------------------------
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
         const { portfolio } = this.props;
-        const { isFormVisible } = this.state;
+        const { isFormVisible, isPortfolioRemoved } = this.state;
         return(
             <div className="page-container">
                 <ToastContainer />
                 <Navbar />
-
                 {/* ------------------------------*/}
                 {/* ------------ Form ----------- */}
                 {/* ------------------------------*/}
                 <div className="gradient-header">
-                    {this.state.isFormVisible ? this.renderForm() : this.renderDataView()}
+                    {
+                        isPortfolioRemoved ? this.renderDataRemovedMessage() :
+                        ( isFormVisible ? this.renderForm() : this.renderDataView() )
+                    }
                 </div>
 
                 {/* ------------------------------*/}
                 {/* ------ Edit Form Button ----- */}
                 {/* ------------------------------*/}
                 {
+                    isPortfolioRemoved ? <div /> :
                     portfolio && portfolio._id ?
                         <span onClick={()=>this.setState({isFormVisible: !isFormVisible})} className="flip animated edit-button">
                             { isFormVisible ? <i className="fas fa-lg fa-times fa-view-icon"></i> : <i className="fas fa-lg fa-pencil-alt fa-view-icon"></i> }
