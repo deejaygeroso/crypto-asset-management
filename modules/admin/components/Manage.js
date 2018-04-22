@@ -38,6 +38,9 @@ class Manage extends Component {
         this.props.userActions.errorClear()
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Show Toaster for success and error actions from managing user create/removing. 
+     * -------------------------------------------------------------------------------- */
     componentWillReceiveProps(nextProps){
         const { userSuccess, userError } = nextProps;
 
