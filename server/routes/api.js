@@ -42,7 +42,7 @@ module.exports = function(app, router, auth){
      * Find all users which are not admin
      * -------------------------------------------------------- */
     router.post('/account/users', (req, res)=>{
-        UserModel.find({isAdmin: false, isDeleted: false}, function (err, docs) {
+        UserModel.find({isAdmin: false, isDeleted: false}, null, {sort: {created: -1}}, function (err, docs) {
             if(err) return res.status(400).send({message: err});
             res.send(docs)
         });
