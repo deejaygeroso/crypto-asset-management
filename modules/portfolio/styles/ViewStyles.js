@@ -91,6 +91,19 @@ const ViewStyle = () => (
             .fa-view-icon:hover{
                 cursor: pointer;
             }
+
+            .toaster-background{
+                background-color: #fff;
+                color: #111;
+            }
+            .toaster-progress-success{
+                background: #52d3aa;
+                color: #52d3aa;
+            }
+            .toaster-progress-error{
+                background: #c9302c;
+                color: #52d3aa;
+            }
   `}</style>
 )
 

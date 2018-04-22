@@ -5,7 +5,7 @@ import Router from 'next/router';
 import FormStyle from '../styles/FormStyle';
 import { TextInput, NumberInput, TextArea, ErrorMessage } from '../../lib/forms';
 
-import { confirmAlert } from 'react-confirm-alert'; // Import
+import { confirmAlert } from 'react-confirm-alert';
 
 import Select from 'react-select';
 
@@ -374,6 +374,11 @@ class Form extends Component{
         }else{
             params = this.onSubmitCMCCoin();
         }
+        
+        if( params.id==="" && params.value==="" && params.symbol==="" ){
+            portfolioActions.errorSet({ payload: { message: 'Please fill up the required(*) fields!' } });
+            return;
+        }
 
         // submit form
         if(portfolio._id){
@@ -394,14 +399,7 @@ class Form extends Component{
      * On Submit from selected Coinmarketcap coin 
      * -------------------------------------------------------------------------------- */
     onSubmitCMCCoin(){
-        const { user, portfolioActions } = this.props;
-
-        // make sure user selects a coin
-        if( crypto.id==="" && crypto.value==="" && crypto.label==="" && crypto.symbol==="" ){
-            portfolioActions.successClear();
-            portfolioActions.errorSet({ payload: { message: 'Please select a coin first' } });
-            return {};
-        }
+        const { user } = this.props;
 
         // get all data to be submitted to the server
         const params = {
@@ -426,15 +424,8 @@ class Form extends Component{
      * On Submit from a custom coin 
      * -------------------------------------------------------------------------------- */
     onSubmitCustomCoin(){
-        const { user, portfolioActions } = this.props;
+        const { user } = this.props;
         const { cryptoCustom } = this.state;
-
-        // make sure user selects a coin
-        if( crypto.id==="" || crypto.symbol==="" ){
-            portfolioActions.successClear();
-            portfolioActions.errorSet({ payload: { message: 'Please fill the required form first!' } });
-            return {};
-        }
 
         // get all data to be submitted to the server
         const params = {
@@ -447,8 +438,8 @@ class Form extends Component{
             id            : cryptoCustom.id,
             name          : cryptoCustom.id,
             value         : cryptoCustom.id,
-            label         : `${cryptoCustom.id} (${cryptoCustom.symbol})`,
             symbol        : cryptoCustom.symbol,
+            label         : `${cryptoCustom.id} (${cryptoCustom.symbol})`,
             links         : this.state.links,
             isCustom      : true,
         };

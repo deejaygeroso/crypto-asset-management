@@ -125,15 +125,14 @@ export const itemCreate = ({params}) => {
             // if success
             const res = await axios.post('/api/portfolio/create', params);
             dispatch(itemSet({payload: res.data}))
-            
             dispatch(itemListAppend({item: res.data}));
-            dispatch(successSet({payload: {message: 'Coin successfuly creatd!'} }));
             dispatch(errorClear());
+            dispatch(successSet({payload: {message: 'Coin successfuly created!'} }));
 
         } catch (error) {
             const payload = { message: 'Fail to create coin!' }
-            dispatch(errorSet({payload}));
             dispatch(successClear());
+            dispatch(errorSet({payload}));
         }
     }
 }

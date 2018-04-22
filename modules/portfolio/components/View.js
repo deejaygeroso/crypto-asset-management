@@ -7,6 +7,7 @@ import Form from '../containers/Form';
 import ViewStyle from '../styles/ViewStyles';
 
 import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
 
 class View extends Component {
 
@@ -33,6 +34,39 @@ class View extends Component {
             this.setState({isFormVisible: true, isFormCreate: true});
         }
 
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Show Toaster for success and error actions from managing user create/removing. 
+     * -------------------------------------------------------------------------------- */
+    componentWillReceiveProps(nextProps){
+        const { portfolioSuccess, portfolioError } = nextProps;
+
+        // show success message toaster
+        if(portfolioSuccess && portfolioSuccess.message && portfolioSuccess.message!==''){
+            toast(`${portfolioSuccess.message}`, {
+                position: toast.POSITION.BOTTOM_LEFT,
+                className: 'toaster-background',
+                bodyClassName: 'toaster-body',
+                progressClassName: 'toaster-progress-success',
+                onOpen: () => {
+                    this.props.portfolioActions.successClear()
+                },
+            });
+        }
+
+        // show error message toaster
+        if(portfolioError && portfolioError.message && portfolioError.message!==''){
+            toast(`${portfolioError.message}`, {
+                position: toast.POSITION.BOTTOM_LEFT,
+                className: 'toaster-background',
+                bodyClassName: 'toaster-body',
+                progressClassName: 'toaster-progress-error',
+                onOpen: () => {
+                    this.props.portfolioActions.errorClear()
+                },
+            });
+        }
     }
 
     /* ----------------------------------------------------------------------------------
@@ -134,6 +168,7 @@ class View extends Component {
         const { isFormVisible } = this.state;
         return(
             <div className="page-container">
+                <ToastContainer />
                 <Navbar />
 
                 {/* ------------------------------*/}
@@ -169,6 +204,8 @@ class View extends Component {
 
 View.propTypes = {
     portfolio : PropTypes.object,
+    portfolioSuccess : PropTypes.object,
+    portfolioError: PropTypes.object,
     portfolioActions: PropTypes.object,
     portfolioMainPageRouteName : PropTypes.string,
 };
