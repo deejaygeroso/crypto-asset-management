@@ -6,9 +6,10 @@ import * as portfolioActions from '../../../actions/portfolioActions';
 
 function mapStateToProps(state) {
   return {
-    user : state.user,
-    userError : state.userError,
-    usersList : state.usersList,
+    user        : state.user,
+    userError   : state.userError,
+    userSuccess : state.userSuccess,
+    usersList   : state.usersList,
   };
 }
 

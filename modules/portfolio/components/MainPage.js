@@ -109,9 +109,7 @@ class MainPage extends Component{
                 {/* --------- Add Button -------- */}
                 {/* ----------------------------- */}
                 <button onClick={()=>this.routeToPortfolioAdd({})} className="btn-portfolio-add btn btn-lg btn-warning btn-table flip animated" type="submit" >
-                    <span>
-                        <i className="fas fa-lg fa-plus"></i>
-                    </span>
+                    <i className="fas fa-lg fa-plus"></i>
                 </button>
                 <div style={{padding: 80}} />
                 <style jsx global>{`
@@ -133,6 +131,10 @@ class MainPage extends Component{
                         background-color: #64d1b6;
                         color: #fff;
                         box-shadow: 2px 2px 8px #888;
+                    }
+                    .btn-portfolio-add > i{
+                        margin-top: 5px;
+                        margin-left: 2px;
                     }
                 `}</style>
         </div>

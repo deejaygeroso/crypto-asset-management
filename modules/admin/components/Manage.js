@@ -4,8 +4,9 @@ import Router from 'next/router';
 
 import Navbar from '../../core/containers/Navbar';
 
-import { confirmAlert } from 'react-confirm-alert'; // Import
 import Cookies from 'js-cookie';
+import { confirmAlert } from 'react-confirm-alert'; 
+import { ToastContainer, toast } from 'react-toastify';
 
 class Manage extends Component {
 
@@ -37,6 +38,36 @@ class Manage extends Component {
         this.props.userActions.errorClear()
     }
 
+    componentWillReceiveProps(nextProps){
+        const { userSuccess, userError } = nextProps;
+
+        // show success message toaster
+        if(userSuccess && userSuccess.message && userSuccess.message!==''){
+            toast(`${userSuccess.message}`, {
+                position: toast.POSITION.BOTTOM_LEFT,
+                className: 'toaster-background',
+                bodyClassName: 'toaster-body',
+                progressClassName: 'toaster-progress-success',
+                onOpen: () => {
+                    this.props.userActions.successClear()
+                },
+            });
+        }
+
+        // show error message toaster
+        if(userError && userError.message && userError.message!==''){
+            toast(`${userError.message}`, {
+                position: toast.POSITION.BOTTOM_LEFT,
+                className: 'toaster-background',
+                bodyClassName: 'toaster-body',
+                progressClassName: 'toaster-progress-error',
+                onOpen: () => {
+                    this.props.userActions.errorClear()
+                },
+            });
+        }
+    }
+
     /* ----------------------------------------------------------------------------------
      * User's Card
      * -------------------------------------------------------------------------------- */
@@ -47,11 +78,12 @@ class Manage extends Component {
             <div id="user-card" onClick={()=>this.gotoUserPortfolio(user._id)} key={key} className="card d-flex flex-row flex-wrap align-content-center align-items-center">
                 <div className="card-image " >
                     <img src="/static/profile-pic.svg" className="align-content-center" height="60" width="60" />
+                    &nbsp;&nbsp;{user.email}
                 </div>
                 <div className="flex-grow-1"></div>
                 <div className="d-flex  flex-row align-items-center justify-content-center">
                     <span className="align-items-end" style={{paddingRight: 20}}>
-                        {user.email}
+                        {/* {user.email} */}
                     </span>
                     <button onClick={(e)=>this.onUserDelete(e, user)} className="btn btn-lg btn-danger btn-block btn-submit" type="button">
                         <i className="fas fa-times"></i>
@@ -111,6 +143,7 @@ class Manage extends Component {
         const { usersList, userError, userSuccess } = this.props;
         return(
             <div>
+                <ToastContainer />
                 <Navbar />
 
                     <div className="margin-50"></div>
@@ -191,6 +224,18 @@ class Manage extends Component {
                         }
                         .btn-submit{
                         }
+                        .toaster-background{
+                            background-color: #fff;
+                            color: #111;
+                        }
+                        .toaster-progress-success{
+                            background: #52d3aa;
+                            color: #52d3aa;
+                        }
+                        .toaster-progress-error{
+                            background: #c9302c;
+                            color: #52d3aa;
+                        }
                 `}</style>
 
 
@@ -248,25 +293,25 @@ class Manage extends Component {
     onUserDelete(e, user){
         e.stopPropagation();
         const { userActions } = this.props;
-
-            confirmAlert({
-                title: 'Are you sure?',
-                message: `You are about to delete ${user.email}.`,
-                buttons: [
-                    {
-                        label: 'Delete',
-                        onClick: () => {
-                            userActions.itemRemove({
-                                _id : user._id,
-                            })
-                        }
-                    },
-                    {
-                        label: 'Cancel',
-                        onClick: () => {}
+        
+        confirmAlert({
+            title: 'Are you sure?',
+            message: `You are about to delete ${user.email}.`,
+            buttons: [
+                {
+                    label: 'Delete',
+                    onClick: () => {
+                        userActions.itemRemove({
+                            _id : user._id,
+                        })
                     }
-                ]
-            });
+                },
+                {
+                    label: 'Cancel',
+                    onClick: () => {}
+                }
+            ]
+        });
     }
 
     /* ----------------------------------------------------------------------------------

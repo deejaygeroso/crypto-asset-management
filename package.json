@@ -40,6 +40,7 @@
     "react-dom": "^16.3.1",
     "react-redux": "^5.0.7",
     "react-select": "^1.2.1",
+    "react-toastify": "^4.0.0-rc.5",
     "recompile": "^1.0.1",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",

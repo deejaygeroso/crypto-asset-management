@@ -119,6 +119,7 @@ export const itemCreate = ({params}) => {
             dispatch(itemSet({payload: res.data}));
             dispatch(itemListAppend({item: res.data}));
             dispatch(errorClear());
+            dispatch(successSet({payload: {message: 'New account was created.'}}));
         } catch (err) {
             const payload = { message: 'Email already exist!' }
             dispatch(errorSet({payload}));
@@ -152,7 +153,7 @@ export const itemRemove = ({_id}) => {
         try {
             await axios.post('/api/account/remove', {_id});
             dispatch(itemListRemove({item: {_id}}));
-            dispatch(successSet({payload: {message: 'User deleted!'}}));
+            dispatch(successSet({payload: {message: 'User was deleted successfuly!'}}));
             dispatch(errorClear());
             
         } catch (err) {

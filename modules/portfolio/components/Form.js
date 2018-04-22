@@ -65,7 +65,8 @@ class Form extends Component{
             buy_price_btc   : portfolio && portfolio.buy_price_btc ? portfolio.buy_price_btc : 0,
             buy_price_eth   : portfolio && portfolio.buy_price_eth ? portfolio.buy_price_eth : 0,
             notes           : portfolio && portfolio.notes         ? portfolio.notes         : '',
-            links           : portfolio && portfolio.links         ? portfolio.links         : [],
+            // links           : portfolio && portfolio.links         ? portfolio.links         : [],
+            links           : Object.assign([], portfolio.links),
             isCustom        : portfolio && portfolio.isCustom      ? portfolio.isCustom      : false,
             crypto : {
                 id     : portfolio && portfolio.id     ? portfolio.id     : '',

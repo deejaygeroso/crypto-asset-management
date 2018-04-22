@@ -117,6 +117,9 @@ class View extends Component {
      * Add http:// protocol for links that does not have it.
      * -------------------------------------------------------------------------------- */
     getUrlLink(address){
+        if(!address){
+            return ''
+        }
         if( (address.substring(0, 7)==='http://') || (address.substring(0, 8)==='https://') ){
             return address;
         }
