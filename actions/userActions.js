@@ -160,10 +160,11 @@ export const itemRemove = ({_id}) => {
 export const login = ({params}) => {
     return async dispatch => {
         try {
-            const res = await axios.post('/api/account/login', params);
-            
-            dispatch(itemSet({payload: res.data}));
             dispatch(errorClear());
+
+            const res = await axios.post('/api/account/login', params);
+            dispatch(itemSet({payload: res.data}));
+
             if(res.data.isAdmin){
                 Router.push('/admin/manage');
             }else{

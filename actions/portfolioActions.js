@@ -175,7 +175,7 @@ export const itemRemove = ({_id}) => {
             await axios.post('/api/portfolio/remove', {_id});
             dispatch(itemClear())
             dispatch(itemListRemove({item: {_id}}));
-            toasterSuccessMessage('Coin successfuly created!');
+            toasterSuccessMessage('Coin successfuly removed!');
         } catch (error) {
             toasterErrorMessage('Fail to remove coin!');
         }

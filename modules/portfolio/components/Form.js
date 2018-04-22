@@ -439,7 +439,7 @@ class Form extends Component{
 
         confirmAlert({
             title: 'Are you sure?',
-            message: 'You are about to delete this Coin.',
+            message: 'You are about to delete this Coin. Action cannot be undone.',
             buttons: [
                 {
                     label: 'Delete',

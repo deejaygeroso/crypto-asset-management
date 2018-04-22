@@ -32,13 +32,12 @@ class Login extends Component {
                     <form className="form-signin formField">
                         {
                           userError && userError.message ?
-                            <div className="">
-                                <div className="bs-component">
-                                    <div className="alert alert-dismissible alert-danger">
-                                        {userError.message}
-                                    </div>
+                            <div className="bs-component">
+                                <div className="alert alert-dismissible alert-danger">
+                                    {userError.message}
                                 </div>
-                            </div> : <div />
+                            </div>
+                            : <div />
                         }
                         <span id="reauth-email" className="reauth-email"></span>
                         <input
@@ -167,6 +166,13 @@ class Login extends Component {
                     }
                     .display-grid{
                         display: block !important;
+                    }
+                    .bs-component{
+                        margin-left: 10px;
+                        margin-right: -10px;
+                    }
+                    .bs-component > div {
+                        margin-bottom: 10px;
                     }
           `}</style>
         )

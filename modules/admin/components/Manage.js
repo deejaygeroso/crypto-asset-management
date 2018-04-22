@@ -194,6 +194,7 @@ class Manage extends Component {
                             margin: 50px;
                         }
                         .btn-submit{
+                            padding-left: 22px;
                         }
                 `}</style>
 

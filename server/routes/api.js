@@ -107,7 +107,7 @@ module.exports = function(app, router, auth){
      * -------------------------------------------------------- */
     router.post('/account/login', (req, res)=>{
         const { email, password } = req.body;
-        UserModel.findOne({ email }, (err, docs) => {
+        UserModel.findOne({ email, isDeleted: false }, (err, docs) => {
 
             // if user does not exist
             if(err) return res.status(400).send(err)
