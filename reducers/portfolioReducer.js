@@ -2,6 +2,7 @@ import * as ACTION_TYPES from '../types/portfolioTypes';
 import { 
     indexBy as __$indexBy,
     findWhere as __$findWhere,
+    uniq as __$uniq,
 } from 'underscore';
 import __sort, { ASC, DESC } from 'sort-array-objects';
 
@@ -102,13 +103,15 @@ export const portfolioList = (state = initialPortfoliosList, {
             const byId = __$indexBy(newPortfolioList, '_id');
             const allIds = Object.keys(byId);
 
-            // get all the id as keys from the object without the custom portfolio data
+            // normalized to avoid duplication of the data this will be used on other stats and volume overview and no custom coin
+            const uniqId = __$uniq(newPortfolioList, 'id');
             const allIds_withoutCustomPortfolio = []
-            allIds.map(key=>{
-                if(!byId[key].isCustom){
-                    allIds_withoutCustomPortfolio.push(key)
+            uniqId.map(portfolio =>{
+                if(!portfolio.isCustom){
+                    allIds_withoutCustomPortfolio.push(portfolio._id);
                 }
-            })
+            }); // get all the _id from newPortfolioList (uniqe crypto name. data that has been pushed already from the array were ommitted)
+
 
             return  Object.assign({}, { 
                         byId, // list of all portfolio data which is in object with _id as its key
