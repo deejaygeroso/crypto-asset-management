@@ -93,7 +93,7 @@ module.exports = function(app, router, auth){
         const { email, password } = req.body;
 
         // create a new user
-        const newUser = new UserModel({ email, password });
+        const newUser = new UserModel({ email, password, created: new Date() });
 
         // save user to database
         newUser.save(function(err, user) {
@@ -196,6 +196,7 @@ module.exports = function(app, router, auth){
             symbol        : req.body.symbol, 
             links         : req.body.links,
             isCustom      : req.body.isCustom,
+            created       : new Date(),
         });
 
         // save user to database

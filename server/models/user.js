@@ -10,6 +10,7 @@ var UserSchema = new Schema({
     password    : { type : String, required : false },
     isAdmin     : { type : Boolean, default : false },
     isDeleted   : { type : Boolean, default : false },
+    created     : { type: Date, default: Date.now },
 }, { collection : 'users' });
 
 UserSchema.pre('save', function(next) {
