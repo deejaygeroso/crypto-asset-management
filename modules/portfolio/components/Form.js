@@ -287,7 +287,7 @@ class Form extends Component{
         const { links } = this.state;
         const newLink = {
             name   : '',
-            symbol : '',
+            address : '',
         }
         links.push(newLink);
         this.setState({links});
