@@ -264,14 +264,17 @@ class Form extends Component{
                         {/* ------------------------------*/}
                         {/* --- Submit & Remove Button -- */}
                         {/* ------------------------------*/}
-                        <div className="row">
-                            <div className="col-md-6">
-                                <button onClick={this.onRemove} className="btn btn-lg btn-danger btn-block btn-submit" type="submit" >Remove</button>
+                        {
+                            addUpdateButtonName==='Create'? <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-submit" type="submit" >{addUpdateButtonName}</button> :
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <button onClick={this.onRemove} className="btn btn-lg btn-danger btn-block btn-submit" type="submit" >Remove</button>
+                                </div>
+                                <div className="col-md-6">
+                                    <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-submit" type="submit" >{addUpdateButtonName}</button>
+                                </div>
                             </div>
-                            <div className="col-md-6">
-                                <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-submit" type="submit" >{addUpdateButtonName}</button>
-                            </div>
-                        </div>
+                        }
                         <FormStyle />
                    </div>
                 </div>
