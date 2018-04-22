@@ -14,7 +14,7 @@ const PasswordInput = ({id, label, placeholder, onValueChange}) => (
                 evt.preventDefault();
                 onValueChange(id, evt.target.value);
             }}/>
-        <p className="password-label">You can leave password empty if you dont wanna change it.</p>
+            <p className="password-label" style={{margin: '7px 2px'}}>You can leave password empty if you dont wanna change it.</p>
     </div>
 )
 

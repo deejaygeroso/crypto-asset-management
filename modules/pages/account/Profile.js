@@ -5,6 +5,7 @@ import Navbar from '../../core/containers/Navbar';
 import { EmailInput, PasswordInput, TextInput } from '../../lib/forms';
 
 import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
 
 class Profile extends Component {
 
@@ -60,12 +61,39 @@ class Profile extends Component {
      * Update form fields
      * -------------------------------------------------------------------------------- */
     componentWillReceiveProps(nextProps){
-        const { user } = nextProps;
+        const { user, userSuccess, userError } = nextProps;
+
         this.setState({
             name       : user && user.name ? user.name : '',
             email      : user && user.email ? user.email : '',
             password   : '',
         })
+
+          // show success message toaster
+        if(userSuccess && userSuccess.message && userSuccess.message!==''){
+            toast(`${userSuccess.message}`, {
+                position: toast.POSITION.BOTTOM_LEFT,
+                className: 'toaster-background',
+                bodyClassName: 'toaster-body',
+                progressClassName: 'toaster-progress-success',
+                onOpen: () => {
+                    this.props.userActions.successClear()
+                },
+            });
+        }
+
+        // show error message toaster
+        if(userError && userError.message && userError.message!==''){
+            toast(`${userError.message}`, {
+                position: toast.POSITION.BOTTOM_LEFT,
+                className: 'toaster-background',
+                bodyClassName: 'toaster-body',
+                progressClassName: 'toaster-progress-error',
+                onOpen: () => {
+                    this.props.userActions.errorClear()
+                },
+            });
+        }
     }
 
     /* ----------------------------------------------------------------------------------
@@ -76,53 +104,55 @@ class Profile extends Component {
 
         return(
         <div>
+            <ToastContainer />
             <Navbar />
+            <div className="gradient-header">
+                <div className="card container flex-column align-items-center justify-content-center ">
+                    <div className="card-image-wrapper d-flex align-items-center justify-content-center">
 
-            <div className="card container flex-column align-items-center justify-content-center ">
-                <div className="card-image-wrapper d-flex align-items-center justify-content-center">
-
-                  <img src="/static/profile-pic.svg" className="cryptoImage align-content-center" height="110" width="110"/>
-              </div>
-
-
-                <div className="fadeIn animated">
-                   <div className=".card-profile">
-
-                       <form className="form-signin">
-
-                           {
-                                userError && userError.message ?
-                                <div className="bounceIn animated">
-                                    <div className="bs-component">
-                                        <div className="alert alert-dismissible alert-danger">
-                                            {userError.message}
-                                        </div>
-                                    </div>
-                                </div> : <div />
-                            }
-
-                           {
-                                userSuccess && userSuccess.message ?
-                                <div className="bounceIn animated">
-                                    <div className="bs-component">
-                                        <div className="alert alert-dismissible alert-success">
-                                            {userSuccess.message}
-                                        </div>
-                                    </div>
-                                </div> : <div />
-                            }
-
-                            <TextInput     id="name"  value={this.state.name}  label="Full Name" placeholder="Full Name" onValueChange={this.onValueChange} />
-                            <EmailInput    id="email" value={this.state.email} label="Email*"     placeholder="Email"     onValueChange={this.onValueChange} />
-                            <PasswordInput id="password" label="Password"  placeholder="Password"  onValueChange={this.onValueChange} />
-
-                            <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Update</button>
-                       </form>
-                   </div>
+                    <img src="/static/profile-pic.svg" className="cryptoImage align-content-center" height="110" width="110"/>
                 </div>
 
-                {this.renderStyle()}
 
+                    <div className="fadeIn animated">
+                    <div className=".card-profile">
+
+                        <form className="form-signin">
+
+                            {
+                                    userError && userError.message ?
+                                    <div className="bounceIn animated">
+                                        <div className="bs-component">
+                                            <div className="alert alert-dismissible alert-danger">
+                                                {userError.message}
+                                            </div>
+                                        </div>
+                                    </div> : <div />
+                                }
+
+                            {
+                                    userSuccess && userSuccess.message ?
+                                    <div className="bounceIn animated">
+                                        <div className="bs-component">
+                                            <div className="alert alert-dismissible alert-success">
+                                                {userSuccess.message}
+                                            </div>
+                                        </div>
+                                    </div> : <div />
+                                }
+
+                                <TextInput     id="name"  value={this.state.name}  label="Full Name" placeholder="Full Name" onValueChange={this.onValueChange} />
+                                <EmailInput    id="email" value={this.state.email} label="Email*"     placeholder="Email"     onValueChange={this.onValueChange} />
+                                <PasswordInput id="password" label="Password"  placeholder="Password"  onValueChange={this.onValueChange} />
+
+                                <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Update</button>
+                        </form>
+                    </div>
+                    </div>
+
+                    {this.renderStyle()}
+
+                </div>
             </div>
         </div>
         )
@@ -178,6 +208,9 @@ class Profile extends Component {
     renderStyle(){
         return(
             <style jsx global>{`
+                    .gradient-header{
+                        min-height: 100vh;
+                    }
                     .card{
                         padding: 15px 30px 30px 30px;
                         padding-bottom: 50px;
@@ -228,6 +261,18 @@ class Profile extends Component {
                             margin-left: 20px;
                             margin-right: 20px;
                         }
+                    }
+                    .toaster-background{
+                        background-color: #fff;
+                        color: #111;
+                    }
+                    .toaster-progress-success{
+                        background: #52d3aa;
+                        color: #52d3aa;
+                    }
+                    .toaster-progress-error{
+                        background: #c9302c;
+                        color: #52d3aa;
                     }
           `}</style>
         )
