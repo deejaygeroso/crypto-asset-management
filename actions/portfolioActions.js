@@ -5,6 +5,7 @@ import * as cryptoHistoryActions from './cryptoHistoryActions';
 
 import { indexBy as __$indexBy } from 'underscore';
 import { toasterSuccessMessage, toasterErrorMessage } from '../modules/lib/helpers';
+import Cookies from 'js-cookie';
 
 /*
  * set new item to store
@@ -140,6 +141,7 @@ export const itemCreate = ({params}) => {
             // if success
             const res = await axios.post('/api/portfolio/create', params);
             dispatch(itemSet({payload: res.data}))
+            Cookies.set('portfolio', res.data, { expires: 1 });
             dispatch(itemListAppend({item: res.data}));
             toasterSuccessMessage('Coin successfuly created!');
         } catch (error) {

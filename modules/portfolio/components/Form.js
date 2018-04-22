@@ -6,6 +6,7 @@ import { TextInput, NumberInput, TextArea } from '../../lib/forms';
 
 import { confirmAlert } from 'react-confirm-alert';
 import Select from 'react-select';
+import Cookies from 'js-cookie';
 
 class Form extends Component{
 
@@ -454,6 +455,7 @@ class Form extends Component{
                     onClick: () => {
                         const { portfolio, portfolioActions } = this.props;
                         portfolioActions.itemRemove({_id: portfolio._id});
+                        Cookies.set('portfolio', {}, { expires: 1 });
                         onRemove();
                     }
                 },
