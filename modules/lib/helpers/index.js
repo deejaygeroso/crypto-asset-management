@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 export const toasterSuccessMessage = (message) => {
     toast(message, {
         position: toast.POSITION.BOTTOM_LEFT,
-        className: 'toaster-background',
+        className: 'toaster-background-success',
         bodyClassName: 'toaster-body',
         progressClassName: 'toaster-progress-success',
     });
@@ -18,7 +18,7 @@ export const toasterSuccessMessage = (message) => {
 export const toasterErrorMessage = (message) => {
     toast(message, {
         position: toast.POSITION.BOTTOM_LEFT,
-        className: 'toaster-background',
+        className: 'toaster-background-error',
         bodyClassName: 'toaster-body',
         progressClassName: 'toaster-progress-error',
     });

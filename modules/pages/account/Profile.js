@@ -5,7 +5,8 @@ import Navbar from '../../core/containers/Navbar';
 import { EmailInput, PasswordInput, TextInput } from '../../lib/forms';
 
 import Cookies from 'js-cookie';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import { toasterErrorMessage } from '../../lib/helpers';
 
 class Profile extends Component {
 
@@ -61,39 +62,13 @@ class Profile extends Component {
      * Update form fields
      * -------------------------------------------------------------------------------- */
     componentWillReceiveProps(nextProps){
-        const { user, userSuccess, userError } = nextProps;
+        const { user } = nextProps;
 
         this.setState({
             name       : user && user.name ? user.name : '',
             email      : user && user.email ? user.email : '',
             password   : '',
         })
-
-          // show success message toaster
-        if(userSuccess && userSuccess.message && userSuccess.message!==''){
-            toast(`${userSuccess.message}`, {
-                position: toast.POSITION.BOTTOM_LEFT,
-                className: 'toaster-background',
-                bodyClassName: 'toaster-body',
-                progressClassName: 'toaster-progress-success',
-                onOpen: () => {
-                    this.props.userActions.successClear()
-                },
-            });
-        }
-
-        // show error message toaster
-        if(userError && userError.message && userError.message!==''){
-            toast(`${userError.message}`, {
-                position: toast.POSITION.BOTTOM_LEFT,
-                className: 'toaster-background',
-                bodyClassName: 'toaster-body',
-                progressClassName: 'toaster-progress-error',
-                onOpen: () => {
-                    this.props.userActions.errorClear()
-                },
-            });
-        }
     }
 
     /* ----------------------------------------------------------------------------------
@@ -180,12 +155,7 @@ class Profile extends Component {
         userActions.successClear()
 
         if(email===''){
-            userActions.successClear();
-            return userActions.errorSet({
-                payload: {
-                    message: 'Email must not be empty!',
-                }
-            })
+            return toasterErrorMessage('Email must not be empty!')
         }
 
         const params = {
@@ -262,16 +232,12 @@ class Profile extends Component {
                             margin-right: 20px;
                         }
                     }
-                    .toaster-background{
-                        background-color: #fff;
-                        color: #111;
-                    }
-                    .toaster-progress-success{
-                        background: #52d3aa;
-                        color: #52d3aa;
+                    .toaster-background-error{
+                        background-color: #f71b16c4;
+                        color: #fff;
                     }
                     .toaster-progress-error{
-                        background: #c9302c;
+                        background: #fff;
                         color: #52d3aa;
                     }
           `}</style>

@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import axios from 'axios';
 import * as ACTION_TYPES from '../types/userTypes';
+import { toasterSuccessMessage, toasterErrorMessage } from '../modules/lib/helpers';
 
 /*
  * set the list of data for the user
@@ -82,8 +83,7 @@ export const itemListFindAll = () => {
             dispatch(itemListSet({payload: res.data}));
             dispatch(errorClear());
         } catch (err) {
-            const payload = { message: 'Unable to fetch all users!' }
-            dispatch(errorSet({payload}));
+            toasterErrorMessage('Unable to fetch all users!');
         }
     }
 }
@@ -101,9 +101,7 @@ export const itemFind = ({params}) => {
             dispatch(errorClear());
 
         } catch (err) {
-            // console.log('itemFind err', err)
-            const payload = { message: 'Unable to find user!' }
-            dispatch(errorSet({payload}));
+            toasterErrorMessage('Unable to find user!');
         }
     };
 }
@@ -118,11 +116,9 @@ export const itemCreate = ({params}) => {
             const res = await axios.post('/api/account/register', params);
             dispatch(itemSet({payload: res.data}));
             dispatch(itemListAppend({item: res.data}));
-            dispatch(errorClear());
-            dispatch(successSet({payload: {message: 'New account was created.'}}));
+            toasterSuccessMessage('New account was created.');
         } catch (err) {
-            const payload = { message: 'Email already exist!' }
-            dispatch(errorSet({payload}));
+            toasterErrorMessage('Email already exist!');
         }
     };
 }
@@ -135,12 +131,9 @@ export const itemUpdate = ({params}) => {
         try {
             const res = await axios.post('/api/account/update', params);
             dispatch(itemSet({payload: res.data}));
-            dispatch(successSet({payload: {message: 'Update successful!'}}));
-            dispatch(errorClear());
+            toasterSuccessMessage('Update successful!');
         } catch (err) {
-            const payload = { message: 'Update Failed!' }
-            dispatch(errorSet({payload}));
-            dispatch(successClear());
+            toasterErrorMessage('Update Failed!');
         }
     };
 }
@@ -153,13 +146,10 @@ export const itemRemove = ({_id}) => {
         try {
             await axios.post('/api/account/remove', {_id});
             dispatch(itemListRemove({item: {_id}}));
-            dispatch(successSet({payload: {message: 'User was deleted successfuly!'}}));
-            dispatch(errorClear());
+            toasterSuccessMessage('User was deleted successfuly!');
             
         } catch (err) {
-            const payload = { message: 'Removing user Failed!' }
-            dispatch(errorSet({payload}));
-            dispatch(successClear());
+            toasterErrorMessage('Removing user Failed!');
         }
     }
 }
@@ -195,11 +185,9 @@ export const logout = () => {
         try {
             const res = await axios.post('/account/logout');
             dispatch(itemSet({payload: res.data}));
-            dispatch(errorClear());
             Router.push('/login');
         } catch (err){
-            const payload = { message: 'Email/password does not match!' };
-            dispatch(errorSet({payload}));
+            toasterErrorMessage('Unable to logout user.');
         }
     };
 }

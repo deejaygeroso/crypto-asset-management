@@ -7,6 +7,7 @@ import { TextInput, NumberInput, TextArea } from '../../lib/forms';
 import { confirmAlert } from 'react-confirm-alert';
 import Select from 'react-select';
 import Cookies from 'js-cookie';
+import { toasterErrorMessage } from '../../lib/helpers';
 
 class Form extends Component{
 
@@ -41,15 +42,6 @@ class Form extends Component{
         this.onValueChange = this.onValueChange.bind(this);
         this.onCryptoValueChange = this.onCryptoValueChange.bind(this);
         this.onLinkValueChange = this.onLinkValueChange.bind(this);
-    }
-
-    /* ----------------------------------------------------------------------------------
-     * Clear all when unmounted
-     * -------------------------------------------------------------------------------- */
-    componentWillUnmount(){
-        const { portfolioActions } = this.props;
-        portfolioActions.successClear();
-        portfolioActions.errorClear();
     }
 
     /* ----------------------------------------------------------------------------------
@@ -368,8 +360,7 @@ class Form extends Component{
         }
         
         if( params.id==="" && params.value==="" && params.symbol==="" ){
-            portfolioActions.errorSet({ payload: { message: 'Please fill up the required(*) fields!' } });
-            return;
+            return toasterErrorMessage('Please fill up the required(*) fields!')
         }
 
         // submit form

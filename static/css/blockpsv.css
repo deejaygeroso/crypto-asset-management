@@ -58,6 +58,27 @@
     background-color: #fff !important;
     border-radius: 4px;
   }
+
+/* -------------------------------------------
+ * Toaster
+ * ----------------------------------------- */
+
+    .toaster-background-error{
+        background-color: #f71b16c4;
+        color: #fff;
+    }
+    .toaster-progress-error{
+        background: #fff;
+        color: #52d3aa;
+    }
+    .toaster-background-success{
+        background-color: #52d3aab8;
+        color: #fff;
+    }
+    .toaster-progress-success{
+        background: #fff;
+        color: #52d3aa;
+    }
   
   .gradient-header{
       padding-top: 50px;

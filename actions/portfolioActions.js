@@ -141,8 +141,8 @@ export const itemCreate = ({params}) => {
             // if success
             const res = await axios.post('/api/portfolio/create', params);
             dispatch(itemSet({payload: res.data}))
-            Cookies.set('portfolio', res.data, { expires: 1 });
             dispatch(itemListAppend({item: res.data}));
+            Cookies.set('portfolio', res.data, { expires: 1 });
             toasterSuccessMessage('Coin successfuly created!');
         } catch (error) {
             toasterErrorMessage('Fail to create coin!');

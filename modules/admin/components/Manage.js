@@ -6,7 +6,8 @@ import Navbar from '../../core/containers/Navbar';
 
 import Cookies from 'js-cookie';
 import { confirmAlert } from 'react-confirm-alert'; 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import { toasterErrorMessage } from '../../lib/helpers';
 
 class Manage extends Component {
 
@@ -36,39 +37,6 @@ class Manage extends Component {
      * -------------------------------------------------------------------------------- */
     componentWillUnmount(){
         this.props.userActions.errorClear()
-    }
-
-    /* ----------------------------------------------------------------------------------
-     * Show Toaster for success and error actions from managing user create/removing. 
-     * -------------------------------------------------------------------------------- */
-    componentWillReceiveProps(nextProps){
-        const { userSuccess, userError } = nextProps;
-
-        // show success message toaster
-        if(userSuccess && userSuccess.message && userSuccess.message!==''){
-            toast(`${userSuccess.message}`, {
-                position: toast.POSITION.BOTTOM_LEFT,
-                className: 'toaster-background',
-                bodyClassName: 'toaster-body',
-                progressClassName: 'toaster-progress-success',
-                onOpen: () => {
-                    this.props.userActions.successClear()
-                },
-            });
-        }
-
-        // show error message toaster
-        if(userError && userError.message && userError.message!==''){
-            toast(`${userError.message}`, {
-                position: toast.POSITION.BOTTOM_LEFT,
-                className: 'toaster-background',
-                bodyClassName: 'toaster-body',
-                progressClassName: 'toaster-progress-error',
-                onOpen: () => {
-                    this.props.userActions.errorClear()
-                },
-            });
-        }
     }
 
     /* ----------------------------------------------------------------------------------
@@ -227,18 +195,6 @@ class Manage extends Component {
                         }
                         .btn-submit{
                         }
-                        .toaster-background{
-                            background-color: #fff;
-                            color: #111;
-                        }
-                        .toaster-progress-success{
-                            background: #52d3aa;
-                            color: #52d3aa;
-                        }
-                        .toaster-progress-error{
-                            background: #c9302c;
-                            color: #52d3aa;
-                        }
                 `}</style>
 
 
@@ -265,19 +221,11 @@ class Manage extends Component {
         evt.preventDefault()
 
         if(!this.validateEmail(email)){
-            return userActions.errorSet({
-                payload: {
-                    message: 'Invalid email!',
-                }
-            })
+            return toasterErrorMessage('Invalid email!')
         }
 
         if(email==='' || password===''){
-            return userActions.errorSet({
-                payload: {
-                    message: 'Please fill up the input!',
-                }
-            })
+            return toasterErrorMessage('Please fill up all the input fields!')
         }
 
         userActions.itemCreate({

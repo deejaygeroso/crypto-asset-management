@@ -43,12 +43,12 @@ const Layout = ({children}) => (
         	<link rel="stylesheet" href="/static/css/magnific-popup.css"/>
         	{/*-- Bootstrap  --*/}
         	<link rel="stylesheet" href="/static/css/bootstrap.css"/>
-        	<link rel="stylesheet" href="/static/css/blockpsv.css"/>
         	<link rel="stylesheet" href="/static/css/flex.css"/>
             <link rel="stylesheet" href="/static/css/react-select.css" />
             <link rel="stylesheet" href="/static/css/react-confirm-alert.css" />
             <link rel="stylesheet" href="/static/css/custom.css" />
             <link rel="stylesheet" href="/static/css/ReactToastify.min.css" />
+        	<link rel="stylesheet" href="/static/css/blockpsv.css"/>
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossOrigin="anonymous"/>
             {/*
             	1. pink.css
