@@ -359,7 +359,8 @@ class Form extends Component{
             params = this.onSubmitCMCCoin();
         }
         
-        if( params.id==="" && params.value==="" && params.symbol==="" ){
+        // make sure crypto is required
+        if( params.id==="" || params.value==="" || params.symbol==="" ){
             return toasterErrorMessage('Please fill up the required(*) fields!')
         }
 
