@@ -131,8 +131,8 @@ class View extends Component {
     renderDataRemovedMessage(){
         return(
             <div style={{marginTop: 90, textAlign: 'center'}}>
-                <p>
-                data removed
+                <p style={{fontSize: 50, color: '#fff'}}>
+                    Coin Removed!
                 </p>
             </div>
         )
