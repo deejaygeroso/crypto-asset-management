@@ -152,7 +152,17 @@ class Form extends Component{
                 {/* ------------------------------*/}
                 {/* ---------- Buy Price -------- */}
                 {/* ------------------------------*/}
-                <NumberInput id="buy_price_usd" value={this.state.buy_price_usd} label="Buy Price (USD)" placeholder="Buy Price USD" onValueChange={this.onValueChange} />
+                <div className="buy-price-wrapper row">
+                    <div className="col-md-4 col-sm-4">
+                        <NumberInput id="buy_price_usd" value={this.state.buy_price_usd} label="Buy Price (USD)" placeholder="Buy Price USD" onValueChange={this.onValueChange} />
+                    </div>
+                    <div className="col-md-4 col-sm-4">
+                        <NumberInput id="buy_price_btc" value={this.state.buy_price_btc} label="Buy Price (BTC)" placeholder="Buy Price BTC" onValueChange={this.onValueChange} />
+                    </div>
+                    <div className="col-md-4 col-sm-4">
+                        <NumberInput id="buy_price_eth" value={this.state.buy_price_eth} label="Buy Price (ETH)" placeholder="Buy Price ETH" onValueChange={this.onValueChange} />
+                    </div>
+                </div>
 
                 {/* ------------------------------*/}
                 {/* ------------ Notes ---------- */}
@@ -197,18 +207,6 @@ class Form extends Component{
                         {/* ---- Portfolio Coin Form ---- */}
                         {/* ------------------------------*/}
                         { !this.state.isCustom ? this.renderForm() : this.renderCustomForm() }
-
-                        {/* ------------------------------*/}
-                        {/* ---- Links Form & Button ---- */}
-                        {/* ------------------------------*/}
-                        <div className="mt-40" />
-                        <p className="form-title mb-5 add-link-button" onClick={this.addNewLinks}>
-                            Click Here to Add Links
-                            &nbsp;
-                            <i className="fas fa-plus add-link-button"></i>
-                        </p>
-                        {/* {this.renderAddNewLinks()} */}
-                        {/* <button onClick={this.addNewLinks} className="btn btn-lg btn-primary btn-block btn-submit" type="button" >Add Links</button> */}
 
                         {/* ------------------------------*/}
                         {/* --- Submit & Remove Button -- */}
@@ -328,8 +326,8 @@ class Form extends Component{
             user_id       : user._id,
             amount        : this.state.amount,
             buy_price_usd : this.state.buy_price_usd,
-            buy_price_btc : 0,
-            buy_price_eth : 0,
+            buy_price_btc : this.state.buy_price_btc,
+            buy_price_eth : this.state.buy_price_eth,
             notes         : this.state.notes,
             id            : cryptoCustom.id,
             name          : cryptoCustom.id,
