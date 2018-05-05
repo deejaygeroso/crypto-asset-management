@@ -4,6 +4,8 @@ import { user, userSuccess,  userError, usersList } from './userReducer';
 import { portfolio, portfolioSuccess,  portfolioError, portfolioList } from './portfolioReducer';
 import { cryptoIds, cryptoIdsError } from './cryptoIdsReducer';
 import { cryptoHistory, priceAth, priceAtl, volumeAth, volumeAtl } from './cryptoHistoryReducer';
+import { itemListInit } from './itemListReducer'
+import { itemInit } from './itemReducer'
 
 export default combineReducers({
     user,
@@ -24,4 +26,7 @@ export default combineReducers({
     priceAtl,
     volumeAth,
     volumeAtl,
+
+    link     : itemInit('link'),
+    linkList : itemListInit('link'),
 });

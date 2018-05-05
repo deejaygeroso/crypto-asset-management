@@ -2,7 +2,9 @@ const UserModel = require('../models/user');
 const CryptoIdsModel = require('../models/cryptoIds');
 const CryptoHistoryModel = require('../models/cryptoHistory');
 const PortfolioModel = require('../models/portfolio');
+const LinkModel = require('../models/link');
 const ObjectId = require('mongoose').Types.ObjectId;
+const item = require('./item');
 
 module.exports = function(app, router, auth){
 
@@ -227,6 +229,9 @@ module.exports = function(app, router, auth){
           });
     })
 
+    /* ----------------------------------------------------------------------------------
+     * Portfolio remove 
+     * -------------------------------------------------------------------------------- */
     router.post('/portfolio/remove', (req, res)=>{
         const { _id } = req.body;
         PortfolioModel.remove({ _id }, function (err) {
@@ -234,7 +239,6 @@ module.exports = function(app, router, auth){
             res.send({message: 'Removing of data was successful!'})
         });
     })
-
 
     /* ----------------------------------------------------------
      * Find all coins of user for his/her portfolio
@@ -247,6 +251,15 @@ module.exports = function(app, router, auth){
         });
     })
 
-
+    /* ----------------------------------------------------------------------------------
+     * Link Crud Routes. 
+     * -------------------------------------------------------------------------------- */
+    const linkRoute = item(app, router, 'link', LinkModel)
+    linkRoute.findAll();
+    linkRoute.findByQuery();
+    linkRoute.create();
+    linkRoute.createBulk();
+    linkRoute.update();
+    linkRoute.remove();
 
 };

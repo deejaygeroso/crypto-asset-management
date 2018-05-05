@@ -30,18 +30,14 @@ class Form extends Component{
             buy_price_btc: 0,
             buy_price_eth: 0,
             notes : '',
-            links: [],
 
             isCustom: false,
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);
         this.handleChangeSelect2 = this.handleChangeSelect2.bind(this);
-        this.addNewLinks = this.addNewLinks.bind(this);
-        this.removeNewLinks = this.removeNewLinks.bind(this);
         this.onValueChange = this.onValueChange.bind(this);
         this.onCryptoValueChange = this.onCryptoValueChange.bind(this);
-        this.onLinkValueChange = this.onLinkValueChange.bind(this);
     }
 
     /* ----------------------------------------------------------------------------------
@@ -56,8 +52,6 @@ class Form extends Component{
             buy_price_btc   : portfolio && portfolio.buy_price_btc ? portfolio.buy_price_btc : 0,
             buy_price_eth   : portfolio && portfolio.buy_price_eth ? portfolio.buy_price_eth : 0,
             notes           : portfolio && portfolio.notes         ? portfolio.notes         : '',
-            // links           : portfolio && portfolio.links         ? portfolio.links         : [],
-            links           : Object.assign([], portfolio.links),
             isCustom        : portfolio && portfolio.isCustom      ? portfolio.isCustom      : false,
             crypto : {
                 id     : portfolio && portfolio.id     ? portfolio.id     : '',
@@ -169,32 +163,6 @@ class Form extends Component{
     }
 
     /* ----------------------------------------------------------------------------------
-     * Render Add New Links Text Input 
-     * -------------------------------------------------------------------------------- */
-    renderAddNewLinks(){
-        const { links } = this.state;
-        const linksComponent = [];
-        links && links.length!==0 && links.map((link, index)=>{
-            linksComponent.push(
-                <div className="buy-price-wrapper row" key={index}>
-                    <div className="col-md-5 col-sm-5">
-                        <TextInput id="name" value={link.name} label="Name" placeholder="Link Name" onValueChange={(fieldName, value)=>this.onLinkValueChange(fieldName, value, index)} />
-                    </div>
-                    <div className="col-md-5 col-sm-5">
-                        <TextInput id="address" value={link.address} label="Address" placeholder="Link Address" onValueChange={(fieldName, value)=>this.onLinkValueChange(fieldName, value, index)} />
-                    </div>
-                    <div className="col-md-2 col-sm-2" style={{marginTop: 18}}>
-                        <button onClick={()=>this.removeNewLinks(index)} className="btn btn-lg btn-danger btn-block btn-submit" type="button">
-                            <i className="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-            )
-        })
-        return linksComponent;
-    }
-
-    /* ----------------------------------------------------------------------------------
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
@@ -239,7 +207,7 @@ class Form extends Component{
                             &nbsp;
                             <i className="fas fa-plus add-link-button"></i>
                         </p>
-                        {this.renderAddNewLinks()}
+                        {/* {this.renderAddNewLinks()} */}
                         {/* <button onClick={this.addNewLinks} className="btn btn-lg btn-primary btn-block btn-submit" type="button" >Add Links</button> */}
 
                         {/* ------------------------------*/}
@@ -270,62 +238,6 @@ class Form extends Component{
         const { cryptoCustom } = this.state;
         cryptoCustom[fieldName] = value;
         this.setState({cryptoCustom});
-    }
-
-    /* ----------------------------------------------------------------------------------
-     * Add New Link Form 
-     * -------------------------------------------------------------------------------- */
-    addNewLinks(){
-        const { links } = this.state;
-        const newLink = {
-            name   : '',
-            address : '',
-        }
-        links.push(newLink);
-        this.setState({links});
-    }
-
-    /* ----------------------------------------------------------------------------------
-     * Remove selected link 
-     * -------------------------------------------------------------------------------- */
-    removeNewLinks(index){
-        const { links } = this.state;
-
-        // if links are just empty then delete anyway
-        if(links[index].name==='' && links[index].symbol===''){
-            links.splice(index, 1);
-            this.setState({links})
-        }else{
-            // if links are not empty or has changes then confirm user deletion
-            confirmAlert({
-                title: 'Are you sure?',
-                message: 'You are about to remove this Link.',
-                buttons: [
-                    {
-                        label: 'Delete',
-                        onClick: () => {
-                            links.splice(index, 1);
-                            this.setState({links})
-                        }
-                    },
-                    {
-                        label: 'Cancel',
-                        onClick: () => {}
-                    }
-                ]
-            });
-        }
-
-    }
-
-    /* ----------------------------------------------------------------------------------
-     * Update the value of the selected link 
-     * -------------------------------------------------------------------------------- */
-    onLinkValueChange(fieldName, value, index){
-        const { links } = this.state;
-        links[index][fieldName]=value;
-        this.setState({links});
-
     }
 
     /* ----------------------------------------------------------------------------------
@@ -364,19 +276,20 @@ class Form extends Component{
             return toasterErrorMessage('Please fill up the required(*) fields!')
         }
 
+        
         // submit form
         if(portfolio._id){
             portfolioActions.itemUpdate({
                 _id: portfolio._id,
                 params,
-            })
+            });
         }else{
             portfolioActions.itemCreate({
                 params,
             });
         }
-    
-        onSubmit();
+            
+        onSubmit(params);
     }
     
     /* ----------------------------------------------------------------------------------
@@ -397,7 +310,6 @@ class Form extends Component{
             value         : this.state.crypto.value,
             label         : this.state.crypto.label,
             symbol        : this.state.crypto.symbol,
-            links         : this.state.links,
             isCustom      : false,
         };
     
@@ -424,7 +336,6 @@ class Form extends Component{
             value         : cryptoCustom.id,
             symbol        : cryptoCustom.symbol,
             label         : `${cryptoCustom.id} (${cryptoCustom.symbol})`,
-            links         : this.state.links,
             isCustom      : true,
         };
 
@@ -474,6 +385,7 @@ Form.propTypes = {
     coinmarketcapTicker : PropTypes.array,
     onRemove : PropTypes.func,
     onSubmit : PropTypes.func,
+    itemActions : PropTypes.object,
 }
 
 export default Form;

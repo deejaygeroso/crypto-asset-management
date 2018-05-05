@@ -73,6 +73,34 @@ const ViewStyle = () => (
             .edit-button > i {
                 font-size: 30px;
             }
+            .edit-link{
+                margin: auto;
+                width: 150px;
+                text-align: center;
+                background: green;
+                border-radius: 9px;
+                margin-top: 14px;
+                padding: 8px;
+                color: #fff;
+                cursor: pointer;
+            }
+            .edit-link:hover{
+                background-color: blue;
+            }
+            .chart-button{
+                position: fixed;
+                background-color: white;
+                right: 33px;
+                top: 115px;
+                background-color: #5dbeca;
+                border-width: 0px;
+                border-radius: 28px;
+                padding: 10px 20px;
+                border-width: 0px;
+            }
+            .chart-button > i {
+                font-size: 30px;
+            }
             .back-button{
                 position: fixed;
                 background-color: white;
@@ -84,11 +112,11 @@ const ViewStyle = () => (
                 padding: 10px 20px;
                 border-width: 0px;
             }
-            .fa-view-icon{
+            .fa-button-icon{
                 font-size: 40px;
                 color: #fff;
             }
-            .fa-view-icon:hover{
+            .fa-button-icon:hover{
                 cursor: pointer;
             }
   `}</style>
