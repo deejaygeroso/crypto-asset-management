@@ -5,6 +5,8 @@ import FormStyle from '../styles/FormStyle';
 import { TextInput } from '../../lib/forms';
 import { confirmAlert } from 'react-confirm-alert';
 
+import Cookies from 'js-cookie';
+
 class FormLink extends Component {
 
     constructor(props){
@@ -116,11 +118,21 @@ class FormLink extends Component {
 
     saveLink(index){
         const { itemActions, user, portfolio } = this.props;
+
         const { links } = this.state;
         const link = Object.assign(links[index]);
         link['user_id'] = user._id;
         link['isApproved'] = user.isAdmin ? true : false;
         link['id'] = portfolio.id;
+
+        /*
+         * This is used if logged in user is admin so only admin can approve links
+         */
+        const mainUserCookie = Cookies.get('user');
+        const mainUser = JSON.parse(mainUserCookie.slice(2)); // remove j: from the string then convert to object
+        if(mainUser && mainUser.isAdmin){
+            link['isApproved'] = true;
+        }
 
         if(link && link._id){
             itemActions.apiCallUpdate({

@@ -67,8 +67,6 @@ const Header = ({user, cryptoGlobal, cryptoList, onClick}) => (
                     <span className="flex-grow-1">BTC Dominance: {cryptoGlobal && cryptoGlobal.bitcoin_percentage_of_market_cap} %</span>
                 </div>
             </div>
-
-
         </div>
 
         <HeaderStyles />

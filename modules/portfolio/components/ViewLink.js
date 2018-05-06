@@ -77,32 +77,46 @@ class ViewLink extends Component {
     render() {
         const { portfolio, linkList, onEdit } = this.props;
         return (
-            <div className="container flex-column align-items-center justify-content-center mt-20">
+            <div className="flex-column align-items-center justify-content-center mt-20 ml-80 mr-80">
 
                 {/* ------------------------------*/}
                 {/* ------ Form View Title ------ */}
                 {/* ------------------------------*/}
-                <div className="d-flex align-items-center justify-content-center mt-30">
+                <div className="d-flex align-items-center justify-content-center mt-50">
                     <div className="d-flex align-items-center justify-content-center icon-wrapper form-view-title">
                         <img src={`/static/icon/${portfolio && portfolio.symbol && portfolio.symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="80" width="80" />
                         <h1 className=" pl-10">{portfolio && portfolio.id ? portfolio.id.charAt(0).toUpperCase() + portfolio.id.slice(1) : ""}</h1>
                     </div>
                 </div>
-                <div className="edit-link" onClick={onEdit}>
-                    Edit Link
-                </div>
+                <div className="total-marketcap-capitalization">Total Market Capitalization</div>
 
-                <div id="chartdiv"></div>
 
-                {/* ------------------------------*/}
-                {/* ------------ Links ---------- */}
-                {/* ------------------------------*/}
-                <div className="d-flex flex-column align-items-center justify-content-center form-view-links">
-                    { linkList && linkList.allIds && linkList.allIds.length!==0 && linkList.allIds.map((_id)=>(
-                        <a target="_blank" href={getUrlLink(linkList && linkList.byId && linkList.byId[_id] && linkList.byId[_id].address)} key={_id}>
-                            {linkList && linkList.byId && linkList.byId[_id] && linkList.byId[_id].name}
-                        </a>
-                    )) }
+                <div className="row">
+
+                    <div className="col-md-8">
+                        <div id="chartdiv"></div>
+                    </div>
+
+                    {/* ------------------------------*/}
+                    {/* ------------ Links ---------- */}
+                    {/* ------------------------------*/}
+                    <div className="col-md-4">
+                        <div className="d-flex flex-row align-items-center justify-content-center">
+                            <h1 className="form-view-links-title ml-50">Links</h1>
+                            <div className="edit-link" onClick={onEdit}>
+                                <i className="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <div className="d-flex flex-column align-items-center justify-content-center form-view-links">
+                            { linkList && linkList.allIds && linkList.allIds.length!==0 && linkList.allIds.map((_id)=>(
+                                linkList.byId[_id].isApproved ?
+                                    <a target="_blank" href={getUrlLink(linkList && linkList.byId && linkList.byId[_id] && linkList.byId[_id].address)} key={_id}>
+                                        {linkList && linkList.byId && linkList.byId[_id] && linkList.byId[_id].name}
+                                    </a>
+                                : <div/>
+                            )) }
+                        </div>
+                    </div>
                 </div>
             </div>
         );

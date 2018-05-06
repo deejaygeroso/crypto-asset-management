@@ -42,9 +42,16 @@ const ViewStyle = () => (
             .form-view-amount-title{
                 font-size: 35px;
             }
+            .form-view-links-title{
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                color: aliceblue;
+                margin-left: 50px;
+            }
             .form-view-links{
                 text-align: center;
-                margin-top: 50px;
+                margin-top: 20px;
             }
             .form-view-links > a{
                 background-color: #62ceba;
@@ -74,18 +81,31 @@ const ViewStyle = () => (
                 font-size: 30px;
             }
             .edit-link{
-                margin: auto;
-                width: 150px;
+                width: 50px;
                 text-align: center;
-                background: green;
+                background: #2e73878f;
                 border-radius: 9px;
-                margin-top: 14px;
                 padding: 8px;
                 color: #fff;
                 cursor: pointer;
+                margin-left: 10px;
             }
             .edit-link:hover{
-                background-color: blue;
+                background-color: #52d3aa;
+            }
+            .edit-portfolio{
+                margin: auto;
+                width: 150px;
+                text-align: center;
+                background: #2e73878f;
+                border-radius: 9px;
+                padding: 8px;
+                color: #fff;
+                cursor: pointer;
+                margin-top: 20px;
+            }
+            .edit-portfolio:hover{
+                background-color: #52d3aa;
             }
             .chart-button{
                 position: fixed;
@@ -125,6 +145,12 @@ const ViewStyle = () => (
             }
             .amcharts-chart-div > a{
                 visibility: hidden;
+            }
+            .total-marketcap-capitalization{
+                text-align: center;
+                margin-top: 15px;
+                color: aliceblue;
+                font-size: 50px;
             }
   `}</style>
 )

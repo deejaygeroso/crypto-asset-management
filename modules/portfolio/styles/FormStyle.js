@@ -85,7 +85,6 @@ const FormStyle = () => (
                 color: #5cb85c;
             }
             .status-indicator:hover{
-                cursor: help;
             }
             .waiting-indicator{
                 margin-top: 50px;
@@ -93,7 +92,7 @@ const FormStyle = () => (
                 color: coral;
             }
             .waiting-indicator:hover{
-                cursor: help;
+                color: #f0571f;
             }
   `}</style>
 )

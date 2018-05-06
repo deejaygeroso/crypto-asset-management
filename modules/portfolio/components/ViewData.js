@@ -18,7 +18,7 @@ const ViewData = ({portfolio, onEdit}) => {
                     </div>
                 : <div />
             }
-            <div className="edit-link" onClick={onEdit}>
+            <div className="edit-portfolio" onClick={onEdit}>
                 Edit Portfolio
             </div>
 
