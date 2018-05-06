@@ -13,7 +13,7 @@ module.exports = function(app, router, auth){
      * -------------------------------------------------------- */
     router.post('/cryptoHistory/find', (req, res)=>{
         const query = req.body;
-        CryptoHistoryModel.find(query,null, {sort: {last_updated: -1}}, (err, docs) => {
+        CryptoHistoryModel.find(query, null, {sort: {last_updated: -1}}, (err, docs) => {
             if(err) return res.status(400).send({message: err});
             res.send(docs)
         });
@@ -261,5 +261,8 @@ module.exports = function(app, router, auth){
     linkRoute.createBulk();
     linkRoute.update();
     linkRoute.remove();
+
+    const cryptosRoute = item(app, router, 'cryptos', CryptoHistoryModel)
+    cryptosRoute.findByQuery();
 
 };

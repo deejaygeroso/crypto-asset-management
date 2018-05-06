@@ -59,7 +59,14 @@ const Layout = ({children}) => (
             	6. brown.css
             	7. green.css
             */}
-	         <link rel="stylesheet" href="/static/css/style.css"/>
+	        <link rel="stylesheet" href="/static/css/style.css"/>
+        	{/*-- amcharts  --*/}
+            <script src="/static/amcharts/amstock.js"></script>
+            <script src="/static/amcharts/amcharts.js"></script>
+            <script src="/static/amcharts/serial.js"></script>
+            <script src="/static/amcharts/export.min.js"></script>
+            <link rel="stylesheet" href="/static/amcharts/export.css" type="text/css" media="all" />
+            <script src="/static/amcharts/patterns.js"></script>
         </Head>
         <div>
           {children}

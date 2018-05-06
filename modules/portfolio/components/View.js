@@ -26,9 +26,17 @@ class View extends Component {
     }
 
     componentDidMount(){
-        const { portfolioActions, itemListActions } = this.props;
+        const { portfolioActions, itemListActions, cryptoChartsActions } = this.props;
         const portfolioCookie = Cookies.get('portfolio');
         const portfolio = JSON.parse(portfolioCookie);
+
+        // cryptoCharts
+        cryptoChartsActions.findByQuery({
+            serviceName: 'cryptos',
+            query: {
+                id: portfolio.id,
+            }
+        })
 
         // linkList
         itemListActions.findByQuery({
@@ -78,7 +86,7 @@ class View extends Component {
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
-        const { portfolio, linkList } = this.props;
+        const { portfolio, linkList, cryptoChartsList } = this.props;
         const { isLinkVisible, isDataVisible, isFormDataVisible, isFormLinkVisible } = this.state;
         return(
             <div className="page-container">
@@ -90,7 +98,7 @@ class View extends Component {
                 <div className="gradient-header">
                     {
                         isFormLinkVisible ? this.renderFormLink() :
-                        isLinkVisible ? <ViewLink portfolio={portfolio} linkList={linkList} onEdit={()=>this.setState({isFormLinkVisible: true})}/> : <div/>
+                        isLinkVisible ? <ViewLink portfolio={portfolio} linkList={linkList} onEdit={()=>this.setState({isFormLinkVisible: true})} cryptoChartsList={cryptoChartsList}/> : <div/>
                     }
                     {
                         isFormDataVisible ? this.renderForm() :
@@ -155,6 +163,8 @@ View.propTypes = {
     portfolioError: PropTypes.object,
     portfolioActions: PropTypes.object,
     portfolioMainPageRouteName : PropTypes.string,
+    cryptoChartsList : PropTypes.array,
+    cryptoChartsActions : PropTypes.object,
 };
 
 export default View;

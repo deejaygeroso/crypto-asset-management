@@ -119,6 +119,13 @@ const ViewStyle = () => (
             .fa-button-icon:hover{
                 cursor: pointer;
             }
+            #chartdiv {
+                width: 100%;
+                height: 500px;
+            }
+            .amcharts-chart-div > a{
+                visibility: hidden;
+            }
   `}</style>
 )
 

@@ -6,6 +6,7 @@ import * as itemListActions from '../../../actions/itemListActions';
 import * as userActions from '../../../actions/userActions';
 import * as cryptoIdsActions from '../../../actions/cryptoIdsActions';
 import * as portfolioActions from '../../../actions/portfolioActions';
+import * as cryptoChartsActions from '../../../actions/cryptoChartsActions';
 
 function mapStateToProps(state) {
   return {
@@ -15,6 +16,7 @@ function mapStateToProps(state) {
     portfolioError   : state.portfolioError,
     portfolioSuccess : state.portfolioSuccess,
     linkList         : state.linkList,
+    cryptoChartsList : state.cryptoChartsList,
   };
 }
 
@@ -25,6 +27,7 @@ function mapDispatchToProps(dispatch) {
       userActions: bindActionCreators(userActions, dispatch),
       cryptoIdsActions: bindActionCreators(cryptoIdsActions, dispatch),
       portfolioActions: bindActionCreators(portfolioActions, dispatch),
+      cryptoChartsActions: bindActionCreators(cryptoChartsActions, dispatch),
   }
 }
 

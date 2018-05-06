@@ -61,7 +61,7 @@ export const findAll = ({serviceName}) => {
                   const res = await axios.post(`/api/${serviceName.toLowerCase()}/find/all`);
                   dispatch(set({serviceName, list: res.data}));
             } catch (error) {
-                  toasterErrorMessage('Unable to fetch all users!');
+                  toasterErrorMessage(`Unable to fetch all ${serviceName}!`);
             }
       }
 }
@@ -75,7 +75,7 @@ export const findByQuery = ({serviceName, query}) => {
                   const res = await axios.post(`/api/${serviceName.toLowerCase()}/find/query`, query);
                   dispatch(set({serviceName, list: res.data}));
             } catch (error) {
-                  toasterErrorMessage('Unable to fetch all users!');
+                  toasterErrorMessage(`Unable to fetch all ${serviceName}!`);
             }
       }
 }
