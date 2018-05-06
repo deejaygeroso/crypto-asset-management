@@ -6,6 +6,7 @@ import withRedux from 'next-redux-wrapper';
 import { initStore } from '../store';
 
 import Layout from '../modules/core/components/Layout';
+import About from '../modules/pages/components/About';
 
 class AboutPage extends React.Component{
 
@@ -23,7 +24,7 @@ class AboutPage extends React.Component{
         return(
             <Provider store={this.store}>
                 <Layout>
-                    <div>About</div>
+                    <About />
                 </Layout>
             </Provider>
         )
