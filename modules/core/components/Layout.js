@@ -67,6 +67,7 @@ const Layout = ({children}) => (
             <script src="/static/amcharts/export.min.js"></script>
             <link rel="stylesheet" href="/static/amcharts/export.css" type="text/css" media="all" />
             <script src="/static/amcharts/patterns.js"></script>
+            <script src="/static/js/jquery.min.js"></script>
         </Head>
         <div>
           {children}

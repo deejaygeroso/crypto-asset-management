@@ -4,7 +4,7 @@ import Router from 'next/router';
 
 import Navbar from '../../core/containers/Navbar';
 import StatsTable from './StatsTable';
-import PortfolioTable from './PortfolioTable';
+import ProfitMarginTable from './ProfitMarginTable';
 import Header from './Header';
 import Card from './Card';
 
@@ -33,6 +33,11 @@ class MainPage extends Component{
         this.statsSortTableBy = this.statsSortTableBy.bind(this);
     }
 
+    componentDidMount() {
+        
+    }
+    
+
     componentWillUnmount(){
         const { portfolioActions } = this.props;
         portfolioActions.itemListClear();
@@ -58,7 +63,6 @@ class MainPage extends Component{
 
                 <div style={{margin: 20}}/>
 
-                
                 {/* ----------------------------- */}
                 {/* ------- Profit Margin ------- */}
                 {/* ----------------------------- */}
@@ -66,10 +70,10 @@ class MainPage extends Component{
                     isPortfolioTableVisible ?
                         <div className="container-fluid" style={{paddingLeft: 50, paddingRight: 50}}>
                             <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Profit Margin</h1>
-                            <PortfolioTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.sortTableBy} sortFieldName={this.state.sortFieldName} sortFieldStatus={this.state.sortFieldStatus}/>
+                            <ProfitMarginTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.sortTableBy} sortFieldName={this.state.sortFieldName} sortFieldStatus={this.state.sortFieldStatus}/>
                         </div> : <div></div>
                 }
-
+                
                 {/* ----------------------------- */}
                 {/* -------- Stats Table -------- */}
                 {/* ----------------------------- */}
