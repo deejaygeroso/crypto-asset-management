@@ -5,7 +5,7 @@ import {
   // without as __without$,
 } from 'underscore';
 import moment from 'moment';
-const initialItemListState = {}
+const initialItemListState = []
 
 /* -------------------------------------------------------------------------------- */
 /* ----------------------------- array list of data ------------------------------- */

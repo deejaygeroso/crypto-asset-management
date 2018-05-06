@@ -39,7 +39,14 @@ class FormLink extends Component {
         links && links.length!==0 && links.map((link, index)=>{
             linksComponent.push(
                 <div className="buy-price-wrapper row" key={index}>
-                    <div className="col-md-4 col-sm-4">
+                    <div className="col-md-1 col-sm-1">
+                    {
+                        link.isApproved ?
+                        <i className="fas fa-lg fa-check-circle status-indicator" dataToggle="tooltip" title="Approved!"></i>
+                        : <i className="fas fa-lg fa-exclamation-circle waiting-indicator" dataToggle="tooltip" title="Waiting for approval!"></i>
+                    }
+                    </div>
+                    <div className="col-md-3 col-sm-3">
                         <TextInput id="name" value={link.name} label="Name" placeholder="Link Name" onValueChange={(fieldName, value)=>this.onLinkValueChange(fieldName, value, index)} />
                     </div>
                     <div className="col-md-4 col-sm-4">
@@ -65,8 +72,6 @@ class FormLink extends Component {
         return (
             <div className="page-container">
                 <div className="card container flex-column align-items-center justify-content-center fadeIn animated">
-                    <div className="card-profile">
-    
                         {/* ------------------------------*/}
                         {/* ---- Links Form & Button ---- */}
                         {/* ------------------------------*/}
@@ -82,8 +87,6 @@ class FormLink extends Component {
                         {this.renderAddNewLinks()}
 
                         <FormStyle />
-
-                    </div>
                 </div>
             </div>
         );
@@ -116,7 +119,7 @@ class FormLink extends Component {
         const { links } = this.state;
         const link = Object.assign(links[index]);
         link['user_id'] = user._id;
-        link['isApproved'] = false;
+        link['isApproved'] = user.isAdmin ? true : false;
         link['id'] = portfolio.id;
 
         if(link && link._id){

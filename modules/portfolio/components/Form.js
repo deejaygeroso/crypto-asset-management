@@ -183,8 +183,6 @@ class Form extends Component{
         return(
             <div className="page-container">
                 <div className="card container flex-column align-items-center justify-content-center fadeIn animated">
-                    <div className="card-profile">
-                    
                         {/* ------------------------------*/}
                         {/* --------- Form Title -------- */}
                         {/* ------------------------------*/}
@@ -223,7 +221,6 @@ class Form extends Component{
                             </div>
                         }
                         <FormStyle />
-                   </div>
                 </div>
             </div>
         )

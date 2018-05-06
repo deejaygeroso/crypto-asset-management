@@ -48,8 +48,8 @@ const FormStyle = () => (
                 margin-top: 10px !important;
                 font-weight: 500 !important;
             }
-            .card-profile{
-              background-color: 'black';
+            .card{
+                max-width: 840px;
             }
             .password-label{
               font-size: 12px;
@@ -78,6 +78,22 @@ const FormStyle = () => (
             }
             .add-link-button:hover{
                 color: #3E3C3C;
+            }
+            .status-indicator{
+                margin-top: 50px;
+                margin-left: 10px;
+                color: #5cb85c;
+            }
+            .status-indicator:hover{
+                cursor: help;
+            }
+            .waiting-indicator{
+                margin-top: 50px;
+                margin-left: 10px;
+                color: coral;
+            }
+            .waiting-indicator:hover{
+                cursor: help;
             }
   `}</style>
 )
