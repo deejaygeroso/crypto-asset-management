@@ -134,7 +134,7 @@
    }
   .num-span {
       display: inline-block;
-      width: 80px;
+      /* width: 80px; */
       text-align: right !important;
   }
 
@@ -153,11 +153,11 @@
     width: 100%;
   }
   th, td {
-    padding: 8px 16px;
+    padding: 8px 10px;
     border: 1px solid #ddd;
     width: 360px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
     white-space: nowrap;
   }
   
@@ -170,7 +170,7 @@
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     font-family: 'Lato', sans-serif;
-    font-size: 14px;
+    font-size: 10px;
     margin-top: 20px;
   }
   .pane-hScroll {
@@ -192,70 +192,83 @@
   .profit-margin > thead > tr > th{
       border-top: none;
   }
-   .portfolio-tr:hover{
+  .portfolio-tr:hover{
     background-color: #f1f1f1;
     cursor: pointer;
-   }
+  }
 
   /* ICON */
   .th-icon{
       text-align: center;
-      width: 80px;
+      width: 60px;
         border-left: none;
   }
   .td-icon{
       text-align: center;
-      width: 80px;
+      width: 60px;
         border-left: none;
   }
   /* ID */
   .th-id{
       text-align: center;
-      width: 210px;
+      width: 110px;
   }
   .td-id{
       text-align: center;
-      width: 210px;
+      width: 110px;
   }
   /* SYMBOL */
   .th-symbol{
       text-align: center;
-      width: 140px;
+      width: 60px;
   }
   .td-symbol{
       text-align: center;
-      width: 140px;
+      width: 60px;
   }
   /* AMOUNT */
   .th-amount{
       text-align: center;
-      width: 180px;
+      width: 90px;
   }
   .td-amount{
       text-align: center;
-      width: 180px;
+      width: 90px;
   }
   /* SUB */
   .table-th-colspan{
-      width: 600px;
+      width: 270px;
   }
   .th-sub{
       text-align: right;
-      width: 200px;
+      width: 90px;
   }
   .td-sub{
       text-align: right;
-      width: 200px;
+      width: 90px;
+  }
+  /* SUB PROFIT */
+  .table-th-colspan-profit{
+      width: 225px;
+      text-align: center;
+  }
+  .th-sub-profit{
+      text-align: right;
+      width: 75px;
+  }
+  .td-sub-profit{
+      text-align: right;
+      width: 75px;
   }
   /* ALLOCATION */
   .th-allocation{
       text-align: center;
-      width: 210px;
+      width: 90px;
       border-right: none;
   }
   .td-allocation{
       text-align: center;
-      width: 210px;
+      width: 90px;
       border-right: none;
   }
   .table-th-colspan{

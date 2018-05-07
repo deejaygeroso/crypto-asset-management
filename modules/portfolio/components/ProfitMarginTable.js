@@ -24,7 +24,7 @@ class ProfitMarginTable extends Component{
         return (
             <div className="pane pane--table1 bounceInLeft animated">
                 <div className="pane-hScroll">
-                      <table className="profit-margin">
+                    <table className="profit-margin">
                         <thead>
                             <tr>
                               <th scope="col" rowSpan="2" className="th-icon">Icon</th>
@@ -33,8 +33,8 @@ class ProfitMarginTable extends Component{
                               <th scope="col" rowSpan="2" className="th-amount sortable" onClick={()=>sortTableBy('amount')}>Holdings <SortIcon name="amount" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                               <th scope="col" colSpan="3" className="table-th-colspan">Buy Price</th>
                               <th scope="col" colSpan="3" className="table-th-colspan">Market Price</th>
-                              <th scope="col" colSpan="3" className="table-th-colspan">Valuation</th>
-                              <th scope="col" colSpan="3" className="table-th-colspan">Profilt/Loss (%)</th>
+                              {/* <th scope="col" colSpan="3" className="table-th-colspan">Valuation</th> */}
+                              <th scope="col" colSpan="3" className="table-th-colspan-profit">Profit/Loss (%)</th>
                               <th scope="col" rowSpan="2" className="th-allocation sortable" onClick={()=>sortTableBy('allocation')}>Allocation (%) <SortIcon name="allocation" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                             </tr>
                             <tr>
@@ -44,15 +44,15 @@ class ProfitMarginTable extends Component{
                                 <th className="th-sub sortable" onClick={()=>{sortTableBy('price_usd')}}>USD <SortIcon name="price_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                                 <th className="th-sub sortable" onClick={()=>{sortTableBy('price_btc')}}>BTC <SortIcon name="price_btc" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                                 <th className="th-sub sortable" onClick={()=>{sortTableBy('price_eth')}}>ETH <SortIcon name="price_eth" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
-                                <th className="th-sub sortable" onClick={()=>{sortTableBy('valuation_usd')}}>USD <SortIcon name="valuation_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
-                                <th className="th-sub sortable" onClick={()=>{sortTableBy('valuation_btc')}}>BTC <SortIcon name="valuation_btc" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
-                                <th className="th-sub sortable" onClick={()=>{sortTableBy('valuation_eth')}}>ETH <SortIcon name="valuation_eth" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
+                                {/* <th className="th-sub sortable" onClick={()=>{sortTableBy('valuation_usd')}}>USD <SortIcon name="valuation_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th> */}
+                                {/* <th className="th-sub sortable" onClick={()=>{sortTableBy('valuation_btc')}}>BTC <SortIcon name="valuation_btc" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th> */}
+                                {/* <th className="th-sub sortable" onClick={()=>{sortTableBy('valuation_eth')}}>ETH <SortIcon name="valuation_eth" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th> */}
                                 <th className="th-sub sortable" onClick={()=>{sortTableBy('profit_loss_usd')}}>USD <SortIcon name="profit_loss_usd" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                                 <th className="th-sub sortable" onClick={()=>{sortTableBy('profit_loss_btc')}}>BTC <SortIcon name="profit_loss_btc" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                                 <th className="th-sub sortable" onClick={()=>{sortTableBy('profit_loss_eth')}}>ETH <SortIcon name="profit_loss_eth" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                             </tr>
                         </thead>
-                        </table>
+                    </table>
 
                 <div className="pane-vScroll">
                     <table className="profit-margin">
@@ -111,37 +111,37 @@ class ProfitMarginTable extends Component{
                                             </span>
                                         </td>
                                         {/* ------ Valuation USD ------*/}
-                                        <td className="td-sub" scope="col">
+                                        {/* <td className="td-sub" scope="col">
                                             <span className="num-span">
                                                 {formatMoney(guarding(portfolioList, id, 'valuation_usd'))}
                                             </span>
-                                        </td>
+                                        </td> */}
                                         {/* ------ Valuation BTC ------*/}
-                                        <td className="td-sub" scope="col">
+                                        {/* <td className="td-sub" scope="col">
                                             <span className="num-span">
                                                 {formatMoney(guarding(portfolioList, id, 'valuation_btc'))}
                                             </span>
-                                        </td>
+                                        </td> */}
                                         {/* ------ Valuation ETH ------*/}
-                                        <td className="td-sub" scope="col">
+                                        {/* <td className="td-sub" scope="col">
                                             <span className="num-span">
                                                 {formatMoney(guarding(portfolioList, id, 'valuation_eth'))}
                                             </span>
-                                        </td>
+                                        </td> */}
                                         {/* ------ Profit/Lostt USD % ------*/}
-                                        <td className="td-sub" scope="col">
+                                        <td className="td-sub-profit" scope="col">
                                             <span className="num-span" style={{ color: isProfitOrLossPositive(guarding(portfolioList, id, 'profit_loss_usd')) ? 'green' : 'red' }}>
                                                 {formatProfitOrLoss(guarding(portfolioList, id, 'profit_loss_usd'))}
                                             </span>
                                         </td>
                                         {/* ------ Profit/Lostt BTC % ------*/}
-                                        <td className="td-sub" scope="col">
+                                        <td className="td-sub-profit" scope="col">
                                             <span className="num-span" style={{ color: isProfitOrLossPositive(guarding(portfolioList, id, 'profit_loss_btc')) ? 'green' : 'red' }}>
                                                 {formatProfitOrLoss(guarding(portfolioList, id, 'profit_loss_btc'))}
                                             </span>
                                         </td>
                                         {/* ------ Profit/Lostt ETH % ------*/}
-                                        <td className="td-sub" scope="col">
+                                        <td className="td-sub-profit" scope="col">
                                             <span className="num-span" style={{ color: isProfitOrLossPositive(guarding(portfolioList, id, 'profit_loss_eth')) ? 'green' : 'red' }}>
                                                 {formatProfitOrLoss(guarding(portfolioList, id, 'profit_loss_eth'))}
                                             </span>
