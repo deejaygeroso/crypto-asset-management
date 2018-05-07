@@ -28,7 +28,7 @@ export function cryptoChartsList(state = initialItemListState, {type, list, item
             const allIds = Object.keys(byId);
             allIds && allIds.length!==0 && allIds.map(_id=>{
                 cryptoChartsList.push({
-                    date : moment(byId[_id].created).format('YYYY-MM-DD'),
+                    date : moment.unix(byId[_id].last_updated).format("YYYY-MM-DD"),
                     value: parseFloat(byId[_id].market_cap_usd),
                 });
             })
