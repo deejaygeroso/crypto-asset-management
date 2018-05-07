@@ -1,5 +1,4 @@
 const UserModel = require('../models/user');
-const CryptoIdsModel = require('../models/cryptoIds');
 const CryptoHistoryModel = require('../models/cryptoHistory');
 const PortfolioModel = require('../models/portfolio');
 const LinkModel = require('../models/link');
@@ -13,7 +12,7 @@ module.exports = function(app, router, auth){
      * -------------------------------------------------------- */
     router.post('/cryptoHistory/find', (req, res)=>{
         const query = req.body;
-        CryptoHistoryModel.find(query, null, {sort: {last_updated: -1}}, (err, docs) => {
+        CryptoHistoryModel.find(query).sort({last_updated: -1}).limit(7).exec((err,docs) => {
             if(err) return res.status(400).send({message: err});
             res.send(docs)
         });
@@ -30,15 +29,12 @@ module.exports = function(app, router, auth){
         });
     })
 
-    /* ----------------------------------------------------------
-     * find all cryptoIds used for crypto selection
-     * -------------------------------------------------------- */
-    router.post('/crypto/findAll', (req, res)=>{
-        CryptoIdsModel.find({}, (err, docs) => {
-            if(err) return res.status(400).send({message: err});
-            res.send(docs)
-        });
-    })
+    /* ----------------------------------------------------------------------------------
+     * Account Crud Routes. 
+     * -------------------------------------------------------------------------------- */
+    const accountRoute = item(app, router, 'account', UserModel)
+    accountRoute.find();
+    accountRoute.update();
 
     /* ----------------------------------------------------------
      * Find all users which are not admin
@@ -48,44 +44,6 @@ module.exports = function(app, router, auth){
             if(err) return res.status(400).send({message: err});
             res.send(docs)
         });
-    })
-
-    /* ----------------------------------------------------------
-     * Find user
-     * -------------------------------------------------------- */
-    router.post('/account/find', (req, res)=>{
-        const userData = req.body;
-
-        // if userData object is empty return an error
-        if(Object.keys(userData).length===0 || !userData._id || userData._id===''){
-            return res.send({message: 'No data was passed as a parameter!'});
-        }
-
-        UserModel.findOne(userData, (err, docs) => {
-            if(err) return res.status(400).send({message: err});
-            res.send(docs)
-        });
-    })
-
-    /* ----------------------------------------------------------
-     * Update an existing user
-     * -------------------------------------------------------- */
-    router.post('/account/update', (req, res)=>{
-        const { _id } = req.body;
-        const userData = req.body;
-
-        UserModel.findById(_id, function(err, doc) {
-            if(err) return res.status(400).send({message: err});
-
-            // assign all the data to be saved/updated
-            const userDataKeys = Object.keys(userData);
-            userDataKeys.map(data=>{
-                doc[data] = userData[data]
-            })
-
-            doc.save();
-            res.send(userData)
-          });
     })
 
     /* ----------------------------------------------------------
@@ -162,83 +120,14 @@ module.exports = function(app, router, auth){
           });
     })
 
-    /* ----------------------------------------------------------
-     * Find portfolio.
-     * -------------------------------------------------------- */
-    router.post('/portfolio/find', (req, res)=>{
-        const userData = req.body;
-
-        // if userData object is empty return an error
-        if(Object.keys(userData).length===0 || !userData._id || userData._id===''){
-            return res.send({message: 'No portfolio id was passed as a parameter!'});
-        }
-
-        PortfolioModel.findOne(userData, (err, docs) => {
-            if(err) return res.status(400).send({message: err});
-            res.send(docs)
-        });
-    })
-
-    /* ----------------------------------------------------------
-     * Add new coin to user's portfolio
-     * -------------------------------------------------------- */
-    router.post('/portfolio/create', (req, res)=>{
-
-        // create a new portfolio
-        const newPortfolio = new PortfolioModel({
-            user_id       : req.body.user_id,
-            amount        : req.body.amount,
-            buy_price_usd : req.body.buy_price_usd,
-            buy_price_btc : req.body.buy_price_btc,
-            buy_price_eth : req.body.buy_price_eth,
-            notes         : req.body.notes,
-            id            : req.body.id,
-            value         : req.body.value,
-            label         : req.body.label, 
-            symbol        : req.body.symbol, 
-            links         : req.body.links,
-            isCustom      : req.body.isCustom,
-            created       : new Date(),
-        });
-
-        // save user to database
-        newPortfolio.save(function(err, portfolio) {
-            if(err) return res.status(400).send({message: err}); // if saving failed
-            res.send(portfolio)
-        });
-    })
-
-    /* ----------------------------------------------------------
-     * Update an existing portfolio
-     * -------------------------------------------------------- */
-    router.post('/portfolio/update', (req, res)=>{
-        const { _id } = req.body;
-        const portfolioData = req.body;
-
-        PortfolioModel.findById(_id, function(err, doc) {
-            if(err) return res.status(400).send({message: err});
-
-            // assign all the data to be saved/updated
-            const portfolioDataKeys = Object.keys(portfolioData);
-            portfolioDataKeys.map(data=>{
-                doc[data] = portfolioData[data]
-            })
-
-            doc.save();
-            res.send(doc)
-          });
-    })
-
     /* ----------------------------------------------------------------------------------
-     * Portfolio remove 
+     * Portfolio Crud Routes. 
      * -------------------------------------------------------------------------------- */
-    router.post('/portfolio/remove', (req, res)=>{
-        const { _id } = req.body;
-        PortfolioModel.remove({ _id }, function (err) {
-            if(err) return res.status(400).send({message: err});
-            res.send({message: 'Removing of data was successful!'})
-        });
-    })
+    const portfolioRoute = item(app, router, 'portfolio', PortfolioModel)
+    portfolioRoute.find();
+    portfolioRoute.create();
+    portfolioRoute.update();
+    portfolioRoute.remove();
 
     /* ----------------------------------------------------------
      * Find all coins of user for his/her portfolio
@@ -258,10 +147,12 @@ module.exports = function(app, router, auth){
     linkRoute.findAll();
     linkRoute.findByQuery();
     linkRoute.create();
-    linkRoute.createBulk();
     linkRoute.update();
     linkRoute.remove();
 
+    /* ----------------------------------------------------------------------------------
+     * Crypto Charts Crud Routes. 
+     * -------------------------------------------------------------------------------- */
     const cryptosRoute = item(app, router, 'cryptos', CryptoHistoryModel)
     cryptosRoute.findByQuery();
 
