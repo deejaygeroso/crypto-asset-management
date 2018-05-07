@@ -192,6 +192,10 @@
   .profit-margin > thead > tr > th{
       border-top: none;
   }
+   .portfolio-tr:hover{
+    background-color: #f1f1f1;
+    cursor: pointer;
+   }
 
   /* ICON */
   .th-icon{

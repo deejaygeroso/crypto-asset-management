@@ -98,13 +98,13 @@ class MainPage extends Component{
                                 {
                                     portfolioList && portfolioList.allIds_otherStats && portfolioList.allIds_otherStats.map(_id=>(
                                         <Card portfolio={portfolioList.byId[_id]} 
-                                              cryptoHistory={cryptoHistory} 
-                                              priceAth={priceAth} 
-                                              priceAtl={priceAtl} 
-                                              volumeAth={volumeAth} 
-                                              volumeAtl={volumeAtl} 
-                                              onClick={this.routeToPortfolioAdd} 
-                                              key={_id}/>
+                                            cryptoHistory={cryptoHistory} 
+                                            priceAth={priceAth} 
+                                            priceAtl={priceAtl} 
+                                            volumeAth={volumeAth} 
+                                            volumeAtl={volumeAtl} 
+                                            onClick={this.routeToPortfolioAdd} 
+                                            key={_id}/>
                                     )) 
                                 }
                             </div>

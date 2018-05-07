@@ -59,7 +59,7 @@ class ProfitMarginTable extends Component{
                         <tbody>
                             {portfolioList && portfolioList.allIds_profitMargin && portfolioList.allIds_profitMargin.map((id, key)=>(
                                 id ?
-                                    <tr id="portfolio-tr" onClick={()=>{onClick(portfolioList.byId[id])}} key={key}>
+                                    <tr className="portfolio-tr" onClick={()=>{onClick(portfolioList.byId[id])}} key={key}>
                                         {/* ------ Icon ------*/}
                                         <td className="td-icon" scope="col">
                                             <img src={`/static/icon/${portfolioList && portfolioList.byId && portfolioList.byId[id] && portfolioList.byId[id].symbol && portfolioList.byId[id].symbol.toLowerCase()}.png`} onError={(e)=>{e.target.src="/static/images/blockpsv.png"}} className="align-content-center" height="25" width="25" />
