@@ -12,7 +12,7 @@ module.exports = function(app, router, auth){
      * -------------------------------------------------------- */
     router.post('/cryptoHistory/find', (req, res)=>{
         const query = req.body;
-        CryptoHistoryModel.find(query).sort({last_updated: -1}).limit(7).exec((err,docs) => {
+        CryptoHistoryModel.find(query).sort({last_updated: -1}).exec((err,docs) => {
             if(err) return res.status(400).send({message: err});
             res.send(docs)
         });
