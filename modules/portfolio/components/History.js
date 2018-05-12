@@ -38,13 +38,17 @@ const History = ({id, cryptoHistory}) => (
                 margin-top: 7px;
             }
             .history-box{
-                width: 55px;
+                width: 60px;
             }
             .history-box-date{
             }
             .history-sub-text{
-                font-size: 8.2px !important;
+                font-size: 10.2px !important;
                 font-family: Verdana, Geneva, sans-serif;
+                font-weight: 600;
+            }
+            .history-date{
+                font-size: 10px !important;
             }
         `}</style>
     </div>
@@ -56,6 +60,35 @@ History.propTypes = {
 }
 
 export default History;
+
+/* ----------------------------------------------------------
+ * map all the last_updated from cryptoHistory data
+ * which corresponds to 24h_volume_usd data looped
+ * -------------------------------------------------------- */
+function loopDate(cryptoHistory){
+    const data = []
+    for (var i = 0; i < 7; i++) {
+        if(cryptoHistory && cryptoHistory[i] && cryptoHistory[i].length!==0){
+            data.push(
+                <div key={i} className="history-box history-box-date text-center">
+                    <p className="history-date font-size-10 align-middle">
+                        {moment.utc(cryptoHistory[i]['last_updated']*1000).format('MMM DD')}
+                    </p>
+                </div>
+            )
+        }else{
+            data.push(
+                <div key={i} className="history-box history-box-date text-center">
+                    <p className="font-size-11 text-center align-middle">
+                        -
+                    </p>
+                </div>
+            )
+        }
+    }
+    return data;
+
+}
 
 /* ----------------------------------------------------------
  * map all the 24h_volume_usd from cryptoHistory data
@@ -110,31 +143,4 @@ function loopPrice(cryptoHistory){
     return data;
 }
 
-/* ----------------------------------------------------------
- * map all the last_updated from cryptoHistory data
- * which corresponds to 24h_volume_usd data looped
- * -------------------------------------------------------- */
-function loopDate(cryptoHistory){
-    const data = []
-    for (var i = 0; i < 7; i++) {
-        if(cryptoHistory && cryptoHistory[i] && cryptoHistory[i].length!==0){
-            data.push(
-                <div key={i} className="history-box history-box-date text-center">
-                    <p className="font-size-10 align-middle">
-                        {moment.utc(cryptoHistory[i]['last_updated']*1000).format('MMM DD')}
-                    </p>
-                </div>
-            )
-        }else{
-            data.push(
-                <div key={i} className="history-box history-box-date text-center">
-                    <p className="font-size-11 text-center align-middle">
-                        -
-                    </p>
-                </div>
-            )
-        }
-    }
-    return data;
 
-}

@@ -122,8 +122,10 @@ const Card = ({portfolio, cryptoHistory, priceAth, priceAtl, volumeAth, volumeAt
                         <p className="text-center align-middle font-weight-600">24h VOLUME</p>
                         <br/>
                         <p className="text-center align-middle">
-                            $ { portfolio && portfolio['24h_volume_usd'] ? commarize(portfolio['24h_volume_usd']) : '' }
-                            <span style={{color: checkIfIncreaseOrDecrease(portfolio, cryptoHistory, '24h_volume_usd') ? 'green' : 'red'}}>
+                            <span className="volume-text">
+                                $ { portfolio && portfolio['24h_volume_usd'] ? commarize(portfolio['24h_volume_usd']) : '' }
+                            </span>
+                            <span className="volume-text" style={{color: checkIfIncreaseOrDecrease(portfolio, cryptoHistory, '24h_volume_usd') ? 'green' : 'red'}}>
                                 &nbsp; ({ getPercentage(portfolio, cryptoHistory, '24h_volume_usd') })
                             </span>
                             <br/>

@@ -78,7 +78,7 @@ class MainPage extends Component{
                 {/* ----------------------------- */}
                 {/* ----- Other Stats Table ----- */}
                 {/* ----------------------------- */}
-                {
+                {/* {
                     isStatsTableVisible ?
                         <div>
                             <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Other Stats</h1>
@@ -86,7 +86,7 @@ class MainPage extends Component{
                                 <OtherStatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.statsSortTableBy} sortFieldName={this.state.statsSortFieldName} sortFieldStatus={this.state.statsSortFieldStatus}/>
                             </div>
                         </div> : <div></div>
-                }
+                } */}
                 
                 {/* ----------------------------- */}
                 {/* -------- Stats Table -------- */}

@@ -8,7 +8,7 @@ const CardStyle = () => (
                 }
                 .card{
                     margin: 10px;
-                    width: 420px;
+                    width: 445px;
                     line-height: 1;
                     box-shadow: 2px 2px 5px #888;
                     background-color: #fff;
@@ -57,9 +57,11 @@ const CardStyle = () => (
                 }
                 .card-ath{
                     color: #18B583;
+                    font-size: 9px;
                 }
                 .card-atl{
                     color: #3f95ea;
+                    font-size: 9px;
                 }
 
                 .rank{
@@ -90,7 +92,11 @@ const CardStyle = () => (
                     font-size: 7px !important;
                 }
                 .card-profile{
-                  background-color: 'black';
+                    background-color: 'black';
+                }
+                .volume-text{
+                    font-weight: bold;
+                    font-size: 14px;
                 }
       `}</style>
     </div>
