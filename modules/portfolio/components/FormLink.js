@@ -44,8 +44,8 @@ class FormLink extends Component {
                     <div className="col-md-1 col-sm-1">
                     {
                         link.isApproved ?
-                        <i className="fas fa-lg fa-check-circle status-indicator" dataToggle="tooltip" title="Approved!"></i>
-                        : <i className="fas fa-lg fa-exclamation-circle waiting-indicator" dataToggle="tooltip" title="Waiting for approval!"></i>
+                        <i className="fas fa-lg fa-check-circle status-indicator" datatoggle="tooltip" title="Approved!"></i>
+                        : <i className="fas fa-lg fa-exclamation-circle waiting-indicator" datatoggle="tooltip" title="Waiting for approval!"></i>
                     }
                     </div>
                     <div className="col-md-3 col-sm-3">

@@ -97,12 +97,21 @@ class View extends Component {
                 {/* ------------------------------*/}
                 <div className="gradient-header">
                     {
-                        isFormLinkVisible ? this.renderFormLink() :
-                        isLinkVisible ? <ViewLink portfolio={portfolio} linkList={linkList} onEdit={()=>this.setState({isFormLinkVisible: true})} cryptoChartsList={cryptoChartsList}/> : <div/>
+                        (isFormDataVisible || isFormLinkVisible) ? <div/> :
+                            <div>
+                                <div className="col-md-6">
+                                    <ViewData portfolio={portfolio} onEdit={()=>this.setState({isFormDataVisible: true})}/>
+                                </div>
+                                <div className="col-md-6">
+                                    <ViewLink portfolio={portfolio} linkList={linkList} onEdit={()=>this.setState({isFormLinkVisible: true})} cryptoChartsList={cryptoChartsList}/>
+                                </div>
+                            </div>
                     }
                     {
-                        isFormDataVisible ? this.renderForm() :
-                        isDataVisible ? <ViewData portfolio={portfolio} onEdit={()=>this.setState({isFormDataVisible: true})}/> : <div/>
+                        isFormLinkVisible ? this.renderFormLink() : <div />
+                    }
+                    {
+                        isFormDataVisible ? this.renderForm() : <div />
                     }
                 </div>
 
@@ -122,13 +131,13 @@ class View extends Component {
                 {/* ------------------------------*/}
                 {/* ------ Link Form Button ----- */}
                 {/* ------------------------------*/}
-                {
+                {/* {
                     isFormDataVisible || isFormLinkVisible ? <div /> :
                     <span onClick={()=>this.setState({isLinkVisible: !isLinkVisible, isDataVisible: !isDataVisible})} className="flip animated chart-button">
                         { isLinkVisible ? <i className="fab fab-lg fa-bitcoin fa-button-icon"></i> : 
                         <i className="fas fa-lg fa-chart-bar fa-button-icon"></i> }
                     </span>
-                }
+                } */}
 
                 {/* ------------------------------*/}
                 {/* --------- Back Button ------- */}

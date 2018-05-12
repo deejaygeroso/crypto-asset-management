@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {
+    formatMoney,
+} from '../../lib/helpers';
+
 const ViewData = ({portfolio, onEdit}) => {
+    // console.log('portfolio', portfolio)
     return (
-        <div className="container flex-column align-items-center justify-content-center mt-20">
+        <div className="flex-column align-items-center justify-content-center mt-80">
 
             {/* ------------------------------*/}
             {/* ------ Form View Title ------ */}
@@ -18,9 +23,6 @@ const ViewData = ({portfolio, onEdit}) => {
                     </div>
                 : <div />
             }
-            <div className="edit-portfolio" onClick={onEdit}>
-                Edit Portfolio
-            </div>
 
             {/* ------------------------------*/}
             {/* ----------- Amount ---------- */}
@@ -31,9 +33,27 @@ const ViewData = ({portfolio, onEdit}) => {
             </div>
 
             {/* ------------------------------*/}
-            {/* ---------- Buy Price -------- */}
+            {/* ---------- Valuation -------- */}
             {/* ------------------------------*/}
             <div className="d-flex flex-row align-items-center justify-content-center mt-100">
+                <div className="d-flex flex-column align-items-center justify-content-center">
+                    <span className="form-view-text">Valuation (USD)</span>
+                    <span className="form-view-value">{calculateValuation(portfolio, 'buy_price_usd')}</span>
+                </div>
+                <div className="d-flex flex-column align-items-center justify-content-center ml-40 mr-40">
+                    <span className="form-view-text">Valuation (BTC)</span>
+                    <span className="form-view-value">{calculateValuation(portfolio, 'buy_price_btc')}</span>
+                </div>
+                <div className="d-flex flex-column align-items-center justify-content-center">
+                    <span className="form-view-text">Valuation (ETH)</span>
+                    <span className="form-view-value">{calculateValuation(portfolio, 'buy_price_eth')}</span>
+                </div>
+            </div>
+
+            {/* ------------------------------*/}
+            {/* ---------- Buy Price -------- */}
+            {/* ------------------------------*/}
+            {/* <div className="d-flex flex-row align-items-center justify-content-center mt-100">
                 <div className="d-flex flex-column align-items-center justify-content-center">
                     <span className="form-view-text">Buy Price (USD)</span>
                     <span className="form-view-value">{portfolio && portfolio.buy_price_usd}</span>
@@ -46,7 +66,7 @@ const ViewData = ({portfolio, onEdit}) => {
                     <span className="form-view-text">Buy Price (ETH)</span>
                     <span className="form-view-value">{portfolio && portfolio.buy_price_eth}</span>
                 </div>
-            </div>
+            </div> */}
             
             {/* ------------------------------*/}
             {/* ------------ Notes ---------- */}
@@ -57,6 +77,10 @@ const ViewData = ({portfolio, onEdit}) => {
                     <span className="form-view-text">{portfolio && portfolio.notes}</span>
                 </div> : <div/>
             }
+
+            <div className="edit-portfolio" onClick={onEdit}>
+                Edit Portfolio
+            </div>
 
         </div>
 
@@ -69,3 +93,9 @@ ViewData.propTypes = {
 };
 
 export default ViewData;
+
+function calculateValuation(portfolio, buy_price_name){
+    const amount = portfolio && portfolio.amount;
+    const buyPrice = portfolio && portfolio[buy_price_name];
+    return formatMoney(amount * buyPrice);
+}

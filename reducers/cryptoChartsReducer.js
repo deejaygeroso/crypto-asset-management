@@ -1,6 +1,7 @@
 import itemListTypes from '../types/itemListTypes';
 import {
   indexBy as __$indexBy,
+  pluck as __$pluck,
   // findWhere as __findWhere$,
   // without as __without$,
 } from 'underscore';
@@ -25,6 +26,18 @@ export function cryptoChartsList(state = initialItemListState, {type, list, item
         case ITEMLIST_TYPES.SET: {
             const cryptoChartsList = [];
             const byId = __$indexBy(list, '_id');
+            console.log('list', list)
+            // let labels = [];
+            // list && list
+            var labels = [];
+            var price_eth = [];
+            list && list.length!==0 && list.map(data=>{
+                labels.push(moment.unix(data.last_updated).format("LL"))
+                price_eth.push(data && data.price_eth ? data.price_eth : 0);
+            })
+            // const labels = __$pluck(list, 'last_updated')
+            const price_usd = __$pluck(list, 'price_usd')
+            const price_btc = __$pluck(list, 'price_btc')
             const allIds = Object.keys(byId);
             allIds && allIds.length!==0 && allIds.map(_id=>{
                 cryptoChartsList.push({
@@ -33,7 +46,7 @@ export function cryptoChartsList(state = initialItemListState, {type, list, item
                 });
             })
 
-            return Object.assign([], cryptoChartsList);
+            return Object.assign([], cryptoChartsList, {labels, price_usd, price_btc, price_eth});
         }
 
         /*
