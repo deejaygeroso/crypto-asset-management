@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/react-fontawesome": "0.0.19",
     "archetype-js": "^0.6.1",
     "aws-sdk": "^2.222.1",
     "axios": "^0.18.0",

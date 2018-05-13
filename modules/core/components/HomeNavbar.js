@@ -11,18 +11,24 @@ const HomeNavbar = ({toggleMobileViewNavbar, onToggle}) => (
                     <div className="navbar-header">
                         {/* -- Mobile Toggle Menu Button --*/}
                         <a href="#" onClick={onToggle} className="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-                     <a className="navbar-brand" href="index.html">BlockPSV</a>
+                     <Link prefetch href="/"><a className="navbar-brand">BlockPSV</a></Link>
                     </div>
                     <div id="navbar" className={toggleMobileViewNavbar? "navbar-collapse collapse in" : "navbar-collapse collapse"}>
                       <ul className="nav navbar-nav navbar-right">
-                        <li><Link prefetch href="/"><a>Home</a></Link></li>
-                        <li><Link prefetch href="/about"><a>About</a></Link></li>
-                        <li><Link prefetch href="/login"><a>Login</a></Link></li>
+                        {/* <li><Link prefetch href="/"><a>Home</a></Link></li> */}
+                        {/* <li><Link prefetch href="/about"><a>About</a></Link></li> */}
+                        <li><Link prefetch href="/login"><a><i class="login-button fas fa-user-circle"></i></a></Link></li>
                       </ul>
                     </div>
                 </nav>
-              {/* -- </div> --*/}
-          </div>
+                {/* -- </div> --*/}
+            </div>
+
+            <style jsx global>{`
+                .login-button{
+                    font-size: 33px;
+                }
+            `}</style>
     </header>
 )
 
