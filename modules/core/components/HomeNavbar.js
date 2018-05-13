@@ -17,7 +17,7 @@ const HomeNavbar = ({toggleMobileViewNavbar, onToggle}) => (
                       <ul className="nav navbar-nav navbar-right">
                         {/* <li><Link prefetch href="/"><a>Home</a></Link></li> */}
                         {/* <li><Link prefetch href="/about"><a>About</a></Link></li> */}
-                        <li><Link prefetch href="/login"><a><i class="login-button fas fa-user-circle"></i></a></Link></li>
+                        <li><Link prefetch href="/login"><a><i className="login-button fas fa-user-circle"></i></a></Link></li>
                       </ul>
                     </div>
                 </nav>

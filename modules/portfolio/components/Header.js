@@ -27,13 +27,13 @@ const Header = ({user, cryptoGlobal, cryptoList, onClick}) => (
                     {/* ------ Portfolio/ Profit Margin Button ------- */}
                     <button onClick={()=>onClick('1')} className="btn-toggle btn btn-lg btn-warning btn-table flip animated" type="submit" >
                         <span>
-                            <i className="fas fa-lg fa-address-card"></i>
+                            <i className="fas fa-lg fa-chart-line"></i>
                         </span>
                     </button>
                     {/* ------ Other Stats ------- */}
                     <button onClick={()=>onClick('3')} className="btn-toggle btn btn-lg btn-warning btn-table flip animated" type="submit" >
                         <span>
-                            <i className="fas fa-lg fa-chart-line"></i>
+                            <i className="fas fa-lg fa-chart-area"></i>
                         </span>
                     </button>
                     {/* ------ Volume Overview ------- */}
