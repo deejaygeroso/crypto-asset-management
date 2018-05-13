@@ -1,12 +1,12 @@
 import itemListTypes from '../types/itemListTypes';
 import {
-  indexBy as __$indexBy,
+//   indexBy as __$indexBy,
   pluck as __$pluck,
   // findWhere as __findWhere$,
   // without as __without$,
 } from 'underscore';
 import moment from 'moment';
-const initialItemListState = []
+const initialItemListState = {};
 
 /* -------------------------------------------------------------------------------- */
 /* ----------------------------- array list of data ------------------------------- */
@@ -24,11 +24,6 @@ export function cryptoChartsList(state = initialItemListState, {type, list, item
          * Set new dataList with date & value only used for showing charts on view portfolio.
          */
         case ITEMLIST_TYPES.SET: {
-            const cryptoChartsList = [];
-            const byId = __$indexBy(list, '_id');
-            console.log('list', list)
-            // let labels = [];
-            // list && list
             var labels = [];
             var price_eth = [];
             list && list.length!==0 && list.map(data=>{
@@ -38,15 +33,8 @@ export function cryptoChartsList(state = initialItemListState, {type, list, item
             // const labels = __$pluck(list, 'last_updated')
             const price_usd = __$pluck(list, 'price_usd')
             const price_btc = __$pluck(list, 'price_btc')
-            const allIds = Object.keys(byId);
-            allIds && allIds.length!==0 && allIds.map(_id=>{
-                cryptoChartsList.push({
-                    date : moment.unix(byId[_id].last_updated).format("YYYY-MM-DD"),
-                    value: parseFloat(byId[_id].price_usd),
-                });
-            })
 
-            return Object.assign([], cryptoChartsList, {labels, price_usd, price_btc, price_eth});
+            return Object.assign({}, {labels, price_usd, price_btc, price_eth});
         }
 
         /*

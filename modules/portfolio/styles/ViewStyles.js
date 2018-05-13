@@ -35,7 +35,7 @@ const ViewStyle = () => (
                 color: #e7ff00;
             }
             .form-view-amount{
-                font-size: 89px;
+                font-size: 67px;
                 line-height: 0.8;
                 color: #e7ff00;
             }

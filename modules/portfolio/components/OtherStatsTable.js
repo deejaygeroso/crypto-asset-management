@@ -6,8 +6,8 @@ import {
     commarize
 } from '../../lib/helpers';
 
-import TableStyle from '../../styles/TableStyle';
-import SortIcon from './SortIcon'
+// import TableStyle from '../../styles/TableStyle';
+import SortIcon from './SortIcon';
 
 class OtherStatsTable extends Component {
 
@@ -146,7 +146,11 @@ class OtherStatsTable extends Component {
 }
 
 OtherStatsTable.propTypes = {
-
+    portfolioList: PropTypes.object,
+    onClick: PropTypes.func,
+    sortTableBy: PropTypes.func,
+    sortFieldName: PropTypes.string,
+    sortFieldStatus: PropTypes.string,
 };
 
 export default OtherStatsTable;

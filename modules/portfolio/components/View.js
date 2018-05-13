@@ -87,7 +87,7 @@ class View extends Component {
      * -------------------------------------------------------------------------------- */
     render(){
         const { portfolio, linkList, cryptoChartsList } = this.props;
-        const { isLinkVisible, isDataVisible, isFormDataVisible, isFormLinkVisible } = this.state;
+        const { isFormDataVisible, isFormLinkVisible } = this.state;
         return(
             <div className="page-container">
                 <ToastContainer />

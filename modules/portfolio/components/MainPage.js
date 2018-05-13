@@ -4,7 +4,7 @@ import Router from 'next/router';
 
 import Navbar from '../../core/containers/Navbar';
 import StatsTable from './StatsTable';
-import OtherStatsTable from './OtherStatsTable';
+// import OtherStatsTable from './OtherStatsTable';
 import ProfitMarginTable from './ProfitMarginTable';
 import Header from './Header';
 import Card from './Card';
