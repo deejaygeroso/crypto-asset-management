@@ -103,7 +103,7 @@ class Home extends Component {
                     .feature{
                         box-shadow: 2px 2px 5px #888;
                         padding: 20px;
-                        border-raduis: 20px;
+                        border-raduis: 20px !important;
                     }
                     .feature:hover{
                         box-shadow: 3px 3px 13px #888;

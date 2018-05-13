@@ -1,16 +1,16 @@
-const webpack = require('webpack');
+// const webpack = require('webpack');
 
-module.exports = {
-  // webpack: (config, { dev }) => {
-  webpack: (config) => {
+// module.exports = {
+//   // webpack: (config, { dev }) => {
+//   webpack: (config) => {
 
-    config.plugins.push(
-      new webpack.ProvidePlugin({
-        '$': 'jquery',
-        jQuery: 'jquery'
-      })
-    );
+//     config.plugins.push(
+//       new webpack.ProvidePlugin({
+//         '$': 'jquery',
+//         jQuery: 'jquery'
+//       })
+//     );
 
-    return config
-  }
-}
+//     return config
+//   }
+// }
