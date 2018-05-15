@@ -30,6 +30,7 @@ const ViewStyle = () => (
             }
             .form-view-text{
                 color: #fff;
+                text-align: center;
             }
             .form-view-value{
                 color: #e7ff00;

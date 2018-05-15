@@ -104,12 +104,12 @@ class ViewLink extends Component {
                             </div>
                         </div>
                         <div className="d-flex flex-column align-items-center justify-content-center form-view-links">
-                            { linkList && linkList.allIds && linkList.allIds.length!==0 && linkList.allIds.map((_id)=>(
+                            { linkList && linkList.allIds && linkList.allIds.length!==0 && linkList.allIds.map((_id, key)=>(
                                 linkList.byId[_id].isApproved ?
-                                    <a target="_blank" href={getUrlLink(linkList && linkList.byId && linkList.byId[_id] && linkList.byId[_id].address)} key={_id}>
+                                    <a target="_blank" href={getUrlLink(linkList && linkList.byId && linkList.byId[_id] && linkList.byId[_id].address)} key={key}>
                                         {linkList && linkList.byId && linkList.byId[_id] && linkList.byId[_id].name}
                                     </a>
-                                : <div/>
+                                : <div key={_id}/>
                             )) }
                         </div>
                     </div>
@@ -136,7 +136,7 @@ function getUrlLink(address){
 ViewLink.propTypes = {
     portfolio : PropTypes.object,
     linkList  : PropTypes.object,
-    cryptoChartsList : PropTypes.array,
+    cryptoChartsList : PropTypes.object,
     onEdit    : PropTypes.func.isRequired,
 };
 

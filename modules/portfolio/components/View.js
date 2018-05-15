@@ -28,6 +28,12 @@ class View extends Component {
     componentDidMount(){
         const { portfolioActions, itemListActions, cryptoChartsActions } = this.props;
         const portfolioCookie = Cookies.get('portfolio');
+
+        if(!portfolioCookie){
+            this.setState({isFormDataVisible: true});
+            return;
+        }
+
         const portfolio = JSON.parse(portfolioCookie);
 
         // cryptoCharts
@@ -172,7 +178,7 @@ View.propTypes = {
     portfolioError: PropTypes.object,
     portfolioActions: PropTypes.object,
     portfolioMainPageRouteName : PropTypes.string,
-    cryptoChartsList : PropTypes.array,
+    cryptoChartsList : PropTypes.object,
     cryptoChartsActions : PropTypes.object,
 };
 
