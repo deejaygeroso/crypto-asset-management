@@ -92,7 +92,7 @@ class View extends Component {
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
-        const { portfolio, linkList, cryptoChartsList } = this.props;
+        const { portfolio, linkList, cryptoChartsList, coinmarketcapTicker } = this.props;
         const { isFormDataVisible, isFormLinkVisible } = this.state;
         return(
             <div className="page-container">
@@ -106,7 +106,7 @@ class View extends Component {
                         (isFormDataVisible || isFormLinkVisible) ? <div/> :
                             <div>
                                 <div className="col-md-6">
-                                    <ViewData portfolio={portfolio} onEdit={()=>this.setState({isFormDataVisible: true})}/>
+                                    <ViewData portfolio={portfolio} onEdit={()=>this.setState({isFormDataVisible: true})} coinmarketcapTicker={coinmarketcapTicker}/>
                                 </div>
                                 <div className="col-md-6">
                                     <ViewLink portfolio={portfolio} linkList={linkList} onEdit={()=>this.setState({isFormLinkVisible: true})} cryptoChartsList={cryptoChartsList}/>
@@ -180,6 +180,7 @@ View.propTypes = {
     portfolioMainPageRouteName : PropTypes.string,
     cryptoChartsList : PropTypes.object,
     cryptoChartsActions : PropTypes.object,
+    coinmarketcapTicker : PropTypes.array,
 };
 
 export default View;

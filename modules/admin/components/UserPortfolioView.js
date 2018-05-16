@@ -33,8 +33,9 @@ class UserPortfolioView extends Component{
      * Main Page. 
      * -------------------------------------------------------------------------------- */
     render(){
+        const { coinmarketcapTicker } = this.props;
         return(
-            <View portfolioMainPageRouteName="/admin/userportfolio" onSubmit={this.onSubmit}/>
+            <View portfolioMainPageRouteName="/admin/userportfolio" onSubmit={this.onSubmit} coinmarketcapTicker={coinmarketcapTicker}/>
         )
     }
 

@@ -5,8 +5,12 @@ import {
     formatMoney,
 } from '../../lib/helpers';
 
-const ViewData = ({portfolio, onEdit}) => {
-    // console.log('portfolio', portfolio)
+import { 
+    find as __$find,
+} from 'underscore';
+
+const ViewData = ({portfolio, onEdit, coinmarketcapTicker}) => {
+    const portfolioCMCData =__$find(coinmarketcapTicker, (data)=>{ return data.id===portfolio.id })
     return (
         <div className="flex-column align-items-center justify-content-center mt-80">
 
@@ -38,15 +42,15 @@ const ViewData = ({portfolio, onEdit}) => {
             <div className="d-flex flex-row align-items-center justify-content-center mt-100">
                 <div className="d-flex flex-column align-items-center justify-content-center">
                     <span className="form-view-text">Valuation (USD)</span>
-                    <span className="form-view-value">{calculateValuation(portfolio, 'buy_price_usd')}</span>
+                    <span className="form-view-value">{calculateValuation(portfolio, portfolioCMCData, 'price_usd')}</span>
                 </div>
                 <div className="d-flex flex-column align-items-center justify-content-center ml-40 mr-40">
                     <span className="form-view-text">Valuation (BTC)</span>
-                    <span className="form-view-value">{calculateValuation(portfolio, 'buy_price_btc')}</span>
+                    <span className="form-view-value">{calculateValuation(portfolio, portfolioCMCData, 'price_btc')}</span>
                 </div>
                 <div className="d-flex flex-column align-items-center justify-content-center">
                     <span className="form-view-text">Valuation (ETH)</span>
-                    <span className="form-view-value">{calculateValuation(portfolio, 'buy_price_eth')}</span>
+                    <span className="form-view-value">{calculateValuation(portfolio, portfolioCMCData, 'price_eth')}</span>
                 </div>
             </div>
 
@@ -90,12 +94,13 @@ const ViewData = ({portfolio, onEdit}) => {
 ViewData.propTypes = {
     portfolio : PropTypes.object,
     onEdit    : PropTypes.func.isRequired,
+    coinmarketcapTicker : PropTypes.array,
 };
 
 export default ViewData;
 
-function calculateValuation(portfolio, buy_price_name){
+function calculateValuation(portfolio, portfolioCMCData, price_name){
     const amount = portfolio && portfolio.amount;
-    const buyPrice = portfolio && portfolio[buy_price_name];
-    return formatMoney(amount * buyPrice);
+    const price = portfolioCMCData && portfolioCMCData[price_name];
+    return formatMoney(amount * price);
 }

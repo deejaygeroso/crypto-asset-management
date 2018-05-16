@@ -1,4 +1,5 @@
 // import * as API from '../api';
+// this action is mainly used for dropdown menu of coin form
 import * as ACTION_TYPES from '../types/cryptoIdsTypes';
 
 export const itemSet = ({payload}) => ({

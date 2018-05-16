@@ -40,9 +40,10 @@ class PortfolioView extends Component{
      * Main Page
      * -------------------------------------------------------------------------------- */
     render(){
+        const { coinmarketcapTicker } = this.props;
         return(
             <div>
-                <View portfolioMainPageRouteName="/portfolio/list" />
+                <View portfolioMainPageRouteName="/portfolio/list" coinmarketcapTicker={coinmarketcapTicker}/>
             </div>
         )
     }
