@@ -50,10 +50,17 @@ module.exports = function(app, router, auth){
      * Create new user from the admin
      * -------------------------------------------------------- */
     router.post('/account/register', (req, res)=>{
-        const { email, password } = req.body;
+        const { firstname, lastname, email, password } = req.body;
+        const userData = {
+            firstname,
+            lastname,
+            email,
+            password,
+            created: new Date(),
+        }
 
         // create a new user
-        const newUser = new UserModel({ email, password, created: new Date() });
+        const newUser = new UserModel(userData);
 
         // save user to database
         newUser.save(function(err, user) {

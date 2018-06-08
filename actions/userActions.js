@@ -115,8 +115,9 @@ export const itemCreate = ({params}) => {
         try {
             const res = await axios.post('/api/account/register', params);
             dispatch(itemSet({payload: res.data}));
-            dispatch(itemListAppend({item: res.data}));
-            toasterSuccessMessage('New account was created.');
+            // dispatch(itemListAppend({item: res.data}));
+            // toasterSuccessMessage('New account was created.');
+            dispatch(login({params}));
         } catch (err) {
             toasterErrorMessage('Email already exist!');
         }
@@ -172,6 +173,7 @@ export const login = ({params}) => {
             }
 
         } catch (err){
+            console.log('errrr', err )
             const payload = { message: 'Email/password does not match!' }
             dispatch(errorSet({payload}));
         }

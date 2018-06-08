@@ -6,10 +6,14 @@ const SALT_WORK_FACTOR = 10;
 var UserSchema = new Schema({
     crypto_ids  : [],
     name        : { type : String },
+    firstname   : { type : String },
+    lastname    : { type : String },
     email       : { type : String, required : true, index: { unique: true } },
     password    : { type : String, required : false },
     isAdmin     : { type : Boolean, default : false },
     isDeleted   : { type : Boolean, default : false },
+    isTrial     : { type : Boolean, default : true },
+    isPremium   : { type : Boolean, default : false },
     created     : { type: Date, default: Date.now },
 }, { collection : 'users' });
 

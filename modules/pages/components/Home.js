@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 
 import HomeNavbar from '../../core/components/HomeNavbar';
+var Coinpayments = require('coinpayments');
+var client = new Coinpayments({
+    key: 'cc43cf1385d812a582569cdbc11d188cae7ba2eb999acd0a1597564b3d2be106',
+    secret: 'a908f43c31F7bc07d03B50247399f9fbf48c6965068b88dD01374AE93f381b36',
+    autoIpn: true,
+}); 
 
+let events = Coinpayments.events;
 class Home extends Component {
 
     constructor(){
@@ -11,6 +18,68 @@ class Home extends Component {
             toggleMobileViewNavbar : false,
         }
     }
+
+    componentDidMount() {
+        // console.log('Coinpayments', client);
+        console.log('ok', )
+        // client.getBasicInfo((err, result)=>{
+        //     console.log('data', result)
+        // })
+        // client.getProfile('orahkokos', function (err, response) {
+        //     console.log(response)
+        // })
+        console.log('client', client)
+        // client.createTransaction({'currency1' : 'BTC', 'currency2' : 'BTC', 'amount' : 10},function(err,result){
+        //     console.log('err', err)
+        //     console.log('result', result);
+        //   });
+
+        // CPCF4ASJXLNOPDHN1PMOZX8QFI
+        client.getTx('CPCF76D69M2XZ1Z91FEEJCMPDI', function(err,result){
+            console.log('err txn', err)
+            console.log('result txn',result);
+          }); 
+
+        // client.rates(function(err,result){
+        //     console.log('rates', result);
+        //   });
+        // client.convertCoins({
+        //     amount: 0.1,
+        //     from: "BTC",
+        //     to: "ETH"
+        //   }, function (err, response) {
+        //       console.log('err', err)
+        //     console.log(response)
+        //   })
+
+        // client.on('autoipn', function(data){
+        //     // Handle data
+        //     // data = getTxMulti
+        //     console.log('ok', )
+        //     console.log('data', data)
+        // }); 
+
+        console.log('ipn', event)
+
+        // client.getDepositAddress("BTC", function (err, response) {
+        //     console.log('err da', err)
+        //     console.log('da', response)
+        //   })
+
+        events.on('ipn_pending', function(data){
+            // Handle pending payment
+            console.log("IPN PENDING");
+            console.log(data);
+        });
+
+        // console.log('loist', )
+        // client.getTxList(function (err, response) {
+        //     console.log('err list', err)
+        //     console.log('response list', response)
+        //   })
+
+    }
+    
 
     render(){
         const { toggleMobileViewNavbar } = this.state;
@@ -28,6 +97,20 @@ class Home extends Component {
                                             <h1 className="to-animate">Welcome to BlockPSV</h1>
                                             <h2 className="to-animate">“The swarm is headed towards us”</h2>
                                             <h2 className="to-animate">– Satoshi Nakamoto</h2>
+                                            <form action="https://www.coinpayments.net/index.php" method="post">
+                                                <input type="hidden" name="cmd" value="_pay_simple" />
+                                                <input type="hidden" name="reset" value="1" />
+                                                <input type="hidden" name="merchant" value="7a90840dd24a1735ab0a1dbdc2d2d26e" />
+                                                <input type="hidden" name="item_name" value="premium" />
+                                                <input type="hidden" name="currency" value="USD" />
+                                                <input type="hidden" name="success_url" value="http://localhost:3000/" />
+                                                <input type="hidden" name="amountf" value="10.00000000" />
+                                                <input type="hidden" name="want_shipping" value="0" />
+                                                <input type="hidden" name="first_name" value="deejay" />
+                                                {/* <input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-yellow.png" alt="Buy Now with CoinPayments.net" /> */}
+                                                <input type="submit" value="Premium"/>
+                                            </form>
+
                                         </div>
                                     </div>
                                  
