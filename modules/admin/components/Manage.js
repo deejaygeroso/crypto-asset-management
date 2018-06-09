@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import { confirmAlert } from 'react-confirm-alert'; 
 import { ToastContainer } from 'react-toastify';
 import { toasterErrorMessage } from '../../lib/helpers';
+import ManageStyles from '../../styles/ManageStyles';
 
 class Manage extends Component {
 
@@ -21,6 +22,7 @@ class Manage extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.gotoUserPortfolio = this.gotoUserPortfolio.bind(this);
         this.onUserDelete = this.onUserDelete.bind(this);
+        this.onUserDisabled = this.onUserDisabled.bind(this);
     }
 
     /* ----------------------------------------------------------------------------------
@@ -41,6 +43,7 @@ class Manage extends Component {
 
     /* ----------------------------------------------------------------------------------
      * User's Card
+     * Not Used Anymore
      * -------------------------------------------------------------------------------- */
     renderUsersCard(user_id, key){
         const { usersList } = this.props;
@@ -75,15 +78,14 @@ class Manage extends Component {
                         <div className="form-group mb-2">
                             <label className="sr-only">Email</label>
                             <input
-                                 type="email"
-                                 id="Email"
-                                 className="form-control input-field"
-                                 placeholder="Email address"
-                                 value={this.state.email}
-                                 required
-                                 autoFocus
-                                 onChange={(evt)=>this.onChange('email', evt.target.value)}/>
-
+                                type="email"
+                                id="Email"
+                                className="form-control input-field"
+                                placeholder="Email address"
+                                value={this.state.email}
+                                required
+                                autoFocus
+                                onChange={(evt)=>this.onChange('email', evt.target.value)}/>
                         </div>
                         <div className="form-group mx-sm-3 mb-2">
                             <label className="sr-only">Password</label>
@@ -107,98 +109,81 @@ class Manage extends Component {
         )
     }
 
+
+    /* ----------------------------------------------------------------------------------
+     * Render Data table for user list 
+     * -------------------------------------------------------------------------------- */
+    renderUserListDataTable(){
+        const { usersList } = this.props;
+        return(
+            <div className="table-view table-responsive">
+                <table className="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" rowSpan="2" className="">Email</th>
+                            <th scope="col" rowSpan="2" className="">First Name</th>
+                            <th scope="col" rowSpan="2" className="">Last Name</th>
+                            <th scope="col" rowSpan="2" className="">Is Trial</th>
+                            <th scope="col" rowSpan="2" className="">Is Premium</th>
+                            <th scope="col" rowSpan="2" className="">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {usersList.allIds.map((_id, key) => (
+                            <tr id="portfolio-tr" key={key}>
+                                <td scope="col">
+                                    {usersList.byId[_id].email}
+                                </td>
+                                <td scope="col">
+                                    {usersList.byId[_id].firstname}
+                                </td>
+                                <td scope="col">
+                                    {usersList.byId[_id].lastname}
+                                </td>
+                                <td scope="col">
+                                    {usersList.byId[_id].isTrial ? <span>Trial</span> : <span>Expired</span>}
+                                </td>
+                                <td scope="col">
+                                    {usersList.byId[_id].isPremium ? <span>Premium</span> : <span>Expired</span>}
+                                </td>
+                                <td scope="col">
+                                    <button className="btn btn-info    btn-action" onClick={()=>this.gotoUserPortfolio(_id)}>View</button>
+                                    { usersList.byId[_id].isDisabled ? 
+                                        <button className={"btn btn-success btn-action"} onClick={(e)=>this.onUserDisabled(e, usersList.byId[_id])}>Enable</button> :
+                                        <button className={"btn btn-warning btn-action"} onClick={(e)=>this.onUserDisabled(e, usersList.byId[_id])}>Disable</button>
+                                    }
+                                    <button className="btn btn-danger  btn-action" onClick={(e)=>this.onUserDelete(e, usersList.byId[_id])}>Remove</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+
     /* ----------------------------------------------------------------------------------
      * Main Component
      * -------------------------------------------------------------------------------- */
     render(){
-        const { usersList, userError, userSuccess } = this.props;
         return(
             <div>
                 <ToastContainer />
                 <Navbar />
 
-                    <div className="margin-50"></div>
+                <div className="margin-50"></div>
 
-                    <div className="gradient-header">
-                        {this.renderFormComponent()}
-                    </div>
-                    {
-                      userSuccess && userSuccess.message ?
-                        <div className="">
-                            <div className="bs-component">
-                                <div className="alert alert-dismissible alert-success">
-                                    <p className="text-center">
-                                        {userError.message}
-                                    </p>
-                                </div>
-                            </div>
-                        </div> : <div />
-                    }
-
-                    {
-                      userError && userError.message ?
-                        <div className="">
-                            <div className="bs-component">
-                                <div className="alert alert-dismissible alert-danger">
-                                    <p className="text-center">
-                                        {userError.message}
-                                    </p>
-                                </div>
-                            </div>
-                        </div> : <div />
-                    }
-
-                {/* ----------------------- */}
-                {/* ------ User List ------ */}
-                {/* ----------------------- */}
-                <div className="card-container container bounceInUp animated">
-                    {usersList.allIds.map((item, key) => this.renderUsersCard(item, key) )}
+                <div className="gradient-header">
+                    {this.renderFormComponent()}
                 </div>
 
-                <style jsx global>{`
-                        #user-card{
-                            cursor: pointer;
-                        }
-                        #user-card:hover{
-                            box-shadow: 3px 3px 7px #888;
-                        }
+                {/* -------------------------- */}
+                {/* -- User List Data Table -- */}
+                {/* -------------------------- */}
 
-                        #fh5co-home{
-                            height: 162px;
-                        }
-                        .card-container{
-                            margin-top: 15px;
-                            max-width: 580px;
-                            padding-bottom: 210px;
-                        }
-                        .card{
-                            margin: 10px;
-                            line-height: 1;
-                            box-shadow: 1px 1px 3px #888;
-                            padding: 10px;
-                        }
-                        .input-field{
-                            background-color: #f1f1f1;
-                            margin-right: 15px;
-                        }
-                        .user-add{
-                            margin-top: 50px;
-                        }
-                        .error-container{
-                            width: 250px;
-                        }
-                        .user-email{
-                            margin: 0px;
-                        }
-                        .margin-50{
-                            margin: 50px;
-                        }
-                        .btn-submit{
-                            padding-left: 22px;
-                        }
-                `}</style>
-
-
+                {this.renderUserListDataTable()}
+            
+                <ManageStyles />
             </div>
         )
     }
@@ -237,6 +222,34 @@ class Manage extends Component {
         });
 
         this.setState({email: '', password: ''});
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Disable user from logging in 
+     * -------------------------------------------------------------------------------- */
+    onUserDisabled(e, user){
+        e.stopPropagation();
+        const { userActions } = this.props;
+
+        confirmAlert({
+            title: 'Are you sure?',
+            message: `You are about to disable ${user.email}. Account will no longer be able to login.`,
+            buttons: [
+                {
+                    label: user.isDisabled ? 'Enable' : 'Disable',
+                    onClick: () => {
+                        userActions.itemIsDisabled({
+                            _id : user._id,
+                            isDisabled : !user.isDisabled,
+                        })
+                    }
+                },
+                {
+                    label: 'Cancel',
+                    onClick: () => {}
+                }
+            ]
+        });
     }
 
     /* ----------------------------------------------------------------------------------

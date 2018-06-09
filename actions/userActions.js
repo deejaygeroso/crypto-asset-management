@@ -19,6 +19,16 @@ export const itemListAppend = ({item}) => ({
     item,
 })
 
+/* ----------------------------------------------------------------------------------
+ * Patch a single item on the list. 
+ * -------------------------------------------------------------------------------- */
+export const itemListPatchItem = ({item}) => {
+      return{
+            type: ACTION_TYPES.ITEMLIST_PATCH_ITEM,
+            item
+      };
+}
+
 /*
  * remove an item from the list of users.
  */
@@ -156,6 +166,31 @@ export const itemRemove = ({_id}) => {
 }
 
 /* ----------------------------------------------------------------------------------
+ * Disable user form loggin in from the app.
+ * -------------------------------------------------------------------------------- */
+export const itemIsDisabled = ({_id, isDisabled}) => {
+    return async dispatch => {
+        try {
+            const res = await axios.post('/api/account/isDisabled', {_id, isDisabled});
+            dispatch(itemListPatchItem({item: res.data}));
+            if(isDisabled){
+                toasterSuccessMessage('User was disabled successfuly!');
+            }else{
+                toasterSuccessMessage('User account was enabled successfuly!');
+            }
+            
+        } catch (err) {
+            if(isDisabled){
+                toasterErrorMessage('Disable user account failed!');
+            }else{
+                toasterErrorMessage('Enable user account failed!');
+            }
+
+        }
+    }
+}
+
+/* ----------------------------------------------------------------------------------
  * User Login. 
  * -------------------------------------------------------------------------------- */
 export const login = ({params}) => {
@@ -173,7 +208,6 @@ export const login = ({params}) => {
             }
 
         } catch (err){
-            console.log('errrr', err )
             const payload = { message: 'Email/password does not match!' }
             dispatch(errorSet({payload}));
         }

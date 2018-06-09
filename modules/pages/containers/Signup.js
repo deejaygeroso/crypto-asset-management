@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import Signup from '../components/Signup';
 import * as userActions from '../../../actions/userActions';
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
     // user : state.user,
     // userError : state.userError,

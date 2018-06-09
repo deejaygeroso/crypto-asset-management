@@ -127,6 +127,22 @@ module.exports = function(app, router, auth){
           });
     })
 
+    /* ----------------------------------------------------------
+     * Disable/Enable account from logging in.
+     * -------------------------------------------------------- */
+    router.post('/account/isDisabled', (req, res)=>{
+        const { _id, isDisabled } = req.body;
+        UserModel.findById(_id, function(err, doc) {
+            if(err) return res.status(400).send({message: err});
+            
+            // soft delete user
+            doc['isDisabled'] = isDisabled;
+
+            doc.save();
+            res.send(doc)
+          });
+    })
+
     /* ----------------------------------------------------------------------------------
      * Portfolio Crud Routes. 
      * -------------------------------------------------------------------------------- */

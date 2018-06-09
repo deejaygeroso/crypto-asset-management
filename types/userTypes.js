@@ -15,5 +15,5 @@ export const ITEMLIST_SET     = `${NAME}_LIST_SET`;
 export const ITEMLIST_APPEND  = `${NAME}_LIST_APPEND`;
 export const ITEMLIST_COMPOSE = `${NAME}_LIST_COMPOSE`;
 export const ITEMLIST_CLEAR   = `${NAME}_LIST_CLEAR`;
-export const ITEMLIST_PATCH   = `${NAME}_LIST_PATCH`;
+export const ITEMLIST_PATCH_ITEM  = `${NAME}_LIST_PATCH_ITEM`;
 export const ITEMLIST_REMOVE  = `${NAME}_LIST_REMOVE`;

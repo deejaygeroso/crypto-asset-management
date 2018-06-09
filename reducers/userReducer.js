@@ -58,6 +58,14 @@ export const usersList = (state = initialUsersList, {type, payload, item}) => {
             const allIds = Array.prototype.concat([item._id], state.allIds)
             return Object.assign({}, state, { allIds, byId });
         }
+        /*
+         * Update item from users list data.
+         */
+        case ACTION_TYPES.ITEMLIST_PATCH_ITEM: {
+          const { byId } = state;
+          byId[item._id] = item;
+          return Object.assign({}, state, { byId });
+        }
         case ACTION_TYPES.ITEMLIST_REMOVE: {
             const { _id } = item;
 

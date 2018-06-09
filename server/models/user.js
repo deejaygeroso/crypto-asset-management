@@ -14,6 +14,7 @@ var UserSchema = new Schema({
     isDeleted   : { type : Boolean, default : false },
     isTrial     : { type : Boolean, default : true },
     isPremium   : { type : Boolean, default : false },
+    isDisabled  : { type : Boolean, default : false },
     created     : { type: Date, default: Date.now },
 }, { collection : 'users' });
 
