@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import HomeNavbar from '../../core/components/HomeNavbar';
-
 import Cookies from 'js-cookie';
 var Coinpayments = require('coinpayments');
 var client = new Coinpayments({
@@ -20,7 +18,6 @@ class Login extends Component {
             lastname: '',
             email: '',
             password: '',
-            toggleMobileViewNavbar : false,
             user: {},
             currency2: '',
         }
@@ -30,20 +27,21 @@ class Login extends Component {
     }
 
     componentDidMount() {
+        const { userActions } = this.props;
         // just fetch user based on stored cookie
         const userCookie = Cookies.get('user');
         if(userCookie){
             const user = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object
             this.setState({user});
-            // if(user && user._id){
-            //     if(user._id){
-            //         userActions.itemFind({
-            //             params: {
-            //                 _id: user._id
-            //             }
-            //         })
-            //     }
-            // }
+            if(user && user._id){
+                if(user._id){
+                    userActions.itemFind({
+                        params: {
+                            _id: user._id
+                        }
+                    })
+                }
+            }
         }
     }
 
@@ -52,16 +50,30 @@ class Login extends Component {
     }
 
     renderSignupForm(){
-        const { userError } = this.props;
+        const { user } = this.props;
         return(
-            <div className="login-page d-flex justify-content-center">
-               <div className="card card-container">
-                   {/*
-                       <img className="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" />
-                       <img id="profile-img" className="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-                  */}
-                    {/* <h1>Subscribe</h1> */}
-                    <h3>Select Coin as Payment</h3>
+            <div className="d-flex justify-content-center">
+               <div className="">
+                    <img className="coinpayments" src="/static/images/coinpayments.png" width="260"/>
+                    <div className="mt-15 mr-15 mb-15 ml-15">
+                        <div className="text-label premium">Premium<span className="premium-price">10.00 USD</span></div>
+                    </div>
+                    <div className="mt-15 mr-15 mb-15 ml-15">
+                        <div className="text-label">{user.email || "N/A"}</div>
+                    </div>
+                    <div className="row ml-0 mr-0 mb-40">
+                        <div className="col-md-6">
+                            <div className="text-label">
+                                {user.firstname || "N/A"}
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="text-label">
+                                {user.lastname || "N/A"}
+                            </div>
+                        </div>
+                    </div>
+                    <h3 className="coinpayment-select-payment-title">Select Coin as Payment</h3>
                     <form className="form-signin formField">
                         <div className="d-flex align-content-center flex-wrap justify-content-center">
                             {this.renderSelectCoin('BTC', 'Bitcoin')}
@@ -71,6 +83,9 @@ class Login extends Component {
                         </div>
                         <hr/>
                         <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-signin" type="button" >Subscribe</button>
+                        <div>
+                        <p>Upon pressing the Subscribe button you will be then given a link to coinpayments page for your transaction info.</p>
+                        </div>
                     </form>
                 </div>
              </div>
@@ -95,24 +110,11 @@ class Login extends Component {
     }
 
     render(){
-        const { toggleMobileViewNavbar } = this.state;
         return(
             <div>
-                    <HomeNavbar toggleMobileViewNavbar={toggleMobileViewNavbar} onToggle={()=>this.setState({toggleMobileViewNavbar: !toggleMobileViewNavbar})}/>
+                <div className="gradient-header"></div>
 
-                    <section id="fh5co-home" data-section="home" data-stellar-background-ratio="0.5">
-                        <div className="gradient"></div>
-                        <div className="container">
-                            <div className="text-wrap display-grid">
-                                <div className="margint-top-50">
-                                    <div className="col-md-8 col-md-offset-2">
-                                        {this.renderSignupForm()}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
+                {this.renderSignupForm()}
 
                 {this.renderStyles()}
             </div>
@@ -130,6 +132,7 @@ class Login extends Component {
     }
 
     onSubmit(evt){
+        evt.preventDefault();
         // const { userActions } = this.props;
         const { email, firstname, lastname, password, currency2 } = this.state;
         const options = {
@@ -140,21 +143,10 @@ class Login extends Component {
             amount: 10,
         }
 
-        // console.log('this.state.user', this.state.user)
-        client.convertCoins({
-            amount: 10,
-            from: "USD",
-            to: "BTC"
-          }, function (err, response) {
-              console.log('err', err)
-            console.log('response', response)
-          }) 
         // client.createTransaction(options ,function(err,result){
         //     console.log('err', err)
         //     console.log('result', result);
         // });
-
-        // evt.preventDefault();
 
         // if(email==='' || password===''){
         //     this.setState({password: ''});
@@ -178,59 +170,6 @@ class Login extends Component {
     renderStyles(){
         return(
             <style jsx global>{`
-                    #fh5co-home{
-                        height: 100vh;
-                    }
-                    .version-name{
-                        font-size: 10px;
-                        color: '#fff',
-                    }
-                    .card{
-                        padding: 30px;
-                        padding-bottom: 50px;
-                        margin-top: 50px;
-                        line-height: 1;
-                        background-color: #fff;
-                        box-shadow: 2px 2px 10px #888;
-                        margin-top: 210px;
-                        width: 580px;
-                    }
-                    .card-container{
-                        max-width: 800px;
-                    }
-                    .formField{
-                        margin-right: 15px;
-                    }
-                    .inputField{
-                      margin: 10px;
-                    }
-                    .inputField-password{
-                      margin-bottom: 10 !important;
-                    }
-                    .card-profile{
-                      background-color: 'black';
-                    }
-                    .btn{
-                      margin-left: 10px;
-                    }
-                    .password-label{
-                      font-size: 12px;
-                      pading: 0;
-                      margin: 0;
-                      margin-left: 14px;
-                      padding-bottom: 12px !important;
-                    }
-                    .display-grid{
-                        display: block !important;
-                    }
-                    .bs-component{
-                        margin-left: 10px;
-                        margin-right: -10px;
-                    }
-                    .bs-component > div {
-                        margin-bottom: 10px;
-                    }
-
                     .crypto-select{
                         margin: 2px;
                         width: 180px;
@@ -262,6 +201,27 @@ class Login extends Component {
                     .crypto-select-active > div > span{
                         color: #fff;
                     }
+                    .text-label{
+                        background-color: #fff;
+                        border: 1px solid #c7c2c2;
+                        border-radius: 6px;
+                        padding: 10px 15px;
+                    }
+                    .coinpayments{
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                        margin-top: 30px;
+                    }
+                    .coinpayment-select-payment-title{
+                        text-align: center;
+                    }
+                    .premium{
+                        font-weight: 600;
+                    }
+                    .premium-price{
+                        float: right;
+                    }
           `}</style>
         )
     }
@@ -269,6 +229,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+    user : PropTypes.object,
     userError : PropTypes.object,
     userActions : PropTypes.object,
 }

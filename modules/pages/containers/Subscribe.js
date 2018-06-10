@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import Subscribe from '../components/Subscribe';
 import * as userActions from '../../../actions/userActions';
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
-    // user : state.user,
+    user : state.user,
     // userError : state.userError,
   };
 }

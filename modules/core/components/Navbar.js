@@ -39,6 +39,8 @@ class Navbar extends Component{
                             {/*-- Mobile Toggle Menu Button --*/}
                             <a href="#" onClick={()=>this.setState({toggleMobileViewNavbar: !toggleMobileViewNavbar})} className="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
                          <Link prefetch href="/portfolio/list"><a className="navbar-brand" href="">BlockPSV</a></Link>
+                         <Link prefetch href="/subscribe"><a className="subscribe" href="">Subscribe Now!</a></Link>
+                         <div className="days-left">7 days left before trial expires! Upgrade Now.</div>
                         </div>
                         <div id="navbar" className={toggleMobileViewNavbar? "navbar-collapse collapse in" : "navbar-collapse collapse"}>
                           <ul className="nav navbar-nav navbar-right">
@@ -54,6 +56,28 @@ class Navbar extends Component{
                     <style jsx global>{`
                         .active-link{
                             color: #52d3aa !important;
+                        }
+                        .subscribe{
+                            background: #f0ad4e;
+                            padding: 4px 15px;
+                            margin-top: 9px;
+                            float: left;
+                            display: block;
+                            border-radius: 20px;
+                            color: #fff !important;
+                            text-decoration: none !important;
+                        }
+                        .subscribe:hover{
+                            text-decoration: none;
+                            color: #fff;
+                            background-color: #f69b1b;
+                        }
+                        .days-left{
+                            float: left;
+                            margin-top: 16px;
+                            margin-left: 10px;
+                            font-size: 16px;
+                            color: #ff4503;
                         }
                     `}</style>
                 </header>
