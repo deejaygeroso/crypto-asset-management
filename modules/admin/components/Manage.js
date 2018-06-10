@@ -141,10 +141,10 @@ class Manage extends Component {
                                     {usersList.byId[_id].lastname}
                                 </td>
                                 <td scope="col">
-                                    {usersList.byId[_id].isTrial ? <span>Trial</span> : <span>Expired</span>}
+                                    {usersList.byId[_id].isTrial ? <span className="color-info">Trial</span> : <span className="color-danger">Expired</span>}
                                 </td>
                                 <td scope="col">
-                                    {usersList.byId[_id].isPremium ? <span>Premium</span> : <span>Expired</span>}
+                                    {usersList.byId[_id].isPremium ? <span className="color-success">Premium</span> : <span className="color-danger">Expired</span>}
                                 </td>
                                 <td scope="col">
                                     <button className="btn btn-info    btn-action" onClick={()=>this.gotoUserPortfolio(_id)}>View</button>

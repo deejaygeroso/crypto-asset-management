@@ -45,6 +45,15 @@ const ManageStyles = () => (
     .btn-action{
         margin-left:5px;
     }
+    .color-danger{
+        color: #d9534f;
+    }
+    .color-success{
+        color: #5cb85c;
+    }
+    .color-info{
+        color: #5bc0de;
+    }
 `}</style>
 )
 
