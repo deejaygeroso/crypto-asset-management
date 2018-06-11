@@ -27,7 +27,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        const { userActions } = this.props;
+        const { userActions, itemActions } = this.props;
         // just fetch user based on stored cookie
         const userCookie = Cookies.get('user');
         if(userCookie){
@@ -39,7 +39,7 @@ class Login extends Component {
                         params: {
                             _id: user._id
                         }
-                    })
+                    });
                 }
             }
         }
@@ -56,7 +56,7 @@ class Login extends Component {
                <div className="">
                     <img className="coinpayments" src="/static/images/coinpayments.png" width="260"/>
                     <div className="mt-15 mr-15 mb-15 ml-15">
-                        <div className="text-label premium">Premium<span className="premium-price">10.00 USD</span></div>
+                        <div className="text-label premium">Premium<span className="premium-price">4.99 USD</span></div>
                     </div>
                     <div className="mt-15 mr-15 mb-15 ml-15">
                         <div className="text-label">{user.email || "N/A"}</div>
@@ -78,8 +78,9 @@ class Login extends Component {
                         <div className="d-flex align-content-center flex-wrap justify-content-center">
                             {this.renderSelectCoin('BTC', 'Bitcoin')}
                             {this.renderSelectCoin('ETH', 'Etherium')}
-                            {this.renderSelectCoin('LTC', 'Litecoin')}
-                            {this.renderSelectCoin('XRP', 'Ripple')}
+                            {this.renderSelectCoin('DASH', 'Dash')}
+                            {/* {this.renderSelectCoin('LTC', 'Litecoin')} */}
+                            {/* {this.renderSelectCoin('XRP', 'Ripple')} */}
                         </div>
                         <hr/>
                         <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-signin" type="button" >Subscribe</button>
@@ -109,12 +110,38 @@ class Login extends Component {
         )
     }
 
+    renderUserTransaction(){
+        const { user, transaction } = this.props;
+        return(
+            <div className="d-flex justify-content-center">
+                <div className="d-flex flex-column align-items-center justify-content-center">
+                    <img className="coinpayments" src="/static/images/coinpayments.png" width="260"/>
+                    <hr/>
+                    <p>Please pay your subscription fees before your transaction time runs out.</p>
+                    <a href={transaction.qrcode_url} target="_blank">QR Code</a>
+                    <a href={transaction.status_url} target="_blank">Transaction Status</a>
+                </div>
+            </div>
+        )
+    }
+
     render(){
+        const { user, transaction } = this.props;
+        if(!(user && user._id)){
+            return(
+                <div>
+                   <div className="gradient-header"></div>
+                   loading
+                </div>
+            )
+        }
+
         return(
             <div>
                 <div className="gradient-header"></div>
-
-                {this.renderSignupForm()}
+                
+                {/* must fix the glitch on ui later */}
+                { user && user.txn_id && transaction && transaction._id ? this.renderUserTransaction() : this.renderSignupForm() }
 
                 {this.renderStyles()}
             </div>
@@ -133,20 +160,48 @@ class Login extends Component {
 
     onSubmit(evt){
         evt.preventDefault();
-        // const { userActions } = this.props;
+        const { user, userActions, itemActions } = this.props;
         const { email, firstname, lastname, password, currency2 } = this.state;
         const options = {
             buyer_email: email,
             buyer_name: `${firstname} ${lastname}`,
             currency1: 'USD',
             currency2: currency2,
-            amount: 10,
+            amount: 4.99,
         }
 
-        // client.createTransaction(options ,function(err,result){
+        // client.createTransaction(options ,(err,result) => {
         //     console.log('err', err)
         //     console.log('result', result);
         // });
+
+        // client.getTx(user.txn_id, function(err,result){
+        //     console.log('gtext', result);
+        //   });
+          client.getTxMulti([user.txn_id], function (err, response) {
+            console.log('mlu', response)
+          })
+
+        // itemActions.apiCallCreate({
+        //     serviceName: 'transaction',
+        //     item: {
+        //         user_id : user._id,
+        //         address: "XiReTg32TqZMTS7F5Zw7kaK3FhovLN6yMu",
+        //         amount : "0.01839513",
+        //         confirms_needed : "3",
+        //         qrcode_url : "https://www.coinpayments.net/qrgen.php?id=CPCF7FXEMBM8GQH9J9OS5RYMYX&key=077116414b0357be03f9087649a34f8a",
+        //         status_url : "https://www.coinpayments.net/index.php?cmd=status&id=CPCF7FXEMBM8GQH9J9OS5RYMYX&key=077116414b0357be03f9087649a34f8a",
+        //         timeout : 7200,
+        //         txn_id : "CPCF7FXEMBM8GQH9J9OS5RYMYX",
+        //     }
+        // })
+
+        // userActions.itemUpdate({
+        //     params: {
+        //         _id: user._id,
+        //         txn_id : "CPCF7FXEMBM8GQH9J9OS5RYMYX",
+        //     }
+        // })
 
         // if(email==='' || password===''){
         //     this.setState({password: ''});
@@ -230,8 +285,8 @@ class Login extends Component {
 
 Login.propTypes = {
     user : PropTypes.object,
-    userError : PropTypes.object,
     userActions : PropTypes.object,
+    itemActions : PropTypes.object,
 }
 
 export default Login;

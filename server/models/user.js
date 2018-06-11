@@ -8,6 +8,7 @@ var UserSchema = new Schema({
     name        : { type : String },
     firstname   : { type : String },
     lastname    : { type : String },
+    txn_id      : { type : String },
     email       : { type : String, required : true, index: { unique: true } },
     password    : { type : String, required : false },
     isAdmin     : { type : Boolean, default : false },

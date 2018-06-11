@@ -2,6 +2,7 @@ import Router from 'next/router';
 import axios from 'axios';
 import * as ACTION_TYPES from '../types/userTypes';
 import { toasterSuccessMessage, toasterErrorMessage } from '../modules/lib/helpers';
+import * as itemActions from './itemActions';
 
 /*
  * set the list of data for the user
@@ -107,8 +108,19 @@ export const itemFind = ({params}) => {
     return async dispatch => {
         try {
             const res = await axios.post('/api/account/find', {_id});
-            dispatch(itemSet({payload: res.data}));
+            const user = res.data;
+            dispatch(itemSet({payload: user}));
             dispatch(errorClear());
+
+            // get the transaction information if user has not subscribed yet or request payment on coinpayments
+            if(user.txn_id){
+                dispatch(itemActions.apiCallFindByQuery({
+                    serviceName: 'transaction',
+                    item: {
+                        txn_id : user.txn_id,
+                    }
+                }));
+            }
 
         } catch (err) {
             toasterErrorMessage('Unable to find user!');

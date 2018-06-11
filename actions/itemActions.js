@@ -89,3 +89,18 @@ export const apiCallUpdate = ({serviceName, item}) => {
             }
       }
 }
+
+/* ----------------------------------------------------------------------------------
+ * Find One
+ * -------------------------------------------------------------------------------- */
+export const apiCallFindByQuery = ({serviceName, item}) => {
+      return async dispatch => {
+            try {
+                  const res = await axios.post(`/api/${serviceName.toLowerCase()}/find/query`, item);
+                  dispatch(set({serviceName, item: res.data[0]}));
+            } catch (error) {
+                  toasterErrorMessage(`Unable to fetch all ${serviceName}!`);
+            }
+      }
+}
+

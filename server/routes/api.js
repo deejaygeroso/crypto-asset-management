@@ -2,6 +2,7 @@ const UserModel = require('../models/user');
 const CryptoHistoryModel = require('../models/cryptoHistory');
 const PortfolioModel = require('../models/portfolio');
 const LinkModel = require('../models/link');
+const TransactionModel = require('../models/transaction');
 const ObjectId = require('mongoose').Types.ObjectId;
 const item = require('./item');
 
@@ -29,9 +30,9 @@ module.exports = function(app, router, auth){
         });
     })
 
-    /* ----------------------------------------------------------------------------------
+    /* ==================================================================================
      * Account Crud Routes. 
-     * -------------------------------------------------------------------------------- */
+     * ================================================================================ */
     const accountRoute = item(app, router, 'account', UserModel)
     accountRoute.find();
     accountRoute.update();
@@ -143,9 +144,9 @@ module.exports = function(app, router, auth){
           });
     })
 
-    /* ----------------------------------------------------------------------------------
+    /* ==================================================================================
      * Portfolio Crud Routes. 
-     * -------------------------------------------------------------------------------- */
+     * ================================================================================ */
     const portfolioRoute = item(app, router, 'portfolio', PortfolioModel)
     portfolioRoute.find();
     portfolioRoute.create();
@@ -163,9 +164,9 @@ module.exports = function(app, router, auth){
         });
     })
 
-    /* ----------------------------------------------------------------------------------
+    /* ==================================================================================
      * Link Crud Routes. 
-     * -------------------------------------------------------------------------------- */
+     * ================================================================================ */
     const linkRoute = item(app, router, 'link', LinkModel)
     linkRoute.findAll();
     linkRoute.findByQuery();
@@ -173,10 +174,16 @@ module.exports = function(app, router, auth){
     linkRoute.update();
     linkRoute.remove();
 
-    /* ----------------------------------------------------------------------------------
+    /* ==================================================================================
      * Crypto Charts Crud Routes. 
-     * -------------------------------------------------------------------------------- */
+     * ================================================================================ */
     const cryptosRoute = item(app, router, 'cryptos', CryptoHistoryModel)
     cryptosRoute.findByQuery();
 
+    /* ==================================================================================
+     * Transaction
+     * ================================================================================ */
+    const transactionRoute = item(app, router, 'transaction', TransactionModel)
+    transactionRoute.findByQuery();
+    transactionRoute.create();
 };

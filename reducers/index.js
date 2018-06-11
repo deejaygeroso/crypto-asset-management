@@ -31,4 +31,7 @@ export default combineReducers({
     link     : itemInit('link'),
     linkList : itemListInit('link'),
     cryptoChartsList,
+
+    transaction     : itemInit('transaction'),
+    transactionList : itemListInit('transaction'),
 });
