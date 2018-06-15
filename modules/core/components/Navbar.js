@@ -18,6 +18,11 @@ class Navbar extends Component{
         this.countDaysLeftFromNow = this.countDaysLeftFromNow.bind(this);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Get the currently logged in users information from the backend 
+     * Note: must double check pages whether to remove userActions.itemFind()
+     * Might delete setState({user}) here later. Need to double check this code.
+     * -------------------------------------------------------------------------------- */
     componentDidMount(){
         const { userActions } = this.props;
         const userCookie = Cookies.get('user');
@@ -148,6 +153,9 @@ class Navbar extends Component{
         );
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Count number of days from now from a given input date
+     * -------------------------------------------------------------------------------- */
     countDaysLeftFromNow(date){
         var a = moment(date);
         var b = moment(new Date());
@@ -155,6 +163,9 @@ class Navbar extends Component{
         return diffInDays;
     }
 
+    /* ----------------------------------------------------------------------------------
+     * This is for knowing which navigation link is currently active 
+     * -------------------------------------------------------------------------------- */
     getClassName(routeName){
         const routeNameSplit = Router.pathname.split('/')
         if(routeNameSplit[1]===routeName){
@@ -163,6 +174,9 @@ class Navbar extends Component{
         return "";
     }
 
+    /* ----------------------------------------------------------------------------------
+     * when a users logout from the app 
+     * -------------------------------------------------------------------------------- */
     userLogout(evt){
         evt.preventDefault();
         this.props.userActions.logout();
