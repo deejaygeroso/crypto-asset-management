@@ -27,12 +27,18 @@ class Navbar extends Component{
         const { userActions } = this.props;
         const userCookie = Cookies.get('user');
 
+        // get the routename for admin so you won't fetch admin's user info when doing admin actions
+        const routeNameSplit = Router.pathname.split('/')
+        const routeName = routeNameSplit[1];
+
         // if user has no cookie redirect to login
         if(!userCookie){
             Router.push('/login');
         }else{
             const user = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object
-            if(user && user._id){
+
+            // do not fetch user when an admin
+            if(user && user._id && routeName!=='admin'){
                 if(user._id){
                     userActions.itemFind({
                         params: {
