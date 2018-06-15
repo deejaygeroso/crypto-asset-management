@@ -18,22 +18,6 @@ class PortfolioView extends Component{
         const { userActions, cryptoIdsActions, coinmarketcapTicker } = this.props;
 
         cryptoIdsActions.itemSet({payload: coinmarketcapTicker});
-
-        // get users id on cookie then fetch portfolio of user from database
-        const userCookie = Cookies.get('user');
-        if(userCookie){
-            const user = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object
-            if(user && user._id){
-                if(user._id){
-                    userActions.itemFind({
-                        params: {
-                            _id : user._id
-                        },
-                    });
-                }
-            }
-        }
-
     }
 
     /* ----------------------------------------------------------------------------------

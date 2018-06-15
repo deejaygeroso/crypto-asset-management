@@ -15,7 +15,7 @@ class Portfolio extends Component{
      * Fetch user info and his/her portfolio
      * -------------------------------------------------------------------------------- */
     componentDidMount(){
-        const { userActions, portfolioActions, coinmarketcapTicker } = this.props;
+        const { portfolioActions, coinmarketcapTicker } = this.props;
 
         // get users id on cookie then fetch portfolio of user from database
         const userCookie = Cookies.get('user');
@@ -29,11 +29,6 @@ class Portfolio extends Component{
                         },
                         coinmarketcapTicker,
                     });
-                    userActions.itemFind({
-                        params: {
-                            _id: user._id,
-                        }
-                    })
                 }
             }
         }

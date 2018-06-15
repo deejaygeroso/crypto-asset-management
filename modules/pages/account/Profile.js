@@ -34,22 +34,7 @@ class Profile extends Component {
      * Find user then Update the fields of the form
      * -------------------------------------------------------------------------------- */
     componentDidMount(){
-        const { user, userActions } = this.props;
-
-        // just fetch user based on stored cookie
-        const userCookie = Cookies.get('user');
-        if(userCookie){
-            const user = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object
-            if(user && user._id){
-                if(user._id){
-                    userActions.itemFind({
-                        params: {
-                            _id: user._id
-                        }
-                    })
-                }
-            }
-        }
+        const { user } = this.props;
 
         this.setState({
             name       : user && user.name ? user.name : '',
