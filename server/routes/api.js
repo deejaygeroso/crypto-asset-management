@@ -52,11 +52,15 @@ module.exports = function(app, router, auth){
      * -------------------------------------------------------- */
     router.post('/account/register', (req, res)=>{
         const { firstname, lastname, email, password } = req.body;
+        var trialUntil = new Date();
+        var trialExpirationDay = 3; // expiration date for trial version accounts upon registering
+        trialUntil.setDate(trialUntil.getDate() + trialExpirationDay); 
         const userData = {
             firstname,
             lastname,
             email,
             password,
+            trialUntil,
             created: new Date(),
         }
 
@@ -96,14 +100,18 @@ module.exports = function(app, router, auth){
                     const token = auth.createUser(email, password)
                     const userCookie = { _id: docs._id, email, isLoggedIn: true }
 
+
                     // add isAdmin to cookie to true if user is Admin
-                    if(docs.isAdmin) userCookie['isAdmin'] = true;
+                    if(docs.isAdmin){
+                        userCookie['isAdmin'] = true;
+                    } 
 
                     // assign cookie
                     if(token){
                         res.cookie('id_token', token);
                         res.cookie('user', userCookie);
                     }
+
                     return res.send(docs);
                 }
                 if(!isMatch) return res.status(400).send({message: err});

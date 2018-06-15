@@ -1,24 +1,21 @@
+const Auth = require('../auth');
+
 module.exports = function(app, router){
-
-
     router.route('/list')
-        // not yet used
-        .get(function (req, res) {
-            const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
-            if(isLoggedIn){
-                return app.render(req, res, '/portfolio/list')
-            }
-            return app.render(req, res, '/login')
+        .get((req, res) => {
+            const { user } = req.cookies;
+            const urlSuccess = '/portfolio/list';
+            const urlRedirect = '/login';
+
+            Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
+
         })
-
-
     router.route('/add')
-        // not yet used
         .get(function (req, res) {
-            const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
-            if(isLoggedIn){
-                return app.render(req, res, '/portfolio/add')
-            }
-            return app.render(req, res, '/login')
+            const { user } = req.cookies;
+            const urlSuccess = '/portfolio/add';
+            const urlRedirect = '/login';
+
+            Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
         })
 }

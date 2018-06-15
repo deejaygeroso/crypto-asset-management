@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
+import moment from 'moment';
 
 class Navbar extends Component{
 
@@ -14,9 +15,11 @@ class Navbar extends Component{
         }
         this.userLogout = this.userLogout.bind(this);
         this.getClassName = this.getClassName.bind(this);
+        this.countDaysLeftFromNow = this.countDaysLeftFromNow.bind(this);
     }
 
     componentDidMount(){
+        const { userActions } = this.props;
         const userCookie = Cookies.get('user');
 
         // if user has no cookie redirect to login
@@ -24,10 +27,68 @@ class Navbar extends Component{
             Router.push('/login');
         }else{
             const user = JSON.parse(userCookie.slice(2)); // remove j: from the string then convert to object
+            if(user && user._id){
+                if(user._id){
+                    userActions.itemFind({
+                        params: {
+                            _id: user._id
+                        }
+                    })
+                }
+            }
             this.setState({user});
         }
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Render Subscrbe button if tral/premium account is about to expire on 7 days 
+     * -------------------------------------------------------------------------------- */
+    renderSubscribeButton(){
+        const { user } = this.props;
+        // if user is Admin
+        if(user && user.isAdmin){
+            return <div className="subscribe-hide"/> 
+        }
+        // if user account is trial
+        if(user && user.isPremium===1){
+            if(this.countDaysLeftFromNow(user.trialUntil)<7){
+                return <Link prefetch href="/subscribe"><a className="subscribe" href="">Subscribe Now!</a></Link>
+            }
+        }
+        // if user account is Premium
+        if(user && user.isPremium===2){
+            if(this.countDaysLeftFromNow(user.premiumUntil)<7){
+                return <Link prefetch href="/subscribe"><a className="subscribe" href="">Renew Subscription</a></Link>
+            }
+        }
+        return <div className="subscribe-hide"/> 
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Render days left before expiration 
+     * -------------------------------------------------------------------------------- */
+    renderExpirationDaysLeft(){
+        const { user } = this.props;
+        // if user is Admin
+        if(user && user.isAdmin){
+            return <div className="subscribe-hide"/> 
+        }
+        // if user account is trial
+        if(user && user.isPremium===1){
+            return <div className="days-left">Trial expires {moment(user.trialUntil).fromNow()}!</div>
+        }
+        // if user account is Premium
+        if(user && user.isPremium===2){
+            if(this.countDaysLeftFromNow(user.premiumUntil)<7){
+               return <div className="days-left">Premium account expires {moment(user.premiumUntil).fromNow()}!</div>
+            }
+        }
+        return <div className="subscribe-hide"/> 
+    }
+   
+    /* ----------------------------------------------------------------------------------
+     * Main Component. 
+     * -------------------------------------------------------------------------------- */
     render(){
         const { user, toggleMobileViewNavbar } = this.state;
         return(
@@ -39,8 +100,8 @@ class Navbar extends Component{
                             {/*-- Mobile Toggle Menu Button --*/}
                             <a href="#" onClick={()=>this.setState({toggleMobileViewNavbar: !toggleMobileViewNavbar})} className="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
                          <Link prefetch href="/portfolio/list"><a className="navbar-brand" href="">BlockPSV</a></Link>
-                         <Link prefetch href="/subscribe"><a className="subscribe" href="">Subscribe Now!</a></Link>
-                         <div className="days-left">7 days left before trial expires! Upgrade Now.</div>
+                         {this.renderSubscribeButton()}
+                         {this.renderExpirationDaysLeft()}
                         </div>
                         <div id="navbar" className={toggleMobileViewNavbar? "navbar-collapse collapse in" : "navbar-collapse collapse"}>
                           <ul className="nav navbar-nav navbar-right">
@@ -67,6 +128,9 @@ class Navbar extends Component{
                             color: #fff !important;
                             text-decoration: none !important;
                         }
+                        .subscribe-hide{
+                            float: left;
+                        }
                         .subscribe:hover{
                             text-decoration: none;
                             color: #fff;
@@ -84,6 +148,13 @@ class Navbar extends Component{
         );
     }
 
+    countDaysLeftFromNow(date){
+        var a = moment(date);
+        var b = moment(new Date());
+        var diffInDays = a.diff(b, 'days'); // 1 day
+        return diffInDays;
+    }
+
     getClassName(routeName){
         const routeNameSplit = Router.pathname.split('/')
         if(routeNameSplit[1]===routeName){
@@ -99,6 +170,7 @@ class Navbar extends Component{
 }
 
 Navbar.propTypes = {
+    user: PropTypes.object,
     userActions: PropTypes.object,
 }
 

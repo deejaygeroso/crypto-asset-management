@@ -4,19 +4,20 @@ const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 
 var UserSchema = new Schema({
-    crypto_ids  : [],
-    name        : { type : String },
-    firstname   : { type : String },
-    lastname    : { type : String },
-    txn_id      : { type : String },
-    email       : { type : String, required : true, index: { unique: true } },
-    password    : { type : String, required : false },
-    isAdmin     : { type : Boolean, default : false },
-    isDeleted   : { type : Boolean, default : false },
-    isTrial     : { type : Boolean, default : true },
-    isPremium   : { type : Boolean, default : false },
-    isDisabled  : { type : Boolean, default : false },
-    created     : { type: Date, default: Date.now },
+    crypto_ids   : [],
+    name         : { type : String },
+    firstname    : { type : String },
+    lastname     : { type : String },
+    txn_id       : { type : String },
+    email        : { type : String, required : true, index: { unique: true } },
+    password     : { type : String, required : false },
+    isAdmin      : { type : Boolean, default : false },
+    isDeleted    : { type : Boolean, default : false },
+    isPremium    : { type : Number, default : 1 }, // 0=expired 1=trial 2=premium
+    isDisabled   : { type : Boolean, default : false },
+    trialUntil   : { type: Date },
+    premiumUntil : { type: Date, default: null },
+    created      : { type: Date, default: Date.now },
 }, { collection : 'users' });
 
 UserSchema.pre('save', function(next) {

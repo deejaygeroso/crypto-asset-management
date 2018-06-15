@@ -214,8 +214,18 @@ export const login = ({params}) => {
             dispatch(itemSet({payload: res.data}));
 
             if(res.data.isAdmin){
+                // if user account is admin
                 Router.push('/admin/manage');
-            }else{
+            } else if(res.data.isDisabled){
+                const payload = { message: 'Account has been disabled by the admin.' }
+                dispatch(errorSet({payload}));
+                // if user account has been disabled
+                Router.push('/login');
+            } else if(res.data.isPremium===0){
+                // if user account is expired
+                Router.push('/subscribe');
+            } else{
+                // if user account is in Trial mode or is a Premium account
                 Router.push('/portfolio/list');
             }
 

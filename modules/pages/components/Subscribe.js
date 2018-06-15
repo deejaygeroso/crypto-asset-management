@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
+import { ToastContainer } from 'react-toastify';
+import { toasterErrorMessage } from '../../lib/helpers';
 
 import Cookies from 'js-cookie';
 var Coinpayments = require('coinpayments');
@@ -27,7 +30,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        const { userActions, itemActions } = this.props;
+        const { userActions } = this.props;
         // just fetch user based on stored cookie
         const userCookie = Cookies.get('user');
         if(userCookie){
@@ -111,7 +114,7 @@ class Login extends Component {
     }
 
     renderUserTransaction(){
-        const { user, transaction } = this.props;
+        const { transaction } = this.props;
         return(
             <div className="d-flex justify-content-center">
                 <div className="d-flex flex-column align-items-center justify-content-center">
@@ -120,6 +123,7 @@ class Login extends Component {
                     <p>Please pay your subscription fees before your transaction time runs out.</p>
                     <a href={transaction.qrcode_url} target="_blank">QR Code</a>
                     <a href={transaction.status_url} target="_blank">Transaction Status</a>
+                    <Link prefetch href="/portfolio/list"><a className="subscribe" href="">Go Back</a></Link>
                 </div>
             </div>
         )
@@ -139,6 +143,7 @@ class Login extends Component {
         return(
             <div>
                 <div className="gradient-header"></div>
+                <ToastContainer />
                 
                 {/* must fix the glitch on ui later */}
                 { user && user.txn_id && transaction && transaction._id ? this.renderUserTransaction() : this.renderSignupForm() }
@@ -161,7 +166,7 @@ class Login extends Component {
     onSubmit(evt){
         evt.preventDefault();
         const { user, userActions, itemActions } = this.props;
-        const { email, firstname, lastname, password, currency2 } = this.state;
+        const { email, firstname, lastname, currency2 } = this.state;
         const options = {
             buyer_email: email,
             buyer_name: `${firstname} ${lastname}`,
@@ -170,38 +175,25 @@ class Login extends Component {
             amount: 4.99,
         }
 
-        // client.createTransaction(options ,(err,result) => {
-        //     console.log('err', err)
-        //     console.log('result', result);
-        // });
+        if(currency2===''){
+            return toasterErrorMessage('You must select a coin for payment first!')
+        }
 
-        // client.getTx(user.txn_id, function(err,result){
-        //     console.log('gtext', result);
-        //   });
-          client.getTxMulti([user.txn_id], function (err, response) {
-            console.log('mlu', response)
-          })
-
-        // itemActions.apiCallCreate({
-        //     serviceName: 'transaction',
-        //     item: {
-        //         user_id : user._id,
-        //         address: "XiReTg32TqZMTS7F5Zw7kaK3FhovLN6yMu",
-        //         amount : "0.01839513",
-        //         confirms_needed : "3",
-        //         qrcode_url : "https://www.coinpayments.net/qrgen.php?id=CPCF7FXEMBM8GQH9J9OS5RYMYX&key=077116414b0357be03f9087649a34f8a",
-        //         status_url : "https://www.coinpayments.net/index.php?cmd=status&id=CPCF7FXEMBM8GQH9J9OS5RYMYX&key=077116414b0357be03f9087649a34f8a",
-        //         timeout : 7200,
-        //         txn_id : "CPCF7FXEMBM8GQH9J9OS5RYMYX",
-        //     }
-        // })
-
-        // userActions.itemUpdate({
-        //     params: {
-        //         _id: user._id,
-        //         txn_id : "CPCF7FXEMBM8GQH9J9OS5RYMYX",
-        //     }
-        // })
+        if(currency2){
+            client.createTransaction(options ,(err,result) => {
+                itemActions.apiCallCreate({
+                    serviceName: 'transaction',
+                    item: Object.assign({}, result, {user_id: user._id})
+                })
+    
+                userActions.itemUpdate({
+                    params: {
+                        _id: user._id,
+                        txn_id : result.txn_id,
+                    }
+                })
+            });
+        }
 
         // if(email==='' || password===''){
         //     this.setState({password: ''});
@@ -285,6 +277,7 @@ class Login extends Component {
 
 Login.propTypes = {
     user : PropTypes.object,
+    transaction : PropTypes.object,
     userActions : PropTypes.object,
     itemActions : PropTypes.object,
 }

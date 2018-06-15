@@ -1,14 +1,15 @@
-// var UserModel = require('../models/user');
+const Auth = require('../auth');
+
 module.exports = function(app, router){
 
     router.route('/profile')
-        // not yet used
         .get(function (req, res) {
-            const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
-            if(isLoggedIn){
-                return app.render(req, res, '/account/profile')
-            }
-            return app.render(req, res, '/login')
+            
+            const { user } = req.cookies;
+            const urlSuccess = '/account/profile';
+            const urlRedirect = '/login';
+
+            Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
         })
 
     router.post('/logout', (req, res)=>{
