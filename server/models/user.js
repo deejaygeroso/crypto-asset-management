@@ -3,6 +3,9 @@ var Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 
+/* ----------------------------------------------------------------------------------
+ * User Schema. Also named as an account on some code on the system. 
+ * -------------------------------------------------------------------------------- */
 var UserSchema = new Schema({
     crypto_ids   : [],
     name         : { type : String },
@@ -22,6 +25,9 @@ var UserSchema = new Schema({
     created      : { type: Date, default: Date.now },
 }, { collection : 'users' });
 
+/* ----------------------------------------------------------------------------------
+ * Before Save. 
+ * -------------------------------------------------------------------------------- */
 UserSchema.pre('save', function(next) {
     var user = this;
 
@@ -43,6 +49,9 @@ UserSchema.pre('save', function(next) {
     });
 });
 
+/* ----------------------------------------------------------------------------------
+ * Check for password if matched. 
+ * -------------------------------------------------------------------------------- */
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
         if (err) return cb(err);
@@ -50,4 +59,7 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
     });
 };
 
+/* ----------------------------------------------------------
+ * Exports
+ * -------------------------------------------------------- */
 module.exports = mongoose.model('User', UserSchema);

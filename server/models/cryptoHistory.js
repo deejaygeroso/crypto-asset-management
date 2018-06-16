@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+/* ----------------------------------------------------------------------------------
+ * CryptoHistory Schema. Basically this is used for getting historical data of coin. 
+ * -------------------------------------------------------------------------------- */
 var CryptoHistorySchema = new Schema({
     id                 : { type: String, },
     name               : { type: String, },
@@ -20,4 +23,7 @@ var CryptoHistorySchema = new Schema({
     created            : { type: Date, default: Date.now },
 }, { collection: 'cryptos' });
 
+/* ----------------------------------------------------------
+ * Exports
+ * -------------------------------------------------------- */
 module.exports = mongoose.model('Crypto', CryptoHistorySchema);

@@ -1,10 +1,10 @@
 
 module.exports = function(app, router, itemName, ItemModel){
     return {
+        /* ----------------------------------------------------------
+         * Find item by selected fields.
+         * -------------------------------------------------------- */
         find: () => {
-           /* ----------------------------------------------------------
-            * Find portfolio.
-            * -------------------------------------------------------- */
             router.post(`/${itemName}/find`, (req, res)=>{
                 const item = req.body;
 
@@ -19,10 +19,10 @@ module.exports = function(app, router, itemName, ItemModel){
                 });
             })
         },
+        /* ----------------------------------------------------------
+         * Find all.
+         * -------------------------------------------------------- */
         findAll : () => {
-           /* ----------------------------------------------------------
-            * find all cryptoIds used for crypto selection
-            * -------------------------------------------------------- */
            router.post(`/${itemName}/find/all`, (req, res)=>{
                ItemModel.find({}, (err, docs) => {
                    if(err) return res.status(400).send({message: err});
@@ -30,10 +30,10 @@ module.exports = function(app, router, itemName, ItemModel){
                 });
             })
         },
+        /* ----------------------------------------------------------
+         * Find by fields and have ability to sort, select & etc.
+         * -------------------------------------------------------- */
         findByQuery: () => {
-           /* ----------------------------------------------------------
-            * Find all coins of user for his/her portfolio
-            * -------------------------------------------------------- */
             router.post(`/${itemName}/find/query`, (req, res)=>{
                 const query = req.body;
                 ItemModel.find(query, (err, docs) => {
@@ -42,10 +42,10 @@ module.exports = function(app, router, itemName, ItemModel){
                 });
             }) 
         },
+        /* ----------------------------------------------------------
+         * Find list of item by user id.
+         * -------------------------------------------------------- */
         findAllUserId: () => {
-           /* ----------------------------------------------------------
-            * Find all coins of user for his/her portfolio
-            * -------------------------------------------------------- */
             router.post(`/${itemName}/find/all/user_id`, (req, res)=>{
                 const { user_id } = req.body;
                 ItemModel.find({user_id: new ObjectId(user_id)}, (err, docs) => {
@@ -54,10 +54,10 @@ module.exports = function(app, router, itemName, ItemModel){
                 });
             }) 
         },
+        /* ----------------------------------------------------------
+         * Create new item.
+         * -------------------------------------------------------- */
         create: () => {
-           /* ----------------------------------------------------------
-            * Add new coin to user's link
-            * -------------------------------------------------------- */
             router.post(`/${itemName}/create`, (req, res)=>{
                 const itemData = req.body;
 
@@ -71,6 +71,9 @@ module.exports = function(app, router, itemName, ItemModel){
                 });
             })
         },
+        /* ----------------------------------------------------------
+         * Create new list of items.
+         * -------------------------------------------------------- */
         createBulk: () => {
             router.post(`/${itemName}/create/bulk`, (req, res)=>{
                 const itemBulkData = req.body;
@@ -81,10 +84,10 @@ module.exports = function(app, router, itemName, ItemModel){
                   });
             })
         },
+        /* ----------------------------------------------------------
+         * Update an item by _id.
+         * -------------------------------------------------------- */
         update: () => {
-           /* ----------------------------------------------------------
-            * Update an existing portfolio
-            * -------------------------------------------------------- */
             router.post(`/${itemName}/update`, (req, res)=>{
                 const { _id } = req.body;
                 const itemData = req.body;
@@ -103,10 +106,10 @@ module.exports = function(app, router, itemName, ItemModel){
                 });
             })
         },
+        /* ----------------------------------------------------------------------------------
+         * Link remove an item by _id.
+         * -------------------------------------------------------------------------------- */
         remove: () => {
-           /* ----------------------------------------------------------------------------------
-            * Link remove 
-            * -------------------------------------------------------------------------------- */
             router.post(`/${itemName}/remove`, (req, res)=>{
                 const { _id } = req.body;
                 ItemModel.remove({ _id }, function (err) {

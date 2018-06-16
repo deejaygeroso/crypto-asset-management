@@ -12,12 +12,16 @@ module.exports = {
 
         UserModel.findOne({_id: user._id}, (err, docs) => {
             // if user account is disabled
+            if(docs && !docs.isVerified){
+               return app.render(req, res, '/account/verify')
+            }
+            // if user account is disabled
             if(docs && docs.isDisabled){
                return app.render(req, res, '/login')
             }
             // if user account is 0=expired
             if(docs && docs.isPremium===0){
-                return app.render(req, res, '/subscribe');
+                return app.render(req, res, '/account/subscribe');
             }
             // is user account is 1=trial, 2=premium
             if(docs && docs.isPremium>0){

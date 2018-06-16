@@ -2,6 +2,9 @@ const Auth = require('../auth');
 
 module.exports = function(app, router){
 
+    /* ----------------------------------------------------------------------------------
+     * /account/profile 
+     * -------------------------------------------------------------------------------- */
     router.route('/profile')
         .get(function (req, res) {
             
@@ -11,23 +14,45 @@ module.exports = function(app, router){
 
             Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
         })
-    // router.route('/subscribe')
-    //     // not yet used
-    //     .get(function (req, res) {
+    /* ----------------------------------------------------------------------------------
+     * /account/subscribe
+     * -------------------------------------------------------------------------------- */
+    router.route('/subscribe')
+        .get(function (req, res) {
 
-    //         // if user is not logged in
-    //         const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
-    //         if(!isLoggedIn){
-    //             return app.render(req, res, '/')
-    //         }
+            // if user is not logged in 
+            const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
+            if(!isLoggedIn){
+                return app.render(req, res, '/')
+            }
 
-    //         const { user } = req.cookies;
-    //         const urlSuccess = '/portfolio/list';
-    //         const urlRedirect = '/subscribe';
+            const { user } = req.cookies;
+            const urlSuccess = '/portfolio/list';
+            const urlRedirect = '/subscribe';
 
-    //         Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
-    //     })
+            Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
+        })
+    /* ----------------------------------------------------------------------------------
+     * /account/verify 
+     * -------------------------------------------------------------------------------- */
+    router.route('/verify')
+        .get(function (req, res) {
 
+            // if user is not logged in
+            const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
+            if(!isLoggedIn){
+                return app.render(req, res, '/')
+            }
+
+            const { user } = req.cookies;
+            const urlSuccess = '/portfolio/list';
+            const urlRedirect = '/subscribe';
+
+            Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
+        })
+    /* ----------------------------------------------------------------------------------
+     * /account/logout 
+     * -------------------------------------------------------------------------------- */
     router.post('/logout', (req, res)=>{
         res.clearCookie('id_token', {path: '/'})
         res.clearCookie('user', {path: '/'})
