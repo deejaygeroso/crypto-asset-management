@@ -12,7 +12,7 @@ var client = new Coinpayments({
     autoIpn: true,
 }); 
 
-class Login extends Component {
+class Subscribe extends Component {
 
     constructor(props) {
         super(props);
@@ -275,11 +275,11 @@ class Login extends Component {
 
 }
 
-Login.propTypes = {
+Subscribe.propTypes = {
     user : PropTypes.object,
     transaction : PropTypes.object,
     userActions : PropTypes.object,
     itemActions : PropTypes.object,
 }
 
-export default Login;
+export default Subscribe;

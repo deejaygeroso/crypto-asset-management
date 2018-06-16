@@ -42,7 +42,7 @@ app.prepare()
     require('./server/routes')(app, router, auth);
 
     server.use('/api', router);
-    require('./server/routes/api')(app, router, auth);
+    require('./server/api')(app, router, auth);
 
     server.use('/portfolio', router);
     require('./server/routes/portfolio')(app, router, auth);

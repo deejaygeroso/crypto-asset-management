@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Subscribe from '../account/Subscribe';
+import VerifyEmail from '../account/VerifyEmail';
 import * as userActions from '../../../actions/userActions';
 import * as itemActions from '../../../actions/itemActions';
 
@@ -18,4 +18,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Subscribe);
+export default connect(mapStateToProps, mapDispatchToProps)(VerifyEmail);

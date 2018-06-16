@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Navbar from '../../core/containers/Navbar';
 import { EmailInput, PasswordInput, TextInput } from '../../lib/forms';
 
-import Cookies from 'js-cookie';
 import { ToastContainer } from 'react-toastify';
 import { toasterErrorMessage } from '../../lib/helpers';
 

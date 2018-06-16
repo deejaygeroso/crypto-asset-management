@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
-import { initStore } from '../store';
+import { initStore } from '../../store';
 
-import Layout from '../modules/core/components/Layout';
-import Subscribe from '../modules/pages/containers/Subscribe'
+import Layout from '../../modules/core/components/Layout';
+import VerifyEmail from '../../modules/pages/containers/VerifyEmail'
 
 
 class LoginPage extends React.Component{
@@ -25,7 +25,7 @@ class LoginPage extends React.Component{
         return(
             <Provider store={this.store}>
                 <Layout>
-                    <Subscribe />
+                    <VerifyEmail />
                 </Layout>
             </Provider>
         )

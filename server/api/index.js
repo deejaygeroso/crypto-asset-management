@@ -3,8 +3,12 @@ const CryptoHistoryModel = require('../models/cryptoHistory');
 const PortfolioModel = require('../models/portfolio');
 const LinkModel = require('../models/link');
 const TransactionModel = require('../models/transaction');
+
+const item = require('../routes/item');
+const nodemailer = require('../services/nodemailer');
+
 const ObjectId = require('mongoose').Types.ObjectId;
-const item = require('./item');
+var uniqid = require('uniqid');
 
 module.exports = function(app, router, auth){
 
@@ -52,6 +56,7 @@ module.exports = function(app, router, auth){
      * -------------------------------------------------------- */
     router.post('/account/register', (req, res)=>{
         const { firstname, lastname, email, password } = req.body;
+        var verificationCode = uniqid();
         var trialUntil = new Date();
         var trialExpirationDay = 3; // expiration date for trial version accounts upon registering
         trialUntil.setDate(trialUntil.getDate() + trialExpirationDay); 
@@ -61,6 +66,7 @@ module.exports = function(app, router, auth){
             email,
             password,
             trialUntil,
+            verificationCode,
             created: new Date(),
         }
 
@@ -70,6 +76,7 @@ module.exports = function(app, router, auth){
         // save user to database
         newUser.save(function(err, user) {
             if(err) return res.status(400).send({message: err}); // if saving failed
+            nodemailer.emailVerification('blockpsv@gmail.com', verificationCode);
             res.send(user)
         });
     })
@@ -150,6 +157,23 @@ module.exports = function(app, router, auth){
             doc.save();
             res.send(doc)
           });
+    })
+
+    /* ----------------------------------------------------------------------------------
+     * Verify email through verification code 
+     * -------------------------------------------------------------------------------- */
+    router.post('/account/verifyEmail', (req, res)=>{
+        const { _id, verificationCode } = req.body;
+
+        UserModel.findById(_id, (err, docs) => {
+            if(err) return res.status(400).send({message: err});
+            if(verificationCode===docs.verificationCode){
+                docs.isVerified = true;
+                docs.save()
+                return res.send(docs)
+            }
+            res.status(400).send({message: 'Invalid verification code!'})
+        });
     })
 
     /* ==================================================================================

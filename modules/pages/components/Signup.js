@@ -18,6 +18,7 @@ class Login extends Component {
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.emailVerification = this.emailVerification.bind(this);
     }
 
     componentWillUnmount(){
@@ -98,6 +99,7 @@ class Login extends Component {
                             <div className="margint-top-50">
                                 <div className="col-md-8 col-md-offset-2">
                                     {this.renderSignupForm()}
+                                    <button onClick={this.emailVerification} className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Free Trial</button>
                                 </div>
                             </div>
                         </div>
@@ -151,6 +153,10 @@ class Login extends Component {
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
+    }
+
+    emailVerification(){
+        this.props.userActions.emailVerification();
     }
 
     renderStyles(){

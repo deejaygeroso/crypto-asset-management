@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import View from '../../portfolio/containers/View';
 
-import Cookies from 'js-cookie';
-
 class PortfolioView extends Component{
 
     constructor(props){
@@ -15,7 +13,7 @@ class PortfolioView extends Component{
      * Fetch user Info onload
      * -------------------------------------------------------------------------------- */
     componentDidMount(){
-        const { userActions, cryptoIdsActions, coinmarketcapTicker } = this.props;
+        const { cryptoIdsActions, coinmarketcapTicker } = this.props;
 
         cryptoIdsActions.itemSet({payload: coinmarketcapTicker});
     }

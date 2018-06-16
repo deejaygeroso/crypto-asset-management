@@ -203,6 +203,23 @@ export const itemIsDisabled = ({_id, isDisabled}) => {
 }
 
 /* ----------------------------------------------------------------------------------
+ * Used for updating personal user information 
+ * -------------------------------------------------------------------------------- */
+export const itemVerifyEmail = ({params}) => {
+    const {_id, verificationCode} = params;
+    return async () => {
+        try {
+            await axios.post('/api/account/verifyEmail', {_id, verificationCode});
+            Router.push('/portfolio/list');
+            
+        } catch (err) {
+            toasterErrorMessage('Invalid verification code!');
+
+        }
+    };
+}
+
+/* ----------------------------------------------------------------------------------
  * User Login. 
  * -------------------------------------------------------------------------------- */
 export const login = ({params}) => {
@@ -211,19 +228,22 @@ export const login = ({params}) => {
             dispatch(errorClear());
 
             const res = await axios.post('/api/account/login', params);
-            dispatch(itemSet({payload: res.data}));
+            const user = res.data;
+            dispatch(itemSet({payload: user}));
 
-            if(res.data.isAdmin){
+            if(user.isAdmin){
                 // if user account is admin
                 Router.push('/admin/manage');
-            } else if(res.data.isDisabled){
+            } else if(!user.isVerified){
+                Router.push('/account/verify');
+            } else if(user.isDisabled){
                 const payload = { message: 'Account has been disabled by the admin.' }
                 dispatch(errorSet({payload}));
                 // if user account has been disabled
                 Router.push('/login');
-            } else if(res.data.isPremium===0){
+            } else if(user.isPremium===0){
                 // if user account is expired
-                Router.push('/subscribe');
+                Router.push('/account/subscribe');
             } else{
                 // if user account is in Trial mode or is a Premium account
                 Router.push('/portfolio/list');

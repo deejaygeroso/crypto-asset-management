@@ -67,13 +67,13 @@ class Navbar extends Component{
         // if user account is trial
         if(user && user.isPremium===1){
             if(this.countDaysLeftFromNow(user.trialUntil)<7){
-                return <Link prefetch href="/subscribe"><a className="subscribe" href="">Subscribe Now!</a></Link>
+                return <Link prefetch href="/account/subscribe"><a className="subscribe" href="">Subscribe Now!</a></Link>
             }
         }
         // if user account is Premium
         if(user && user.isPremium===2){
             if(this.countDaysLeftFromNow(user.premiumUntil)<7){
-                return <Link prefetch href="/subscribe"><a className="subscribe" href="">Renew Subscription</a></Link>
+                return <Link prefetch href="/account/subscribe"><a className="subscribe" href="">Renew Subscription</a></Link>
             }
         }
         return <div className="subscribe-hide"/> 
