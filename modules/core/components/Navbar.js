@@ -56,8 +56,12 @@ class Navbar extends Component{
      * -------------------------------------------------------------------------------- */
     renderSubscribeButton(){
         const { user } = this.props;
+        const { router } = Router;
+
+        const routeNameSplit = router && router.pathname && router.pathname.split('/')
+        const routeName = routeNameSplit && routeNameSplit.length!==0 && routeNameSplit[1];
         // if user is Admin
-        if(user && user.isAdmin){
+        if( (user && user.isAdmin) || routeName==='admin'){
             return <div className="subscribe-hide"/> 
         }
         // if user account is trial
@@ -80,8 +84,12 @@ class Navbar extends Component{
      * -------------------------------------------------------------------------------- */
     renderExpirationDaysLeft(){
         const { user } = this.props;
+        const { router } = Router;
+
+        const routeNameSplit = router && router.pathname && router.pathname.split('/')
+        const routeName = routeNameSplit && routeNameSplit.length!==0 && routeNameSplit[1];
         // if user is Admin
-        if(user && user.isAdmin){
+        if( (user && user.isAdmin) || routeName==='admin'){
             return <div className="subscribe-hide"/> 
         }
         // if user account is trial
