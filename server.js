@@ -6,16 +6,22 @@ const next = require('next');
 const cookieParser = require('cookie-parser');
 const AuthService = require('./server/services/auth');
 const auth = new AuthService();
-const compression = require('compression')
-const config = require('./config');
+const compression = require('compression');
+require('dotenv').config();
 
 const dev = process.env.NODE_ENV !== 'production';
-const PORT = dev ? 3000 : config.PORT;
+const PORT = dev ? 3000 : process.env.PORT;
 
+/* ----------------------------------------------------------------------------------
+ * NextJS initialization 
+ * -------------------------------------------------------------------------------- */
 const app = next({ dev });
-
 const handle = app.getRequestHandler();
-mongoose.connect(config.MONGO_URL);
+
+/* ----------------------------------------------------------------------------------
+ * Mongo Setup 
+ * -------------------------------------------------------------------------------- */
+mongoose.connect(process.env.MONGO_URL);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 

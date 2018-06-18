@@ -8,6 +8,7 @@ module.exports = function(app, router){
     router.route('/')
         .get(function (req, res) {
 
+            console.log('process.env', process.env)
             // if user is not logged in
             const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
             if(!isLoggedIn){

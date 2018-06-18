@@ -10,14 +10,14 @@ module.exports = {
             let transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: 'deejaygeroso@gmail.com',
-                    pass: 'bv4sp83z',
+                    user: process.env.EMAIL,
+                    pass: process.env.EMAIL_PASSWORD,
                 }
             });
 
             // setup email data with unicode symbols
             let mailOptions = {
-                from: '"blockpsv.com" deejaygeroso@gmail.com', // sender address
+                from: `"${process.env.APP_DOMAIN_NAME}" ${process.env.EMAIL}`, // sender address
                 to: email, // list of receivers
                 subject: 'Email Verification', // Subject line
                 text: 'Hello world?', // plain text body
