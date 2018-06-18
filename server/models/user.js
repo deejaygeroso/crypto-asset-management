@@ -20,7 +20,6 @@ var UserSchema = new Schema({
     isPremium    : { type : Number, default : 1 }, // 0=expired 1=trial 2=premium
     isDisabled   : { type : Boolean, default : false },
     isVerified   : { type : Boolean, default : false },
-    trialUntil   : { type: Date },
     premiumUntil : { type: Date, default: null },
     created      : { type: Date, default: Date.now },
 }, { collection : 'users' });

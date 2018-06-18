@@ -130,7 +130,6 @@ class Manage extends Component {
      * Returns how many days left an account will be on expiration date.
      * -------------------------------------------------------------------------------- */
     renderExpirationDate(user){
-
         switch (user.isPremium) {
             case 2:
                 if(this.countDaysLeftFromNow(user.premiumUntil)<=0){
@@ -138,10 +137,10 @@ class Manage extends Component {
                 }
                 return <span className="color-success">{moment(user.premiumUntil).fromNow()}</span> 
             case 1:
-                if(this.countDaysLeftFromNow(user.trialUntil)<=0){
-                    return <span className="color-danger">{moment(user.trialUntil).fromNow()}</span> 
+                if(this.countDaysLeftFromNow(user.premiumUntil)<=0){
+                    return <span className="color-danger">{moment(user.premiumUntil).fromNow()}</span> 
                 }
-                return <span className="color-info">{moment(user.trialUntil).fromNow()}</span> 
+                return <span className="color-info">{moment(user.premiumUntil).fromNow()}</span> 
             case 0:
                 return <span className="color-danger">Expired</span> 
             default:
@@ -232,7 +231,7 @@ class Manage extends Component {
      * Count number of days from now from a given input date
      * -------------------------------------------------------------------------------- */
     countDaysLeftFromNow(date){
-        var a = moment(date);
+        var a = moment(new Date(date));
         var b = moment(new Date());
         var diffInDays = a.diff(b, 'days'); // 1 day
         return diffInDays;

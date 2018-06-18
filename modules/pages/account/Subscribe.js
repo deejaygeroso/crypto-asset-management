@@ -82,6 +82,7 @@ class Subscribe extends Component {
                             {this.renderSelectCoin('BTC', 'Bitcoin')}
                             {this.renderSelectCoin('ETH', 'Etherium')}
                             {this.renderSelectCoin('DASH', 'Dash')}
+                            {this.renderSelectCoin('LTCT', 'Litecoin Testnet')}
                             {/* {this.renderSelectCoin('LTC', 'Litecoin')} */}
                             {/* {this.renderSelectCoin('XRP', 'Ripple')} */}
                         </div>
@@ -96,6 +97,9 @@ class Subscribe extends Component {
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Show selectable coins 
+     * -------------------------------------------------------------------------------- */
     renderSelectCoin(symbol, name){
         const { currency2 } = this.state;
         let classNameForSelectCoin = `crypto-select d-flex align-items-center`;
@@ -113,6 +117,9 @@ class Subscribe extends Component {
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Render Transaction Links. 
+     * -------------------------------------------------------------------------------- */
     renderUserTransaction(){
         const { transaction } = this.props;
         return(
@@ -129,6 +136,9 @@ class Subscribe extends Component {
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Component.
+     * -------------------------------------------------------------------------------- */
     render(){
         const { user, transaction } = this.props;
         if(!(user && user._id)){
@@ -153,16 +163,25 @@ class Subscribe extends Component {
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * When a currency is selected for payment.
+     * -------------------------------------------------------------------------------- */
     coinForPaymentSelected(currency2){
         this.setState({currency2})
     }
 
+    /* ----------------------------------------------------------------------------------
+     * When Data is change then update states. 
+     * -------------------------------------------------------------------------------- */
     onChange(key, value){
         let inputData = []
         inputData[key] = value;
         this.setState(inputData);
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Submit subscription payment to coinpayments. 
+     * -------------------------------------------------------------------------------- */
     onSubmit(evt){
         evt.preventDefault();
         const { user, userActions, itemActions } = this.props;
@@ -214,6 +233,9 @@ class Subscribe extends Component {
 
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Styles for this compoent. 
+     * -------------------------------------------------------------------------------- */
     renderStyles(){
         return(
             <style jsx global>{`

@@ -6,7 +6,6 @@ import * as userActions from '../../../actions/userActions';
 function mapStateToProps() {
   return {
     // user : state.user,
-    // userError : state.userError,
   };
 }
 

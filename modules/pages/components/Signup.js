@@ -18,15 +18,12 @@ class Login extends Component {
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.emailVerification = this.emailVerification.bind(this);
     }
 
-    componentWillUnmount(){
-        this.props.userActions.errorClear()
-    }
-
+    /* ----------------------------------------------------------------------------------
+     * Sign up form. 
+     * -------------------------------------------------------------------------------- */
     renderSignupForm(){
-        const { userError } = this.props;
         return(
             <div className="login-page d-flex justify-content-center">
                <div className="card card-container">
@@ -36,15 +33,6 @@ class Login extends Component {
                   */}
                     <h1>Sign Up</h1>
                     <form className="form-signin formField">
-                        {
-                          userError && userError.message ?
-                            <div className="bs-component">
-                                <div className="alert alert-dismissible alert-danger">
-                                    {userError.message}
-                                </div>
-                            </div>
-                            : <div />
-                        }
                         <span id="reauth-email" className="reauth-email"></span>
                         <input
                              type="text"
@@ -85,6 +73,9 @@ class Login extends Component {
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * Main Component. 
+     * -------------------------------------------------------------------------------- */
     render(){
         const { toggleMobileViewNavbar } = this.state;
         return(
@@ -99,7 +90,6 @@ class Login extends Component {
                             <div className="margint-top-50">
                                 <div className="col-md-8 col-md-offset-2">
                                     {this.renderSignupForm()}
-                                    <button onClick={this.emailVerification} className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Free Trial</button>
                                 </div>
                             </div>
                         </div>
@@ -112,6 +102,9 @@ class Login extends Component {
         )
     }
 
+    /* ----------------------------------------------------------------------------------
+     * When data is change update the state. 
+     * -------------------------------------------------------------------------------- */
     onChange(key, value){
         let inputData = []
         inputData[key] = value;
@@ -155,10 +148,9 @@ class Login extends Component {
         return re.test(String(email).toLowerCase());
     }
 
-    emailVerification(){
-        this.props.userActions.emailVerification();
-    }
-
+    /* ----------------------------------------------------------------------------------
+     * Styles for this component 
+     * -------------------------------------------------------------------------------- */
     renderStyles(){
         return(
             <style jsx global>{`
@@ -221,7 +213,6 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-    userError : PropTypes.object,
     userActions : PropTypes.object,
 }
 

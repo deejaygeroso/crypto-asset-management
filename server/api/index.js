@@ -65,7 +65,7 @@ module.exports = function(app, router, auth){
             lastname,
             email,
             password,
-            trialUntil,
+            premiumUntil: trialUntil, // set trial date for trial accounts
             verificationCode,
             created: new Date(),
         }
