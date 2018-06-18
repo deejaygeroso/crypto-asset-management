@@ -8,7 +8,6 @@ module.exports = function(app, router){
     router.route('/')
         .get(function (req, res) {
 
-            console.log('process.env', process.env)
             // if user is not logged in
             const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
             if(!isLoggedIn){
@@ -18,7 +17,6 @@ module.exports = function(app, router){
             const { user } = req.cookies;
             const urlSuccess = '/portfolio/list';
             const urlRedirect = '/';
-
 
             Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
 

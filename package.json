@@ -4,7 +4,7 @@
   "description": "blockpsv - digital currency tracker",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon -w server.js -w server server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "lint": "eslint ."
