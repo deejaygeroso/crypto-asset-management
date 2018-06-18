@@ -205,6 +205,21 @@ export const itemIsDisabled = ({_id, isDisabled}) => {
 /* ----------------------------------------------------------------------------------
  * Used for updating personal user information 
  * -------------------------------------------------------------------------------- */
+export const itemActivatePremium = ({params}) => {
+    return async dispatch => {
+        try {
+            const res = await axios.post('/api/account/activatePremium', params);
+            dispatch(itemSet({payload: res.data}));
+            toasterSuccessMessage(`${params.email} is now Premium account.`);
+        } catch (err) {
+            toasterErrorMessage('Premium Activation Failed!');
+        }
+    };
+}
+
+/* ----------------------------------------------------------------------------------
+ * Used for updating personal user information 
+ * -------------------------------------------------------------------------------- */
 export const itemVerifyEmail = ({params}) => {
     const {_id, verificationCode} = params;
     return async () => {

@@ -176,6 +176,41 @@ module.exports = function(app, router, auth){
         });
     })
 
+   /* ----------------------------------------------------------
+    * Update an item by _id.
+    * -------------------------------------------------------- */
+    router.post('/account/activatePremium', (req, res)=>{
+        const { _id } = req.body;
+        const itemData = req.body;
+
+        UserModel.findById(_id, function(err, doc) {
+            if(err) return res.status(400).send({message: err});
+
+            // assign all the data to be saved/updated
+            const itemDataKeys = Object.keys(itemData);
+            itemDataKeys.map(data=>{
+                doc[data] = itemData[data];
+            })
+
+            // if account is already expired then assign new date for the current date
+            var currentDate = new Date();
+            var oldPremiumDate = new Date();
+
+            // if premiumUntil date is less than the current date then make the starting point date today
+            if(doc.premiumUntil.getTime()>currentDate.getTime()){
+                oldPremiumDate = doc.premiumUntil;
+            }
+            var newPremiumDate = oldPremiumDate.setMonth(oldPremiumDate.getMonth()+1);
+            
+            // set account as premium
+            doc['isPremium'] = 2;
+            doc.premiumUntil = new Date(newPremiumDate);
+
+            doc.save();
+            res.send(doc)
+        });
+    })
+
     /* ==================================================================================
      * Portfolio Crud Routes. 
      * ================================================================================ */

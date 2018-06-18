@@ -21,7 +21,7 @@ module.exports = {
                 to: email, // list of receivers
                 subject: 'Email Verification', // Subject line
                 text: 'Hello world?', // plain text body
-                html: `<div id="" class="">-----BEGIN PGP SIGNED MESSAGE-----<br> Hash: SHA256<br><br> Hello,<br> <br> This email contains your 2 Factor Authentication code to verify your email at blockpsv.com.<br> <br> Email: ${email}<br>Code: ${verificationCode}<br> This code is case sensitive!<br> Thank you,<br> blockpsv.com<br> Support is available at: <a href="https://www.blockpsv.com" rel="noreferrer" target="_blank">https://www.blockpsv.com </a> <br> <br> <br> -----BEGIN PGP SIGNATURE-----<br> <br> </div>`,
+                html: `<div id="" class="">-----BEGIN PGP SIGNED MESSAGE-----<br> Hash: SHA256<br><br> Hello,<br> <br> This email contains your 2 Factor Authentication code to verify your email at blockpsv.com.<br> <br> Email: ${email}<br>Code: <span style="color:green;">${verificationCode}</span><br><br> This code is case sensitive!<br><br> Thank you,<br> blockpsv.com<br> Support is available at: <a href="https://www.blockpsv.com" rel="noreferrer" target="_blank">https://www.blockpsv.com </a> <br> <br> <br> -----BEGIN PGP SIGNATURE-----<br> <br> </div>`,
             };
 
             // send mail with defined transport object

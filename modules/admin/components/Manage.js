@@ -25,6 +25,7 @@ class Manage extends Component {
         this.gotoUserPortfolio = this.gotoUserPortfolio.bind(this);
         this.onUserDelete = this.onUserDelete.bind(this);
         this.onUserDisabled = this.onUserDisabled.bind(this);
+        this.onUserActivatePremium = this.onUserActivatePremium.bind(this);
     }
 
     /* ----------------------------------------------------------------------------------
@@ -164,6 +165,7 @@ class Manage extends Component {
                             <th scope="col" rowSpan="2" className="">Last Name</th>
                             <th scope="col" rowSpan="2" className="">Is Premium</th>
                             <th scope="col" rowSpan="2" className="">Expiration</th>
+                            <th scope="col" rowSpan="2" className="">Activate Premium</th>
                             <th scope="col" rowSpan="2" className="">Actions</th>
                         </tr>
                     </thead>
@@ -184,6 +186,12 @@ class Manage extends Component {
                                 </td>
                                 <td scope="col">
                                     {this.renderExpirationDate(usersList.byId[_id])}
+                                </td>
+                                <td>
+                                    {
+                                        usersList.byId[_id].isPremium!==0 ? <span>- -</span> :
+                                        <button className="btn btn-success btn-action" onClick={(e)=>this.onUserActivatePremium(e, usersList.byId[_id])}>Activate</button>
+                                    }
                                 </td>
                                 <td scope="col">
                                     <button className="btn btn-info    btn-action" onClick={()=>this.gotoUserPortfolio(_id)}>View</button>
@@ -271,6 +279,17 @@ class Manage extends Component {
         });
 
         this.setState({email: '', password: ''});
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Activate User as Premium 
+     * -------------------------------------------------------------------------------- */
+    onUserActivatePremium(e, user){
+        e.preventDefault();
+        const { userActions } = this.props;
+        userActions.itemActivatePremium({
+            params: user,
+        })
     }
 
     /* ----------------------------------------------------------------------------------

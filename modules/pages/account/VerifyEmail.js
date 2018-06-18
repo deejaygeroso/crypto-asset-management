@@ -53,7 +53,9 @@ class VerifyEmail extends Component {
         return(
             <div className="login-page d-flex justify-content-center">
                 <div className="card card-container">
-                    <center><h1>Enter Verification Code</h1></center>
+                    <center><h1 className="title">Enter Verification Code</h1></center>
+                    <center><span className="note">Your account will expire within 3 days.</span></center>
+                    <center><span className="note">Verify your email now to use our app.</span></center>
                     <form className="form-signin formField">
                         <span id="reauth-email" className="reauth-email"></span>
                         <input
@@ -188,6 +190,14 @@ class VerifyEmail extends Component {
                 }
                 .bs-component > div {
                     margin-bottom: 10px;
+                }
+                .note{
+                    color: #000;
+                    text-align: center;
+                }
+                .title{
+                    margin: 0 0 15px 0;
+                    padding: 0;
                 }
           `}</style>
         )
