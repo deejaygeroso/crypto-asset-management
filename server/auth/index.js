@@ -2,7 +2,7 @@ const UserModel = require('../models/user');
 
 module.exports = {
     /* ----------------------------------------------------------------------------------
-     * Authenticate if user exist and is either premium or on trial mode 
+     * Authenticate if user exist, verified or disabled
      * redirect to urlSuccess if authenticated as admin
      * redirect to urlRedirect otherwise
      * -------------------------------------------------------------------------------- */
@@ -19,20 +19,11 @@ module.exports = {
             if(docs && docs.isDisabled){
                return app.render(req, res, '/login')
             }
-            // if user account is 0=expired
-            if(docs && docs.isPremium===0){
-                return app.render(req, res, '/account/subscribe');
-            }
-            // is user account is 1=trial, 2=premium
-            if(docs && docs.isPremium>0){
-                return app.render(req, res, urlSuccess)
-            }
             return app.render(req, res, urlRedirect)
         });
     },
     /* ----------------------------------------------------------------------------------
      * Authenticate and grant admin access to user. 
-     * Does not care whether premium/trial or not.
      * redirect to urlSuccess if authenticated as admin
      * redirect to urlRedirect otherwise
      * -------------------------------------------------------------------------------- */

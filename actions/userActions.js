@@ -2,7 +2,6 @@ import Router from 'next/router';
 import axios from 'axios';
 import * as ACTION_TYPES from '../types/userTypes';
 import { toasterSuccessMessage, toasterErrorMessage } from '../modules/lib/helpers';
-import * as itemActions from './itemActions';
 
 /*
  * set the list of data for the user
@@ -112,16 +111,6 @@ export const itemFind = ({params}) => {
             dispatch(itemSet({payload: user}));
             dispatch(errorClear());
 
-            // get the transaction information if user has not subscribed yet or request payment on coinpayments
-            if(user.txn_id){
-                dispatch(itemActions.apiCallFindByQuery({
-                    serviceName: 'transaction',
-                    item: {
-                        txn_id : user.txn_id,
-                    }
-                }));
-            }
-
         } catch (err) {
             toasterErrorMessage('Unable to find user!');
         }
@@ -205,21 +194,6 @@ export const itemIsDisabled = ({_id, isDisabled}) => {
 /* ----------------------------------------------------------------------------------
  * Used for updating personal user information 
  * -------------------------------------------------------------------------------- */
-export const itemActivatePremium = ({params}) => {
-    return async dispatch => {
-        try {
-            const res = await axios.post('/api/account/activatePremium', params);
-            dispatch(itemSet({payload: res.data}));
-            toasterSuccessMessage(`${params.email} is now Premium account.`);
-        } catch (err) {
-            toasterErrorMessage('Premium Activation Failed!');
-        }
-    };
-}
-
-/* ----------------------------------------------------------------------------------
- * Used for updating personal user information 
- * -------------------------------------------------------------------------------- */
 export const itemVerifyEmail = ({params}) => {
     const {_id, verificationCode} = params;
     return async () => {
@@ -256,11 +230,8 @@ export const login = ({params}) => {
                 dispatch(errorSet({payload}));
                 // if user account has been disabled
                 Router.push('/login');
-            } else if(user.isPremium===0){
-                // if user account is expired
-                Router.push('/account/subscribe');
-            } else{
-                // if user account is in Trial mode or is a Premium account
+            } else {
+                // if account is not disabled and is verifieda
                 Router.push('/portfolio/list');
             }
 

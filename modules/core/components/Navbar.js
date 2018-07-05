@@ -50,60 +50,6 @@ class Navbar extends Component{
             this.setState({user});
         }
     }
-
-    /* ----------------------------------------------------------------------------------
-     * Render Subscrbe button if tral/premium account is about to expire on 7 days 
-     * -------------------------------------------------------------------------------- */
-    renderSubscribeButton(){
-        const { user } = this.props;
-        const { router } = Router;
-
-        const routeNameSplit = router && router.pathname && router.pathname.split('/')
-        const routeName = routeNameSplit && routeNameSplit.length!==0 && routeNameSplit[1];
-        // if user is Admin
-        if( (user && user.isAdmin) || routeName==='admin'){
-            return <div className="subscribe-hide"/> 
-        }
-        // if user account is trial
-        if(user && user.isPremium===1){
-            if(this.countDaysLeftFromNow(user.premiumUntil)<7){
-                return <Link prefetch href="/account/subscribe"><a className="subscribe" href="">Subscribe Now!</a></Link>
-            }
-        }
-        // if user account is Premium
-        if(user && user.isPremium===2){
-            if(this.countDaysLeftFromNow(user.premiumUntil)<7){
-                return <Link prefetch href="/account/subscribe"><a className="subscribe" href="">Renew Subscription</a></Link>
-            }
-        }
-        return <div className="subscribe-hide"/> 
-    }
-
-    /* ----------------------------------------------------------------------------------
-     * Render days left before expiration 
-     * -------------------------------------------------------------------------------- */
-    renderExpirationDaysLeft(){
-        const { user } = this.props;
-        const { router } = Router;
-
-        const routeNameSplit = router && router.pathname && router.pathname.split('/')
-        const routeName = routeNameSplit && routeNameSplit.length!==0 && routeNameSplit[1];
-        // if user is Admin
-        if( (user && user.isAdmin) || routeName==='admin'){
-            return <div className="subscribe-hide"/> 
-        }
-        // if user account is trial
-        if(user && user.isPremium===1){
-            return <div className="days-left">Trial expires {moment(user.premiumUntil).fromNow()}!</div>
-        }
-        // if user account is Premium
-        if(user && user.isPremium===2){
-            if(this.countDaysLeftFromNow(user.premiumUntil)<7){
-               return <div className="days-left">Premium account expires {moment(user.premiumUntil).fromNow()}!</div>
-            }
-        }
-        return <div className="subscribe-hide"/> 
-    }
    
     /* ----------------------------------------------------------------------------------
      * Main Component. 
@@ -119,8 +65,6 @@ class Navbar extends Component{
                             {/*-- Mobile Toggle Menu Button --*/}
                             <a href="#" onClick={()=>this.setState({toggleMobileViewNavbar: !toggleMobileViewNavbar})} className="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
                          <Link prefetch href="/portfolio/list"><a className="navbar-brand" href="">BlockPSV</a></Link>
-                         {this.renderSubscribeButton()}
-                         {this.renderExpirationDaysLeft()}
                         </div>
                         <div id="navbar" className={toggleMobileViewNavbar? "navbar-collapse collapse in" : "navbar-collapse collapse"}>
                           <ul className="nav navbar-nav navbar-right">
@@ -136,24 +80,6 @@ class Navbar extends Component{
                     <style jsx global>{`
                         .active-link{
                             color: #52d3aa !important;
-                        }
-                        .subscribe{
-                            background: #f0ad4e;
-                            padding: 4px 15px;
-                            margin-top: 9px;
-                            float: left;
-                            display: block;
-                            border-radius: 20px;
-                            color: #fff !important;
-                            text-decoration: none !important;
-                        }
-                        .subscribe-hide{
-                            float: left;
-                        }
-                        .subscribe:hover{
-                            text-decoration: none;
-                            color: #fff;
-                            background-color: #f69b1b;
                         }
                         .days-left{
                             float: left;

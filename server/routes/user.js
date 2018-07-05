@@ -15,24 +15,6 @@ module.exports = function(app, router){
             Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
         })
     /* ----------------------------------------------------------------------------------
-     * /account/subscribe
-     * -------------------------------------------------------------------------------- */
-    router.route('/subscribe')
-        .get(function (req, res) {
-
-            // if user is not logged in 
-            const isLoggedIn = (req.cookies && req.cookies.user && req.cookies.user.isLoggedIn) || null;
-            if(!isLoggedIn){
-                return app.render(req, res, '/')
-            }
-
-            const { user } = req.cookies;
-            const urlSuccess = '/portfolio/list';
-            const urlRedirect = '/subscribe';
-
-            Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
-        })
-    /* ----------------------------------------------------------------------------------
      * /account/verify 
      * -------------------------------------------------------------------------------- */
     router.route('/verify')
@@ -46,7 +28,7 @@ module.exports = function(app, router){
 
             const { user } = req.cookies;
             const urlSuccess = '/portfolio/list';
-            const urlRedirect = '/subscribe';
+            const urlRedirect = '/account/verify'; // not sure about this
 
             Auth.userAccess(app, req, res, user, urlSuccess, urlRedirect);
         })

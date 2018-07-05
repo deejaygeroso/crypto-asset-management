@@ -11,16 +11,13 @@ var UserSchema = new Schema({
     name         : { type : String },
     firstname    : { type : String },
     lastname     : { type : String },
-    txn_id       : { type : String },
     verificationCode : { type : String },
     email        : { type : String, required : true, index: { unique: true } },
     password     : { type : String, required : false },
     isAdmin      : { type : Boolean, default : false },
     isDeleted    : { type : Boolean, default : false },
-    isPremium    : { type : Number, default : 1 }, // 0=expired 1=trial 2=premium
     isDisabled   : { type : Boolean, default : false },
     isVerified   : { type : Boolean, default : false },
-    premiumUntil : { type: Date, default: null },
     created      : { type: Date, default: Date.now },
 }, { collection : 'users' });
 

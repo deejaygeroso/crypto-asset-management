@@ -25,7 +25,6 @@ class Manage extends Component {
         this.gotoUserPortfolio = this.gotoUserPortfolio.bind(this);
         this.onUserDelete = this.onUserDelete.bind(this);
         this.onUserDisabled = this.onUserDisabled.bind(this);
-        this.onUserActivatePremium = this.onUserActivatePremium.bind(this);
     }
 
     /* ----------------------------------------------------------------------------------
@@ -112,45 +111,6 @@ class Manage extends Component {
     }
 
     /* ----------------------------------------------------------------------------------
-     * Returns Premium/Trial/Expired status of user's account 
-     * -------------------------------------------------------------------------------- */
-    renderIsPremium(isPremium){
-        switch (isPremium) {
-            case 2:
-                return <span className="color-success">Premium</span> 
-            case 1:
-                return <span className="color-info">Trial</span> 
-            case 0:
-                return <span className="color-danger">Expired</span> 
-            default:
-                return <span className="color-danger">Expired</span> 
-        }
-    }
-
-    /* ----------------------------------------------------------------------------------
-     * Returns how many days left an account will be on expiration date.
-     * -------------------------------------------------------------------------------- */
-    renderExpirationDate(user){
-        switch (user.isPremium) {
-            case 2:
-                if(this.countDaysLeftFromNow(user.premiumUntil)<=0){
-                    return <span className="color-danger">{moment(user.premiumUntil).fromNow()}</span> 
-                }
-                return <span className="color-success">{moment(user.premiumUntil).fromNow()}</span> 
-            case 1:
-                if(this.countDaysLeftFromNow(user.premiumUntil)<=0){
-                    return <span className="color-danger">{moment(user.premiumUntil).fromNow()}</span> 
-                }
-                return <span className="color-info">{moment(user.premiumUntil).fromNow()}</span> 
-            case 0:
-                return <span className="color-danger">Expired</span> 
-            default:
-                return <span className="color-danger">Expired</span> 
-        }
-    }
-
-
-    /* ----------------------------------------------------------------------------------
      * Render Data table for user list 
      * -------------------------------------------------------------------------------- */
     renderUserListDataTable(){
@@ -163,9 +123,6 @@ class Manage extends Component {
                             <th scope="col" rowSpan="2" className="">Email</th>
                             <th scope="col" rowSpan="2" className="">First Name</th>
                             <th scope="col" rowSpan="2" className="">Last Name</th>
-                            <th scope="col" rowSpan="2" className="">Is Premium</th>
-                            <th scope="col" rowSpan="2" className="">Expiration</th>
-                            <th scope="col" rowSpan="2" className="">Activate Premium</th>
                             <th scope="col" rowSpan="2" className="">Actions</th>
                         </tr>
                     </thead>
@@ -180,18 +137,6 @@ class Manage extends Component {
                                 </td>
                                 <td scope="col">
                                     {usersList.byId[_id].lastname}
-                                </td>
-                                <td scope="col">
-                                    {this.renderIsPremium(usersList.byId[_id].isPremium)}
-                                </td>
-                                <td scope="col">
-                                    {this.renderExpirationDate(usersList.byId[_id])}
-                                </td>
-                                <td>
-                                    {
-                                        usersList.byId[_id].isPremium!==0 ? <span>- -</span> :
-                                        <button className="btn btn-success btn-action" onClick={(e)=>this.onUserActivatePremium(e, usersList.byId[_id])}>Activate</button>
-                                    }
                                 </td>
                                 <td scope="col">
                                     <button className="btn btn-info    btn-action" onClick={()=>this.gotoUserPortfolio(_id)}>View</button>
@@ -279,17 +224,6 @@ class Manage extends Component {
         });
 
         this.setState({email: '', password: ''});
-    }
-
-    /* ----------------------------------------------------------------------------------
-     * Activate User as Premium 
-     * -------------------------------------------------------------------------------- */
-    onUserActivatePremium(e, user){
-        e.preventDefault();
-        const { userActions } = this.props;
-        userActions.itemActivatePremium({
-            params: user,
-        })
     }
 
     /* ----------------------------------------------------------------------------------

@@ -66,7 +66,7 @@ class Login extends Component {
                              value={this.state.password}
                              required
                              onChange={(evt)=>this.onChange('password', evt.target.value)}/>
-                        <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Free Trial</button>
+                        <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Sign up</button>
                     </form>
                 </div>
              </div>
