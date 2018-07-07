@@ -14,21 +14,21 @@ import SortIcon from './SortIcon'
 class ProfitMarginTable extends Component{
 
     componentDidMount() {
-        // $('.pane-hScroll').scroll(function() {
-        //     $('.pane-vScroll').width($('.pane-hScroll').width() + $('.pane-hScroll').scrollLeft());
-        // });
+        $('.pane-hScroll').scroll(function() {
+            $('.pane-vScroll').width($('.pane-hScroll').width() + $('.pane-hScroll').scrollLeft());
+        });
     }
     
     render() {
         const {portfolioList, onClick, sortTableBy, sortFieldName, sortFieldStatus} = this.props;
         return (
-            <div className="pane pane--table1 bounceInLeft animated">
+            <div className="pane bounceInLeft animated">
                 <div className="pane-hScroll">
                     <table className="profit-margin">
                         <thead>
                             <tr>
                               <th scope="col" rowSpan="2" className="th-icon">Icon</th>
-                              <th scope="col" rowSpan="2" className="th-id sortable" onClick={()=>sortTableBy('id')}>Coin Name <SortIcon name="name" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus}/></th>
+                              <th scope="col" rowSpan="2" className="th-id sortable" onClick={()=>sortTableBy('name')}>Coin Name <SortIcon name="name" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus}/></th>
                               <th scope="col" rowSpan="2" className="th-symbol sortable" onClick={()=>sortTableBy('symbol')}>Symbol <SortIcon name="symbol" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                               <th scope="col" rowSpan="2" className="th-amount sortable" onClick={()=>sortTableBy('amount')}>Holdings <SortIcon name="amount" sortFieldName={sortFieldName} sortFieldStatus={sortFieldStatus} /></th>
                               <th scope="col" colSpan="3" className="table-th-colspan">Buy Price</th>

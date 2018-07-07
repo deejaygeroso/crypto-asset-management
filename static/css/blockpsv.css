@@ -179,9 +179,9 @@
     /* background: green; */
   }
   .pane-vScroll {
-    overflow-y: auto;
+    overflow-y: overlay;
     overflow-x: hidden;
-    max-height: 650px;
+    max-height: 450px;
     /* background: red */
   }
   .profit-margin > thead{

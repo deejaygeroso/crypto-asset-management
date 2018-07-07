@@ -9,6 +9,9 @@ import {
 import TableStyle from '../../styles/TableStyle';
 import SortIcon from './SortIcon'
 
+/* ----------------------------------------------------------------------------------
+ * This is replaced already by OtherStatsTable Component 
+ * -------------------------------------------------------------------------------- */
 const StatsTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sortFieldStatus}) => (
     <div className="bounceInUp animated">
         <div className="table-view table-responsive">

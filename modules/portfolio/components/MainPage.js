@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 
 import Navbar from '../../core/containers/Navbar';
-import StatsTable from './StatsTable';
-// import OtherStatsTable from './OtherStatsTable';
+import OtherStatsTable from './OtherStatsTable';
 import ProfitMarginTable from './ProfitMarginTable';
 import Header from './Header';
 import Card from './Card';
@@ -78,20 +77,20 @@ class MainPage extends Component{
                 {/* ----------------------------- */}
                 {/* ----- Other Stats Table ----- */}
                 {/* ----------------------------- */}
-                {/* {
+                {
                     isStatsTableVisible ?
                         <div>
-                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Other Stats</h1>
-                            <div className="container-fluid d-flex align-items-center justify-content-center">
-                                <OtherStatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.statsSortTableBy} sortFieldName={this.state.statsSortFieldName} sortFieldStatus={this.state.statsSortFieldStatus}/>
+                            <div className="container-fluid" style={{paddingLeft: 50, paddingRight: 50}}>
+                                <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Other Stats</h1>
+                               <OtherStatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.statsSortTableBy} sortFieldName={this.state.statsSortFieldName} sortFieldStatus={this.state.statsSortFieldStatus}/>
                             </div>
                         </div> : <div></div>
-                } */}
+                }
                 
                 {/* ----------------------------- */}
                 {/* -------- Stats Table -------- */}
                 {/* ----------------------------- */}
-                {
+                {/* {
                     isStatsTableVisible ?
                         <div>
                             <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Other Stats</h1>
@@ -99,7 +98,7 @@ class MainPage extends Component{
                                 <StatsTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.statsSortTableBy} sortFieldName={this.state.statsSortFieldName} sortFieldStatus={this.state.statsSortFieldStatus}/>
                             </div>
                         </div> : <div></div>
-                }
+                } */}
 
                 {/* ----------------------------- */}
                 {/* ----------- Widget ---------- */}
