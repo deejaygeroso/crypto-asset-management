@@ -14,9 +14,9 @@ import SortIcon from './SortIcon'
 class ProfitMarginTable extends Component{
 
     componentDidMount() {
-        $('.pane-hScroll').scroll(function() {
-            $('.pane-vScroll').width($('.pane-hScroll').width() + $('.pane-hScroll').scrollLeft());
-        });
+        // $('.pane-hScroll').scroll(function() {
+        //     $('.pane-vScroll').width($('.pane-hScroll').width() + $('.pane-hScroll').scrollLeft());
+        // });
     }
     
     render() {

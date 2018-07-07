@@ -15,9 +15,13 @@ const HomeNavbar = ({toggleMobileViewNavbar, onToggle}) => (
                     </div>
                     <div id="navbar" className={toggleMobileViewNavbar? "navbar-collapse collapse in" : "navbar-collapse collapse"}>
                       <ul className="nav navbar-nav navbar-right">
-                        {/* <li><Link prefetch href="/"><a>Home</a></Link></li> */}
+                        <li><Link prefetch href="/"><a>Home</a></Link></li>
                         {/* <li><Link prefetch href="/about"><a>About</a></Link></li> */}
-                        <li><Link prefetch href="/login"><a><i className="login-button fas fa-user-circle"></i></a></Link></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/wiki">Wiki</a></li>
+                        <li><Link prefetch href="/signup"><a href="/signup">Sign up</a></Link></li>
+                        <li><Link prefetch href="/login"><a href="/signup">Login</a></Link></li>
+                        {/* <li><Link prefetch href="/login"><a><i className="login-button fas fa-user-circle"></i></a></Link></li> */}
                       </ul>
                     </div>
                 </nav>

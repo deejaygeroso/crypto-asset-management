@@ -19,7 +19,7 @@ module.exports = {
             if(docs && docs.isDisabled){
                return app.render(req, res, '/login')
             }
-            return app.render(req, res, urlRedirect)
+            return app.render(req, res, urlSuccess) //must double check this later
         });
     },
     /* ----------------------------------------------------------------------------------

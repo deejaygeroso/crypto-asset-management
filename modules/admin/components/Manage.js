@@ -140,10 +140,10 @@ class Manage extends Component {
                                 </td>
                                 <td scope="col">
                                     <button className="btn btn-info    btn-action" onClick={()=>this.gotoUserPortfolio(_id)}>View</button>
-                                    { usersList.byId[_id].isDisabled ? 
+                                    {/* { usersList.byId[_id].isDisabled ? 
                                         <button className={"btn btn-success btn-action"} onClick={(e)=>this.onUserDisabled(e, usersList.byId[_id])}>Enable</button> :
                                         <button className={"btn btn-warning btn-action"} onClick={(e)=>this.onUserDisabled(e, usersList.byId[_id])}>Disable</button>
-                                    }
+                                    } */}
                                     <button className="btn btn-danger  btn-action" onClick={(e)=>this.onUserDelete(e, usersList.byId[_id])}>Remove</button>
                                 </td>
                             </tr>

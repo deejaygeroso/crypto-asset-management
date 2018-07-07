@@ -15,7 +15,7 @@ import SortIcon from './SortIcon'
  * -------------------------------------------------------------------------------- */
 const PortfolioTable = ({portfolioList, onClick, sortTableBy, sortFieldName, sortFieldStatus}) => {
         return (
-            <div className="bounceInLeft animated">
+            <div className="bounceInLeft animated grid-container">
                 <div className="table-view table-responsive">
                     <table className="table table-hover">
                         <thead>
