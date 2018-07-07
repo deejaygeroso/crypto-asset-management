@@ -152,6 +152,16 @@ class View extends Component {
                     <i className="fas fa-lg fa-chevron-left fa-button-icon"></i>
                 </span>
 
+                {/* ----------------------------- */}
+                {/* --------- Add Button -------- */}
+                {/* ----------------------------- */}
+                {
+                    isFormDataVisible ? <div /> :
+                    <button onClick={()=>this.routeToPortfolioAdd({})} className="btn-portfolio-add btn btn-lg btn-warning btn-table flip animated" type="submit" >
+                        <i className="fas fa-lg fa-plus"></i>
+                    </button>
+                }
+
                 <ViewStyle />
             </div>
         )
@@ -167,6 +177,19 @@ class View extends Component {
                 id: portfolio.id,
             }
         });
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Add new coin to portfolio
+     * -------------------------------------------------------------------------------- */
+    routeToPortfolioAdd(payload){
+        const { portfolioActions } = this.props;
+        
+        portfolioActions.itemSet({payload})
+        Cookies.set('portfolio', payload, { expires: 1 });
+
+        this.setState({isFormDataVisible: true});
+
     }
 }
 

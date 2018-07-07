@@ -153,6 +153,22 @@ const ViewStyle = () => (
                 color: aliceblue;
                 font-size: 50px;
             }
+            .btn-portfolio-add{
+                position: fixed;
+                right: 50px;
+                width: 80px;
+                height: 80px;
+                bottom: 50px;
+                border-radius: 50px;
+                background-color: #fff;
+                border-color: #e4c9c9;
+                color: #737272;
+                box-shadow: 2px 2px 8px #888;
+            }
+            .btn-portfolio-add > i{
+                margin-top: 5px;
+                margin-left: 2px;
+            }
   `}</style>
 )
 
