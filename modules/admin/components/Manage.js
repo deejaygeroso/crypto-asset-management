@@ -25,6 +25,7 @@ class Manage extends Component {
         this.gotoUserPortfolio = this.gotoUserPortfolio.bind(this);
         this.onUserDelete = this.onUserDelete.bind(this);
         this.onUserDisabled = this.onUserDisabled.bind(this);
+        this.verifyUser = this.verifyUser.bind(this);
     }
 
     /* ----------------------------------------------------------------------------------
@@ -123,6 +124,7 @@ class Manage extends Component {
                             <th scope="col" rowSpan="2" className="">Email</th>
                             <th scope="col" rowSpan="2" className="">First Name</th>
                             <th scope="col" rowSpan="2" className="">Last Name</th>
+                            <th scope="col" rowSpan="2" className="">Is Verified</th>
                             <th scope="col" rowSpan="2" className="">Actions</th>
                         </tr>
                     </thead>
@@ -139,7 +141,11 @@ class Manage extends Component {
                                     {usersList.byId[_id].lastname}
                                 </td>
                                 <td scope="col">
-                                    <button className="btn btn-info    btn-action" onClick={()=>this.gotoUserPortfolio(_id)}>View</button>
+                                    {usersList.byId[_id].isVerified ? "Verified" : "Pending"}
+                                </td>
+                                <td scope="col">
+                                    <button className="btn btn-success btn-action" onClick={(e)=>this.verifyUser(e, _id)}>Verify User</button>
+                                    <button className="btn btn-info btn-action" onClick={(e)=>this.gotoUserPortfolio(e, _id)}>View</button>
                                     {/* { usersList.byId[_id].isDisabled ? 
                                         <button className={"btn btn-success btn-action"} onClick={(e)=>this.onUserDisabled(e, usersList.byId[_id])}>Enable</button> :
                                         <button className={"btn btn-warning btn-action"} onClick={(e)=>this.onUserDisabled(e, usersList.byId[_id])}>Disable</button>
@@ -178,6 +184,22 @@ class Manage extends Component {
                 <ManageStyles />
             </div>
         )
+    }
+
+    /* ----------------------------------------------------------------------------------
+     * Hack for validating user 
+     * -------------------------------------------------------------------------------- */
+    verifyUser(evt, user_id){
+        const { userActions } = this.props;
+
+        evt.preventDefault();
+
+        userActions.itemVerifyEmailByAdmin({
+            params: {
+                _id: user_id
+            }
+        });
+
     }
 
     /* ----------------------------------------------------------------------------------
@@ -292,7 +314,8 @@ class Manage extends Component {
     /* ----------------------------------------------------------------------------------
      * Route to update specific clients portfolio
      * -------------------------------------------------------------------------------- */
-    gotoUserPortfolio(user_id){
+    gotoUserPortfolio(evt, user_id){
+        evt.preventDefault()
         const { userActions } = this.props;
 
         // might have some issue with asnycronousity of data especially when updating or adding of user

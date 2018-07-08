@@ -209,6 +209,23 @@ export const itemVerifyEmail = ({params}) => {
 }
 
 /* ----------------------------------------------------------------------------------
+ * Verify user admin (hack) Must delete this after.
+ * -------------------------------------------------------------------------------- */
+export const itemVerifyEmailByAdmin = ({params}) => {
+    const {_id} = params;
+    return async () => {
+        try {
+            const res = await axios.post('/api/account/verifyEmailByAdmin', {_id});
+            toasterSuccessMessage('User verified by admin.');
+            
+        } catch (err) {
+            toasterErrorMessage('Verification Failed!');
+
+        }
+    };
+}
+
+/* ----------------------------------------------------------------------------------
  * User Login. 
  * -------------------------------------------------------------------------------- */
 export const login = ({params}) => {

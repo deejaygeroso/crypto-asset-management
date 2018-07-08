@@ -12,9 +12,10 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name       : '',
             email      : '',
             password   : '',
+            firstname  : '',
+            lastname   : '',
         }
         this.onValueChange = this.onValueChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -36,8 +37,9 @@ class Profile extends Component {
         const { user } = this.props;
 
         this.setState({
-            name       : user && user.name ? user.name : '',
-            email      : user && user.email ? user.email : '',
+            email      : user && user.email     ? user.email : '',
+            firstname  : user && user.firstname ? user.firstname : '',
+            lastname   : user && user.lastname  ? user.lastname : '',
             password   : '',
         })
     }
@@ -49,8 +51,9 @@ class Profile extends Component {
         const { user } = nextProps;
 
         this.setState({
-            name       : user && user.name ? user.name : '',
             email      : user && user.email ? user.email : '',
+            firstname  : user && user.firstname ? user.firstname : '',
+            lastname   : user && user.lastname  ? user.lastname : '',
             password   : '',
         })
     }
@@ -100,7 +103,8 @@ class Profile extends Component {
                                     </div> : <div />
                                 }
 
-                                <TextInput     id="name"  value={this.state.name}  label="Full Name" placeholder="Full Name" onValueChange={this.onValueChange} />
+                                <TextInput     id="firstname" value={this.state.firstname} label="First Name*" placeholder="First Name" onValueChange={this.onValueChange} />
+                                <TextInput     id="lastname"  value={this.state.lastname}  label="Last Name*"  placeholder="Last Name" onValueChange={this.onValueChange} />
                                 <EmailInput    id="email" value={this.state.email} label="Email*"     placeholder="Email"     onValueChange={this.onValueChange} />
                                 <PasswordInput id="password" label="Password"  placeholder="Password"  onValueChange={this.onValueChange} />
 
@@ -133,7 +137,7 @@ class Profile extends Component {
         evt.preventDefault()
 
         const { user, userActions } = this.props;
-        const { name, email, password, value } = this.state;
+        const { firstname, lastname, email, password, value } = this.state;
 
         userActions.errorClear()
         userActions.successClear()
@@ -141,10 +145,17 @@ class Profile extends Component {
         if(email===''){
             return toasterErrorMessage('Email must not be empty!')
         }
+        if(firstname===''){
+            return toasterErrorMessage('First name must not be empty!')
+        }
+        if(lastname===''){
+            return toasterErrorMessage('Last name must not be empty!')
+        }
 
         const params = {
             _id: user._id,
-            name,
+            firstname,
+            lastname,
             email,
             crypto_ids: value,
         }

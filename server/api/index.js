@@ -172,6 +172,23 @@ module.exports = function(app, router, auth){
         });
     });
 
+    /* ----------------------------------------------------------------------------------
+     * Verify email through verification code 
+     * -------------------------------------------------------------------------------- */
+    router.post('/account/verifyEmailByAdmin', (req, res)=>{
+        const { _id } = req.body;
+
+        UserModel.findById(_id, (err, docs) => {
+            if(err) return res.status(400).send({message: err});
+
+            docs.isVerified = true;
+            docs.save()
+            return res.send(docs)
+
+            // res.status(400).send({message: 'Invalid verification code!'})
+        });
+    });
+
     /* ==================================================================================
      * Portfolio Crud Routes. 
      * ================================================================================ */
