@@ -72,7 +72,7 @@ module.exports = function(app, router, auth){
         // save user to database
         newUser.save(function(err, user) {
             if(err) return res.status(400).send({message: err}); // if saving failed
-            nodemailer.emailVerification('blockpsv@gmail.com', verificationCode);
+            nodemailer.emailVerification(user.email, verificationCode);
             res.send(user)
         });
     })
@@ -173,21 +173,20 @@ module.exports = function(app, router, auth){
     });
 
     /* ----------------------------------------------------------------------------------
-     * Verify email through verification code 
+     * Verify email through verification code (hack)
      * -------------------------------------------------------------------------------- */
-    router.post('/account/verifyEmailByAdmin', (req, res)=>{
-        const { _id } = req.body;
+    // router.post('/account/verifyEmailByAdmin', (req, res)=>{
+    //     const { _id } = req.body;
 
-        UserModel.findById(_id, (err, docs) => {
-            if(err) return res.status(400).send({message: err});
+    //     UserModel.findById(_id, (err, docs) => {
+    //         if(err) return res.status(400).send({message: err});
 
-            docs.isVerified = true;
-            docs.save()
-            return res.send(docs)
+    //         docs.isVerified = true;
+    //         docs.save()
+    //         return res.send(docs)
 
-            // res.status(400).send({message: 'Invalid verification code!'})
-        });
-    });
+    //     });
+    // });
 
     /* ==================================================================================
      * Portfolio Crud Routes. 

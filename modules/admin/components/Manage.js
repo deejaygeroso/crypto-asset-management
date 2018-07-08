@@ -25,7 +25,7 @@ class Manage extends Component {
         this.gotoUserPortfolio = this.gotoUserPortfolio.bind(this);
         this.onUserDelete = this.onUserDelete.bind(this);
         this.onUserDisabled = this.onUserDisabled.bind(this);
-        this.verifyUser = this.verifyUser.bind(this);
+        // this.verifyUser = this.verifyUser.bind(this); (hack)
     }
 
     /* ----------------------------------------------------------------------------------
@@ -144,7 +144,7 @@ class Manage extends Component {
                                     {usersList.byId[_id].isVerified ? "Verified" : "Pending"}
                                 </td>
                                 <td scope="col">
-                                    <button className="btn btn-success btn-action" onClick={(e)=>this.verifyUser(e, _id)}>Verify User</button>
+                                    {/* <button className="btn btn-success btn-action" onClick={(e)=>this.verifyUser(e, _id)}>Verify User</button> */}
                                     <button className="btn btn-info btn-action" onClick={(e)=>this.gotoUserPortfolio(e, _id)}>View</button>
                                     {/* { usersList.byId[_id].isDisabled ? 
                                         <button className={"btn btn-success btn-action"} onClick={(e)=>this.onUserDisabled(e, usersList.byId[_id])}>Enable</button> :
@@ -187,20 +187,19 @@ class Manage extends Component {
     }
 
     /* ----------------------------------------------------------------------------------
-     * Hack for validating user 
+     * (Hack) for validating user 
      * -------------------------------------------------------------------------------- */
-    verifyUser(evt, user_id){
-        const { userActions } = this.props;
+    // verifyUser(evt, user_id){
+    //     const { userActions } = this.props;
 
-        evt.preventDefault();
+    //     evt.preventDefault();
 
-        userActions.itemVerifyEmailByAdmin({
-            params: {
-                _id: user_id
-            }
-        });
-
-    }
+    //     userActions.itemVerifyEmailByAdmin({
+    //         params: {
+    //             _id: user_id
+    //         }
+    //     });
+    // }
 
     /* ----------------------------------------------------------------------------------
      * Count number of days from now from a given input date
