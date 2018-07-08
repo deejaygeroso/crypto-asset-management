@@ -172,7 +172,7 @@ class Manage extends Component {
                 <div className="margin-50"></div>
 
                 <div className="gradient-header">
-                    {this.renderFormComponent()}
+                    {/* {this.renderFormComponent()} */}
                 </div>
 
                 {/* -------------------------- */}
