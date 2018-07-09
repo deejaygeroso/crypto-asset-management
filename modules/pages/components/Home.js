@@ -27,7 +27,7 @@ class Home extends Component {
                                     <div className="row">
                                         <div className="col-md-8 col-md-offset-2">
                                             <h1 className="to-animate">Welcome to BlockPSV</h1>
-                                            <h2 className="to-animate">“The Swiss Army Knife of Cryptocurrency Asset Management”</h2>
+                                            <h2 className="to-animate">“The Swiss Army Knife of Crypto Asset Management”</h2>
                                         </div>
                                     </div>
                                  
