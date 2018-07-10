@@ -26,6 +26,7 @@ class Home extends Component {
                                 <div className="text-inner">
                                     <div className="row">
                                         <div className="col-md-8 col-md-offset-2">
+                                            <img src="/static/images/logo.png" className="align-content-center" height="320" width="320" />
                                             <h1 className="to-animate">Welcome to BlockPSV</h1>
                                             <h2 className="to-animate">“The Swiss Army Knife of Crypto Asset Management”</h2>
                                         </div>
