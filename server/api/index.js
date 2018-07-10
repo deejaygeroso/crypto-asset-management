@@ -55,11 +55,10 @@ module.exports = function(app, router, auth){
      * Create new user from the admin
      * -------------------------------------------------------- */
     router.post('/account/register', (req, res)=>{
-        const { firstname, lastname, email, password } = req.body;
+        const { username, email, password } = req.body;
         var verificationCode = uniqid();
         const userData = {
-            firstname,
-            lastname,
+            username,
             email,
             password,
             verificationCode,

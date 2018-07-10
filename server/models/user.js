@@ -12,6 +12,7 @@ var UserSchema = new Schema({
     firstname    : { type : String },
     lastname     : { type : String },
     verificationCode : { type : String },
+    username     : { type : String },
     email        : { type : String, required : true, index: { unique: true } },
     password     : { type : String, required : false },
     isAdmin      : { type : Boolean, default : false },

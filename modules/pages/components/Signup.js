@@ -10,8 +10,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstname: '',
-            lastname: '',
+            username: '',
             email: '',
             password: '',
             toggleMobileViewNavbar : false,
@@ -36,20 +35,12 @@ class Login extends Component {
                         <span id="reauth-email" className="reauth-email"></span>
                         <input
                              type="text"
-                             id="firstname"
+                             id="username"
                              className="form-control inputField"
-                             placeholder="First Name"
+                             placeholder="Username"
                              required
                              autoFocus
-                             onChange={(evt)=>this.onChange('firstname', evt.target.value)}/>
-                        <input
-                             type="text"
-                             id="lastname"
-                             className="form-control inputField"
-                             placeholder="Last Name"
-                             required
-                             autoFocus
-                             onChange={(evt)=>this.onChange('lastname', evt.target.value)}/>
+                             onChange={(evt)=>this.onChange('username', evt.target.value)}/>
                         <input
                              type="email"
                              id="Email"
@@ -116,7 +107,7 @@ class Login extends Component {
      * -------------------------------------------------------------------------------- */
     onSubmit(evt){
         const { userActions } = this.props;
-        const { firstname, lastname, email, password } = this.state;
+        const { username, email, password } = this.state;
 
         evt.preventDefault()
 
@@ -124,20 +115,19 @@ class Login extends Component {
             return toasterErrorMessage('Invalid email!')
         }
 
-        if(firstname==='' || lastname==='' || email==='' || password===''){
+        if(username==='' || email==='' || password===''){
             return toasterErrorMessage('Please fill up all the input fields!')
         }
 
         userActions.itemCreate({
             params: {
-                firstname,
-                lastname,
+                username,
                 email,
                 password,
             }
         });
 
-        this.setState({email: '', password: ''});
+        this.setState({username: '', email: '', password: ''});
     }
 
     /* ----------------------------------------------------------------------------------

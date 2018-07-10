@@ -54,8 +54,7 @@ class VerifyEmail extends Component {
             <div className="login-page d-flex justify-content-center">
                 <div className="card card-container">
                     <center><h1 className="title">Enter Verification Code</h1></center>
-                    <center><span className="note">Your account will expire within 3 days.</span></center>
-                    <center><span className="note">Verify your email now to use our app.</span></center>
+                    <center><span className="note">We have sent you an email with a verification code.</span></center>
                     <form className="form-signin formField">
                         <span id="reauth-email" className="reauth-email"></span>
                         <input
