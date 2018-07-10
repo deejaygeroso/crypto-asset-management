@@ -122,8 +122,7 @@ class Manage extends Component {
                     <thead>
                         <tr>
                             <th scope="col" rowSpan="2" className="">Email</th>
-                            <th scope="col" rowSpan="2" className="">First Name</th>
-                            <th scope="col" rowSpan="2" className="">Last Name</th>
+                            <th scope="col" rowSpan="2" className="">Username</th>
                             <th scope="col" rowSpan="2" className="">Is Verified</th>
                             <th scope="col" rowSpan="2" className="">Actions</th>
                         </tr>
@@ -135,10 +134,7 @@ class Manage extends Component {
                                     {usersList.byId[_id].email}
                                 </td>
                                 <td scope="col">
-                                    {usersList.byId[_id].firstname}
-                                </td>
-                                <td scope="col">
-                                    {usersList.byId[_id].lastname}
+                                    {usersList.byId[_id].username}
                                 </td>
                                 <td scope="col">
                                     {usersList.byId[_id].isVerified ? "Verified" : "Pending"}
