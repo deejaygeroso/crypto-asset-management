@@ -11,10 +11,10 @@ module.exports = {
         if(!(user && user._id)) return app.render(req, res, urlRedirect)
 
         UserModel.findOne({_id: user._id}, (err, docs) => {
-            // if user account is disabled
-            if(docs && !docs.isVerified){
-               return app.render(req, res, '/account/verify')
-            }
+            // if user account is verified
+            // if(docs && !docs.isVerified){
+            //    return app.render(req, res, '/account/verify')
+            // }
             // if user account is disabled
             if(docs && docs.isDisabled){
                return app.render(req, res, '/login')

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 // import PropTypes from 'prop-types';
-
+import ScrollAnimation from 'react-animate-on-scroll';
 import HomeNavbar from '../../core/components/HomeNavbar';
 
 class Home extends Component {
@@ -36,12 +36,52 @@ class Home extends Component {
                             </div>
                         </div>
                     </section>
-                    <section className="feature-container text-center pt-80">
+                    <section className="feature-images text-center pt-80 mt-90 mb-90">
                         <div className="row">
+                                <div className="col-md-12 mt-90">
+                            <ScrollAnimation animateIn="fadeInUp">
+                                    <h1 className="mb-0">Profit Margin</h1>
+                                    <p>Your gains and losses at all entry points.</p>
+                                    <img src="/static/images/profitmargin.png" className="align-content-center" width="1050" />
+                            </ScrollAnimation>
+                                </div>
+
+                                <div className="col-md-12 mt-90">
+                            <ScrollAnimation animateIn="fadeInUp">
+                                    <h1 className="mb-0">Other Stats</h1>
+                                    <p>In-depth coin statistics you need.</p>
+                                    <img src="/static/images/otherstats.png" className="align-content-center" width="1050" />
+                            </ScrollAnimation>
+                                </div>
+
+                                <div className="col-md-12 mt-90">
+                            <ScrollAnimation animateIn="fadeInUp">
+                                    <h1 className="mb-0">Volume Overview</h1>
+                                    <p>Updated volume trends and history.</p>
+                                    <img src="/static/images/volumeoverview.png" className="align-content-center" width="1050" />
+                            </ScrollAnimation>
+                                </div>
+
+                        </div>
+                    </section>
+
+                    <section className="feature-signup container text-center">
+                        <div className="row">
+                            <ScrollAnimation animateIn="fadeInUp">
+                                <h1>Price Chart</h1>
+                                    <img src="/static/images/pricechart.png" className="align-content-center" width="1050" style={{borderRadius: 10}}/>
+                            </ScrollAnimation>
+                        </div>
+                    </section>
+
+                    {/* <section className="feature-container text-center pt-80">
+                        <div className="row">
+
                             <div className="col-md-12 mb-40">
                                 <h1 className="mb-0">Features</h1>
                                 <p>Our Main Features Includes the following</p>
                             </div>
+
                             <div className="col-md-4 col-sm-12">
                                 <a href="#profit-margin" className="feature-wrap">
                                     <div className="feature">
@@ -51,6 +91,7 @@ class Home extends Component {
                                     </div>
                                 </a>
                             </div>
+
                             <div className="col-md-4 col-sm-12">
                                 <a href="#other-statistics" className="feature-wrap"> 
                                     <div className="feature">
@@ -70,30 +111,34 @@ class Home extends Component {
                                 </a>
                             </div>
                         </div>
-                    </section>
+                    </section> */}
 
                     <section className="feature-container feature-definition text-center">
                         <div className="container">
+                                <ScrollAnimation animateIn="fadeIn">
                             <div className="row">
-                                <div id="profit-margin" className="feature-description col-md-12">
-                                    <h1 className="mb-10">Profit Margin</h1>
-                                    <p>Portfolio Management on BlockPSV platform allows you to track your gains and losses in real-time. <br/>Unlike any other portfolio tracker, BlockPSV compares the current market price with your buy price in USD, BTC and ETH values.</p>
-                                </div>
-                                <div id="other-statistics" className="feature-description col-md-12">
-                                    <h1 className="mb-10">Other Statistics</h1>
-                                    <p>Statistics such as market capitalization, price percent-change and supply are relevant indicators in price analysis.<br/>They are part of the building blocks in the decision making process.</p>
-                                </div>
-                                <div id="volume-overview" className="feature-description col-md-12">
-                                    <h1 className="mb-10">Volume Overview</h1>
-                                    <p>Trend is a defining factor. However, zooming in from the big picture, a well timed position entry or exit uses volume as the lead indicator.</p>
-                                </div>
+                                    <div id="profit-margin" className="feature-description col-md-12">
+                                        <h1 className="mb-10">Profit Margin</h1>
+                                        <p>Portfolio Management on BlockPSV platform allows you to track your gains and losses in real-time. <br/>Unlike any other portfolio tracker, BlockPSV compares the current market price with your buy price in USD, BTC and ETH values.</p>
+                                    </div>
+                                    <div id="other-statistics" className="feature-description col-md-12">
+                                        <h1 className="mb-10">Other Statistics</h1>
+                                        <p>Statistics such as market capitalization, price percent-change and supply are relevant indicators in price analysis.<br/>They are part of the building blocks in the decision making process.</p>
+                                    </div>
+                                    <div id="volume-overview" className="feature-description col-md-12">
+                                        <h1 className="mb-10">Volume Overview</h1>
+                                        <p>Trend is a defining factor. However, zooming in from the big picture, a well timed position entry or exit uses volume as the lead indicator.</p>
+                                    </div>
                             </div>
+                                </ScrollAnimation>
                         </div>
                     </section>
                     <section className="feature-signup container text-center">
                         <div className="row">
-                            <h1>Manage Your Portfolio The Right Way</h1>
-                            <Link prefetch href="/signup"><a className="start-now">START NOW</a></Link>
+                            <ScrollAnimation animateIn="fadeIn">
+                                <h1>Manage Your Portfolio The Right Way</h1>
+                                <Link prefetch href="/signup"><a className="start-now">START NOW</a></Link>
+                            </ScrollAnimation>
                         </div>
                     </section>
                     <div className="footer text-center">
