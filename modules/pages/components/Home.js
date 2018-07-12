@@ -65,15 +65,6 @@ class Home extends Component {
                         </div>
                     </section>
 
-                    <section className="feature-signup container text-center">
-                        <div className="row">
-                            <ScrollAnimation animateIn="fadeInUp">
-                                <h1>Price Chart</h1>
-                                    <img src="/static/images/pricechart.png" className="align-content-center" width="1050" style={{borderRadius: 10}}/>
-                            </ScrollAnimation>
-                        </div>
-                    </section>
-
                     {/* <section className="feature-container text-center pt-80">
                         <div className="row">
 
