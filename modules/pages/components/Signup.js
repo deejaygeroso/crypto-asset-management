@@ -30,7 +30,8 @@ class Login extends Component {
                        <img className="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" />
                        <img id="profile-img" className="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
                   */}
-                    <h1>Sign Up</h1>
+                    <center><h1>Sign Up</h1></center>
+
                     <form className="form-signin formField">
                         <span id="reauth-email" className="reauth-email"></span>
                         <input
@@ -57,7 +58,10 @@ class Login extends Component {
                              value={this.state.password}
                              required
                              onChange={(evt)=>this.onChange('password', evt.target.value)}/>
-                        <button onClick={this.onSubmit} className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Sign up</button>
+                        <button onClick={this.onSubmit} disabled className="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Sign up</button>
+
+                        <br />
+                        <center><h5>"We will be launching Q4 2018"</h5></center>
                     </form>
                 </div>
              </div>
