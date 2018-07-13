@@ -13,6 +13,7 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+          <meta name="google-site-verification" content="sD788K7JdAM4mbbGI5YZDyOgnnxE-MxkvvkBBq3hzTk" />
           <style>{`body { margin: 0 } /* custom! */`}</style>
         </Head>
         <body className="custom_class">
