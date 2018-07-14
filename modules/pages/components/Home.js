@@ -26,7 +26,7 @@ class Home extends Component {
                                 <div className="text-inner">
                                     <div className="row">
                                         <div className="col-md-8 col-md-offset-2">
-                                            <img src="/static/images/logo.png" className="align-content-center" height="320" width="320" />
+                                            <img src="/static/images/logo.png" className="logo align-content-center" height="320" width="320" />
                                             <h1 className="to-animate">Welcome to BlockPSV</h1>
                                             <h2 className="to-animate">“The Swiss Army Knife of Crypto Asset Management”</h2>
                                         </div>
@@ -36,78 +36,37 @@ class Home extends Component {
                             </div>
                         </div>
                     </section>
+
                     <section className="feature-images text-center pt-80 mt-90 mb-90">
                         <div className="row">
-                                <div className="col-md-12 mt-90">
-                            <ScrollAnimation animateIn="fadeInUp">
+                            <div className="col-md-12 mt-90">
+                                <ScrollAnimation animateIn="fadeInUp">
                                     <h1 className="mb-0">Profit Margin</h1>
                                     <p>Your gains and losses at all entry points.</p>
-                                    <img src="/static/images/profitmargin.png" className="align-content-center" width="1050" />
-                            </ScrollAnimation>
-                                </div>
-
-                                <div className="col-md-12 mt-90">
-                            <ScrollAnimation animateIn="fadeInUp">
+                                    <center><img src="/static/images/profitmargin.png" className="align-content-center img-responsive" width="1050" /></center>
+                                </ScrollAnimation>
+                            </div>
+                            <div className="col-md-12 mt-90">
+                                <ScrollAnimation animateIn="fadeInUp">
                                     <h1 className="mb-0">Other Stats</h1>
                                     <p>In-depth coin statistics you need.</p>
-                                    <img src="/static/images/otherstats.png" className="align-content-center" width="1050" />
-                            </ScrollAnimation>
-                                </div>
-
-                                <div className="col-md-12 mt-90">
-                            <ScrollAnimation animateIn="fadeInUp">
+                                    <center><img src="/static/images/otherstats.png" className="align-content-center img-responsive" width="1050" /></center>
+                                </ScrollAnimation>
+                            </div>
+                            <div className="col-md-12 mt-90">
+                                <ScrollAnimation animateIn="fadeInUp">
                                     <h1 className="mb-0">Volume Overview</h1>
                                     <p>Updated volume trends and history.</p>
-                                    <img src="/static/images/volumeoverview.png" className="align-content-center" width="1050" />
-                            </ScrollAnimation>
-                                </div>
-
+                                    <center><img src="/static/images/volumeoverview.png" className="align-content-center img-responsive" width="1050" /></center>
+                                </ScrollAnimation>
+                            </div>
                         </div>
                     </section>
 
-                    {/* <section className="feature-container text-center pt-80">
-                        <div className="row">
-
-                            <div className="col-md-12 mb-40">
-                                <h1 className="mb-0">Features</h1>
-                                <p>Our Main Features Includes the following</p>
-                            </div>
-
-                            <div className="col-md-4 col-sm-12">
-                                <a href="#profit-margin" className="feature-wrap">
-                                    <div className="feature">
-                                        <i className="fas fa-lg fa-chart-line"></i> 
-                                        <h1>Profit Margin</h1>
-                                        <p>Your gains and losses at all entry points.</p>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div className="col-md-4 col-sm-12">
-                                <a href="#other-statistics" className="feature-wrap"> 
-                                    <div className="feature">
-                                        <i className="fas fa-lg fa-chart-area"></i>
-                                        <h1>Other Statistics</h1>
-                                        <p>In-depth coin statistics you need.</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div className="col-md-4 col-sm-12">
-                                <a href="#volume-overview" className="feature-wrap"> 
-                                    <div className="feature">
-                                        <i className="fas fa-lg fa-chart-pie"></i>
-                                        <h1>Volume Overview</h1>
-                                        <p>Updated volume trends and history.</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </section> */}
-
                     <section className="feature-container feature-definition text-center">
                         <div className="container">
-                                <ScrollAnimation animateIn="fadeIn">
-                            <div className="row">
+                            <ScrollAnimation animateIn="fadeIn">
+                                <div className="row">
                                     <div id="profit-margin" className="feature-description col-md-12">
                                         <h1 className="mb-10">Profit Margin</h1>
                                         <p>Portfolio Management on BlockPSV platform allows you to track your gains and losses in real-time. <br/>Unlike any other portfolio tracker, BlockPSV compares the current market price with your buy price in USD, BTC and ETH values.</p>
@@ -120,8 +79,8 @@ class Home extends Component {
                                         <h1 className="mb-10">Volume Overview</h1>
                                         <p>Trend is a defining factor. However, zooming in from the big picture, a well timed position entry or exit uses volume as the lead indicator.</p>
                                     </div>
-                            </div>
-                                </ScrollAnimation>
+                                </div>
+                            </ScrollAnimation>
                         </div>
                     </section>
                     <section className="feature-signup container text-center">
@@ -210,6 +169,49 @@ class Home extends Component {
                         font-size: 18px;
                         padding: 20px;
                     }
+                    @media only screen and (max-width: 1200px) {
+                        .feature-container{
+                            height: 800px;
+                        }
+                      }
+                    @media only screen and (max-width: 850px) {
+                        .feature-container{
+                            padding-right: 10px;
+                            padding-left: 10px;
+                            padding-top: 10px;
+                            height: 800px;
+                        }
+                      }
+                    @media only screen and (max-width: 590px) {
+                        .feature-container{
+                            padding-right: 10px;
+                            padding-left: 10px;
+                            padding-top: 20px;
+                        }
+                        .feature-container > div{
+                            padding: 10px 20px;
+                        }
+                      }
+                      @media only screen and (max-width: 450px) {
+                        .logo{
+                            height: 190px;
+                            width: 190px;
+                        }
+                        .feature-container{
+                            height: 900px;
+                        }
+                        .feature-container > div{
+                            padding: 10px 20px;
+                        }
+                        .feature-images > div > div{
+                            padding-left: 0px;
+                            padding-right: 0px;
+                        }
+                        .feature-images > div {
+                            margin-left: 0px;
+                            margin-right: 0px;
+                        }
+                      }
                 `}</style>
 
 
