@@ -41,7 +41,7 @@ class Home extends Component {
                         <div className="row">
                             <div className="col-md-12 mt-90">
                                 <ScrollAnimation animateIn="fadeInUp">
-                                    <h1 className="mb-0">Profit Margin</h1>
+                                    <h1 className="mb-0">Profitability</h1>
                                     <p>Your gains and losses at all entry points.</p>
                                     <center><img src="/static/images/profitmargin.png" className="align-content-center img-responsive" width="1050" /></center>
                                 </ScrollAnimation>
@@ -68,7 +68,7 @@ class Home extends Component {
                             <ScrollAnimation animateIn="fadeIn">
                                 <div className="row">
                                     <div id="profit-margin" className="feature-description col-md-12">
-                                        <h1 className="mb-10">Profit Margin</h1>
+                                        <h1 className="mb-10">Profitability</h1>
                                         <p>Portfolio Management on BlockPSV platform allows you to track your gains and losses in real-time. <br/>Unlike any other portfolio tracker, BlockPSV compares the current market price with your buy price in USD, BTC and ETH values.</p>
                                     </div>
                                     <div id="other-statistics" className="feature-description col-md-12">

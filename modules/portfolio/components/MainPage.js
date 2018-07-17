@@ -69,7 +69,7 @@ class MainPage extends Component{
                 {
                     isPortfolioTableVisible ?
                         <div className="container-fluid" style={{paddingLeft: 50, paddingRight: 50}}>
-                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Profit Margin</h1>
+                            <h1 className="fadeIn animated" style={{textAlign: 'center', marginBottom: 2, fontWeight: '100', color: '#242424'}}>Profitability</h1>
                             <ProfitMarginTable portfolioList={portfolioList} onClick={this.routeToPortfolioAdd} sortTableBy={this.sortTableBy} sortFieldName={this.state.sortFieldName} sortFieldStatus={this.state.sortFieldStatus}/>
                         </div> : <div></div>
                 }
