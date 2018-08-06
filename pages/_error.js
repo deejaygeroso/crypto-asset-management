@@ -12,9 +12,14 @@ export default () => (
                       <div className="row">
                           <div className="col-md-8 col-md-offset-2">
                               <h1 className="to-animate h1-404">404</h1>
-                              <h2 className="to-animate">Page Not Found!</h2>
+                              <h2 className="to-animate">Sorry. Page Not Found!</h2>
                               <h2 className="to-animate"></h2>
-                              <Link prefetch href="/"><i className="home-button fas fa-home"></i></Link>
+                              <Link prefetch href="/">
+                                <div className="home-button ">
+                                    <i className="fas fa-home"></i>
+                                    <p className="go-back-home">Go Back Home</p>
+                                </div>
+                              </Link>
                           </div>
                       </div>
                     
@@ -32,6 +37,9 @@ export default () => (
             }
             .home-button:hover{
               cursor: pointer;
+            }
+            .go-back-home{
+                font-size: 20px;
             }
         `}</style>
   </Layout>
