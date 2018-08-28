@@ -128,7 +128,7 @@ export const itemCreate = ({params}) => {
             dispatch(itemSet({payload: res.data}));
             // dispatch(itemListAppend({item: res.data}));
             // toasterSuccessMessage('New account was created.');
-            dispatch(login({params}));
+            // dispatch(login({params})); // todo: temporarily disabled - will be added back when have signup.
         } catch (err) {
             toasterErrorMessage('Email already exist!');
         }

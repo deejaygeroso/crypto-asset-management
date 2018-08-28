@@ -5,7 +5,7 @@ const LinkModel = require('../models/link');
 const TransactionModel = require('../models/transaction');
 
 const item = require('../routes/item');
-const nodemailer = require('../services/nodemailer');
+// const nodemailer = require('../services/nodemailer');
 
 const ObjectId = require('mongoose').Types.ObjectId;
 var uniqid = require('uniqid');
@@ -62,6 +62,7 @@ module.exports = function(app, router, auth){
             email,
             password,
             verificationCode,
+            isVerified: true,
             created: new Date(),
         }
 
@@ -71,7 +72,7 @@ module.exports = function(app, router, auth){
         // save user to database
         newUser.save(function(err, user) {
             if(err) return res.status(400).send({message: err}); // if saving failed
-            nodemailer.emailVerification(user.email, verificationCode);
+            // nodemailer.emailVerification(user.email, verificationCode);
             res.send(user)
         });
     })
