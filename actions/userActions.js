@@ -126,7 +126,7 @@ export const itemCreate = ({params}) => {
         try {
             const res = await axios.post('/api/account/register', params);
             dispatch(itemSet({payload: res.data}));
-            // dispatch(itemListAppend({item: res.data}));
+            dispatch(itemListAppend({item: res.data}));
             // toasterSuccessMessage('New account was created.');
             // dispatch(login({params})); // todo: temporarily disabled - will be added back when have signup.
         } catch (err) {
