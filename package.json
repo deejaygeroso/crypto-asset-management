@@ -1,6 +1,6 @@
 {
   "name": "blockpsv",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "blockpsv - digital currency tracker",
   "main": "index.js",
   "scripts": {
