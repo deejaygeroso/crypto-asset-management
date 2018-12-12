@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"cryptodb.users"},{"v":2,"unique":true,"key":{"email":1},"name":"email_1","ns":"cryptodb.users","background":true}],"uuid":"8052df40e26641d78bda41301f037e1f"}
