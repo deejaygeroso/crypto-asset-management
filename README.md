@@ -1,5 +1,7 @@
 # Crypto Asset Management Project
-Blockpsv - digital currency tracker ( No Longer Maintained ). Also uses a deprecated CMC APi ( Version 1 ).
+Blockpsv - digital currency tracker **( No Longer Maintained )**. An application for managing your cryptocurrency portfolio the right way.  
+  
+Note: Uses a deprecated CMC APi ( Version 1 ).
 
 ## Profitability  
 Portfolio Management on BlockPSV platform allows you to track your gains and losses in real-time. 
