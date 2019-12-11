@@ -1,4 +1,5 @@
 # Crypto Asset Management Project
+### Project is no longer being maintained and is no longer in PRODUCTION!!!
 Blockpsv **The Swiss Army Knife of Crypto Asset Management** - digital currency tracker **( No Longer Maintained )**. An application for managing your cryptocurrency portfolio the right way. Have access to more than 2086 cryptocurrency along with its historical data.
   
 Note: Uses a deprecated CMC APi ( Version 1 ).
